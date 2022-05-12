@@ -1,1 +1,0 @@
-# SR28-2021-UOP-projekat
