@@ -2,13 +2,19 @@ package projekat;
 
 import java.time.LocalDate;
 
+
 public class IzdavanjeKnjige {
 
 
     protected LocalDate datumIznajmljivanja;
 
     protected LocalDate datumVracanja;
-
+    
+    protected Zaposleni zaposleni;
+    
+    protected ClanBiblioteke clan;
+    
+    protected PrimerakKnjige primerak;
 
 	public LocalDate getDatumIznajmljivanja() {
 		return datumIznajmljivanja;
@@ -26,23 +32,58 @@ public class IzdavanjeKnjige {
 		this.datumVracanja = datumVracanja;
 	}
 
-	public IzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja) {
+	public Zaposleni getZaposleni() {
+		return zaposleni;
+	}
+
+	public void setZaposleni(Zaposleni zaposleni) {
+		this.zaposleni = zaposleni;
+	}
+
+	public ClanBiblioteke getClan() {
+		return clan;
+	}
+
+	public void setClan(ClanBiblioteke clan) {
+		this.clan = clan;
+	}
+
+	public PrimerakKnjige getPrimerak() {
+		return primerak;
+	}
+
+	public void setPrimerak(PrimerakKnjige primerak) {
+		this.primerak = primerak;
+	}
+
+	public IzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni,
+			ClanBiblioteke clan, PrimerakKnjige primerak) {
 		super();
 		this.datumIznajmljivanja = datumIznajmljivanja;
 		this.datumVracanja = datumVracanja;
+		this.zaposleni = zaposleni;
+		this.clan = clan;
+		this.primerak = primerak;
 	}
+
+
 
 	public IzdavanjeKnjige() {
 		super();
-		this.datumIznajmljivanja= LocalDate.of(0,0,0);
-		this.datumVracanja=LocalDate.of(0,0,0);
-		
+		this.datumIznajmljivanja = null;
+		this.datumVracanja = null;
+		this.zaposleni = new Zaposleni();
+		this.clan = new ClanBiblioteke();
+		this.primerak = new PrimerakKnjige();
 	}
 
 	@Override
 	public String toString() {
-		return "IzdavanjeKnjige [datumIznajmljivanja=" + datumIznajmljivanja + ", datumVracanja=" + datumVracanja + "]";
+		return "IzdavanjeKnjige [datumIznajmljivanja=" + datumIznajmljivanja + ", datumVracanja=" + datumVracanja
+				+ ", zaposleni=" + zaposleni + ", clan=" + clan + ", primerak=" + primerak + "]";
 	}
+
+
 
 
 

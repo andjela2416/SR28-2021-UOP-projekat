@@ -16,9 +16,13 @@ public class ClanBiblioteke extends Osoba {
 
 
 
-	public ClanBiblioteke(String id, String ime, String prezime, String jmbg, String adresa, Pol pol, String brojClanskeKarte,
-			LocalDate datumPoslUplate, int brojMeseciClan, boolean aktivan, Tip tip) {
-		super(id, ime, prezime, jmbg, adresa);
+
+
+
+
+	public ClanBiblioteke(String id, String ime, String prezime, String jmbg, String adresa, Pol pol,
+			String brojClanskeKarte, LocalDate datumPoslUplate, int brojMeseciClan, boolean aktivan, Tip tip) {
+		super(id, ime, prezime, jmbg, adresa, pol);
 		this.brojClanskeKarte = brojClanskeKarte;
 		this.datumPoslUplate = datumPoslUplate;
 		this.brojMeseciClan = brojMeseciClan;
@@ -28,10 +32,11 @@ public class ClanBiblioteke extends Osoba {
 
 
 
+
 	public ClanBiblioteke() {
 		super();
 		this.brojClanskeKarte="";
-		this.datumPoslUplate=LocalDate.of(0,0,0);
+		this.datumPoslUplate=null;
 		this.aktivan=true;
 		this.brojMeseciClan=0;
 		this.tip = new Tip();
