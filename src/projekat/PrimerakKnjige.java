@@ -16,7 +16,12 @@ public class PrimerakKnjige {
     protected boolean iznajmljena;
     
     protected Knjiga knjiga;
+    
 
+
+
+
+	
 
 	public String getId() {
 		return id;
