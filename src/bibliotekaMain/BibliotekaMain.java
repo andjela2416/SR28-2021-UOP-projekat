@@ -1,17 +1,10 @@
 package bibliotekaMain;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import biblioteka.Biblioteka;
-import projekat.ClanBiblioteke;
-import projekat.IzdavanjeKnjige;
-import projekat.Knjiga;
-import projekat.Pol;
-import projekat.PrimerakKnjige;
-import projekat.Tip;
-import projekat.Zanr;
-import projekat.Zaposleni;
+
+
 
 public class BibliotekaMain {
 
@@ -31,8 +24,8 @@ public class BibliotekaMain {
 		
 		Biblioteka biblioteka = new Biblioteka();
 		
-		biblioteka.nadjiTip(TIPOVICLANARINE_FAJL);
-		/*biblioteka.ucitajZaposlene(ZAPOSLENI_FAJL);*/
+		biblioteka.ucitajTip(TIPOVICLANARINE_FAJL);
+		biblioteka.ucitajZaposlene(ZAPOSLENI_FAJL);
 		biblioteka.ucitajClanove(CLANOVI_FAJL);
 		biblioteka.ucitajZanrove(ZANROVI_FAJL);
 		biblioteka.ucitajKnjige(KNJIGE_FAJL);
@@ -77,7 +70,7 @@ public class BibliotekaMain {
 			System.out.println(zaposlen + "\n");
 		}
 		
-		for(Tip tip : biblioteka.getListaTipova()) {
+		for(TipClanarine tip : biblioteka.getListaTipovaClanarine()) {
 			System.out.println(tip + "\n");
 		}
 		
@@ -85,7 +78,7 @@ public class BibliotekaMain {
 			System.out.println(clan + "\n");
 		}
 		
-		for(Zanr zanr : biblioteka.getListaZanrova()) {
+		for(ZanrKnjige zanr : biblioteka.getListaZanrova()) {
 			System.out.println(zanr + "\n");
 		}
 		
@@ -93,19 +86,17 @@ public class BibliotekaMain {
 			System.out.println(knjiga + "\n");
 		}
 		
-		for(PrimerakKnjige primerci : biblioteka.getListaPrimeraka()) {
+		for(PrimerakKnjige primerci : biblioteka.getListaPrimerakaKnjiga()) {
 			System.out.println(primerci + "\n");
 		}
 		
-		for(IzdavanjeKnjige iznajmljivanje : biblioteka.getListaIzdavanja()) {
+		for(Iznajmljivanje iznajmljivanje : biblioteka.getListaIznajmljivanja()) {
 			System.out.println(iznajmljivanje + "\n");
 		}
 		
 	}
 	
 	
-	/**************************************************************************************************************************/
 
-	
+    }
 
-}
