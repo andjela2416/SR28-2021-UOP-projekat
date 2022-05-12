@@ -200,7 +200,7 @@ public class Biblioteka {
 
 	public void ucitajAdministratore() {
         try {
-            File administratoriFile = new File("src/fajlovi/administratori.txt");
+            File administratoriFile = new File("fajlovi/administratori.txt");
             BufferedReader reader = new BufferedReader(new FileReader(administratoriFile));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -224,7 +224,7 @@ public class Biblioteka {
     }
 	public void ucitajBibliotekare() {
         try {
-            File bibliotekariFile = new File("src/fajlovi/bibliotekari.txt");
+            File bibliotekariFile = new File("fajlovi/bibliotekari.txt");
             BufferedReader reader = new BufferedReader(new FileReader(bibliotekariFile));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -248,7 +248,7 @@ public class Biblioteka {
     }
 	public void ucitajKnjige(String kNJIGE_FAJL) {
         try {
-            File knjigeFile = new File("src/fajlovi/knjige.txt");
+            File knjigeFile = new File("fajlovi/knjige.txt");
             BufferedReader reader = new BufferedReader(new FileReader(knjigeFile));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -279,13 +279,13 @@ public class Biblioteka {
         }
         return trazeni;
         }
-	public void ucitajClanove(String cLANOVI_FAJL) {
+	public void ucitajClanove(String CLANOVI_FAJL) {
         try {
-            File clanoviFile = new File("src/fajlovi/clanovi.txt");
+            File clanoviFile = new File("fajlovi/clanovi.txt");
             BufferedReader reader = new BufferedReader(new FileReader(clanoviFile));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] lineSplit = line.split("|");
+                String[] lineSplit = line.split("\\|");
                 String id = lineSplit[0];
                 String ime = lineSplit[1];
                 String prezime = lineSplit[2];
@@ -308,16 +308,17 @@ public class Biblioteka {
     }
 	public Tip nadjiTip(String id) {
         Tip trazeni = null;
-        for(int i = 0; i < this.listaTipova.size(); i++) {
-            if (this.listaKnjiga.get(i).getId() == id) {
-                trazeni = this.listaTipova.get(i);
+        System.out.println(this.listaTipova);
+        for(Tip t:this.listaTipova) {
+            if (t.getId().equals(id)) {
+                trazeni = t;
             }
         }
         return trazeni;
         }
 	public void ucitajPrimerkeKnjiga(String pRIMERCIKNJIGA_FAJL) {
         try {
-            File primerciKnjigaFile = new File("src/fajlovi/primerciKnjiga.txt");
+            File primerciKnjigaFile = new File("fajlovi/primerciKnjiga.txt");
             BufferedReader reader = new BufferedReader(new FileReader(primerciKnjigaFile));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -348,7 +349,7 @@ public class Biblioteka {
         }
 	public void ucitajTip(String imeFajla) {
 		try {
-			File file = new File("src/fajlovi/" + imeFajla);
+			File file = new File("fajlovi/" + imeFajla);
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -370,36 +371,7 @@ public class Biblioteka {
 			e.printStackTrace();
 		}
 	}
-	public void ucitajZaposlene(String imeFajla) {
-		try {
-			File file = new File("src/fajlovi/" + imeFajla);
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-			String line;
-			while ((line = reader.readLine()) != null) {
-				
-				String[] split = line.split("\\|");
-				
-				int id = Integer.parseInt(split[0]);
-				String ime = split[1];
-				String prezime = split[2];
-				String Jmbg = split[3];
-				String adresa = split[4];
-				Pol pol = Pol.valueOf(split[5]);
-				String korisnickoIme = split[6];
-				String Lozinka = split[7];
-				double plata = Double.parseDouble(split[8]);
-				
-				
-				Zaposleni zaposleni = new Zaposleni(id, ime, prezime, Jmbg, adresa, pol, korisnickoIme, Lozinka, plata);
-				listaZaposlenih.add(zaposleni);
-				
-			}
-			reader.close();
-		} catch (IOException e) {
-			System.out.println("Greska prilikom snimanja podataka o zaposlenom");
-			e.printStackTrace();
-		}
-	}
+	
 	public void ucitajIznajmljivanje(String imeFajla) {
 		try {
 			File file = new File("src/fajlovi/" + imeFajla);
@@ -461,7 +433,7 @@ public class Biblioteka {
 	
 	public void ucitajZanrove(String imeFajla) {
 		try {
-			File file = new File("src/fajlovi/" + imeFajla);
+			File file = new File("fajlovi/" + imeFajla);
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = reader.readLine()) != null) {

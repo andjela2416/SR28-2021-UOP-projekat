@@ -56,7 +56,7 @@ public class IzdavanjeKnjige {
 		this.datumVracanja = null;
 		this.primerak = new PrimerakKnjige();
 		this.zaposleni = new Zaposleni();
-		this.clan = new Clan();
+		this.clan = new ClanBiblioteke();
 	}
 	@Override
 	public String toString() {
