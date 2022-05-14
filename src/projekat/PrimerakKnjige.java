@@ -18,11 +18,6 @@ public class PrimerakKnjige {
     protected Knjiga knjiga;
     
 
-
-
-
-	
-
 	public String getId() {
 		return id;
 	}

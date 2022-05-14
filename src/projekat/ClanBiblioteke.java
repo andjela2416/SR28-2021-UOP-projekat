@@ -16,15 +16,19 @@ public class ClanBiblioteke extends Osoba {
 
 
 
-	public ClanBiblioteke(String id, String ime, String prezime, String jmbg, String adresa, Pol pol, String brojClanskeKarte,
-			LocalDate datumPoslUplate, int brojMeseciClan, boolean aktivan, Tip tip) {
-		super(id, ime, prezime, jmbg, adresa);
+
+
+
+	public ClanBiblioteke(String id, String ime, String prezime, String jmbg, String adresa, Pol pol,
+			String brojClanskeKarte, LocalDate datumPoslUplate, int brojMeseciClan, boolean aktivan, Tip tip) {
+		super(id, ime, prezime, jmbg, adresa, pol);
 		this.brojClanskeKarte = brojClanskeKarte;
 		this.datumPoslUplate = datumPoslUplate;
 		this.brojMeseciClan = brojMeseciClan;
 		this.aktivan = aktivan;
 		this.tip = tip;
 	}
+
 
 
 
@@ -104,8 +108,12 @@ public class ClanBiblioteke extends Osoba {
 	public String toString() {
 		return "ClanBiblioteke [brojClanskeKarte=" + brojClanskeKarte + ", datumPoslUplate=" + datumPoslUplate
 				+ ", brojMeseciClan=" + brojMeseciClan + ", aktivan=" + aktivan + ", tip=" + tip + ", id=" + id
-				+ ", ime=" + ime + ", prezime=" + prezime + ", jmbg=" + jmbg + ", adresa=" + adresa + "]";
+				+ ", ime=" + ime + ", prezime=" + prezime + ", jmbg=" + jmbg + ", adresa=" + adresa + ", pol=" + pol
+				+ "]";
 	}
+
+
+
 
 
 

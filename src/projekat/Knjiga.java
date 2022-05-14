@@ -116,8 +116,10 @@ public class Knjiga {
 	public String toString() {
 		return "Knjiga [id=" + id + ", naslovKnjige=" + naslovKnjige + ", originalNaslovKnjige=" + originalNaslovKnjige
 				+ ", pisac=" + pisac + ", godinaObjavljivanja=" + godinaObjavljivanja + ", jezikOriginala="
-				+ jezikOriginala + ", opis=" + opis + "]";
+				+ jezikOriginala + ", opis=" + opis + ", zanr=" + zanr + "]";
 	}
+
+
 
 	
 

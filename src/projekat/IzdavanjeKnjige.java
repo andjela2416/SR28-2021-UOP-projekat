@@ -6,11 +6,22 @@ public class IzdavanjeKnjige {
 
 
     protected LocalDate datumIznajmljivanja;
-
     protected LocalDate datumVracanja;
     protected PrimerakKnjige primerak;
-    protected Zaposleni zaposleni;
+    protected Bibliotekar bibliotekar;
     protected ClanBiblioteke clan;
+	public IzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja, PrimerakKnjige primerak,
+			Bibliotekar bibliotekar, ClanBiblioteke clan) {
+		super();
+		this.datumIznajmljivanja = datumIznajmljivanja;
+		this.datumVracanja = datumVracanja;
+		this.primerak = primerak;
+		this.bibliotekar = bibliotekar;
+		this.clan = clan;
+	}
+	public IzdavanjeKnjige() {
+		super();
+	}
 	public LocalDate getDatumIznajmljivanja() {
 		return datumIznajmljivanja;
 	}
@@ -29,11 +40,11 @@ public class IzdavanjeKnjige {
 	public void setPrimerak(PrimerakKnjige primerak) {
 		this.primerak = primerak;
 	}
-	public Zaposleni getZaposleni() {
-		return zaposleni;
+	public Bibliotekar getBibliotekar() {
+		return bibliotekar;
 	}
-	public void setZaposleni(Zaposleni zaposleni) {
-		this.zaposleni = zaposleni;
+	public void setBibliotekar(Bibliotekar bibliotekar) {
+		this.bibliotekar = bibliotekar;
 	}
 	public ClanBiblioteke getClan() {
 		return clan;
@@ -41,28 +52,12 @@ public class IzdavanjeKnjige {
 	public void setClan(ClanBiblioteke clan) {
 		this.clan = clan;
 	}
-	public IzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja, PrimerakKnjige primerak,
-			Zaposleni zaposleni, ClanBiblioteke clan) {
-		super();
-		this.datumIznajmljivanja = datumIznajmljivanja;
-		this.datumVracanja = datumVracanja;
-		this.primerak = primerak;
-		this.zaposleni = zaposleni;
-		this.clan = clan;
-	}
-	public IzdavanjeKnjige() {
-		super();
-		this.datumIznajmljivanja = null;
-		this.datumVracanja = null;
-		this.primerak = new PrimerakKnjige();
-		this.zaposleni = new Zaposleni();
-		this.clan = new ClanBiblioteke();
-	}
 	@Override
 	public String toString() {
 		return "IzdavanjeKnjige [datumIznajmljivanja=" + datumIznajmljivanja + ", datumVracanja=" + datumVracanja
-				+ ", primerak=" + primerak + ", zaposleni=" + zaposleni + ", clan=" + clan + "]";
+				+ ", primerak=" + primerak + ", bibliotekar=" + bibliotekar + ", clan=" + clan + "]";
 	}
+    
 
 
 	

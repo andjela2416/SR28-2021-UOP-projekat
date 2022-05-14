@@ -2,9 +2,6 @@ package projekat;
 
 public class Administrator extends Zaposleni {
 
- 
-
-
 
 	public Administrator() {
 		super();
