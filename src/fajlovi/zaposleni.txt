@@ -1,0 +1,2 @@
+1|Marija|Peric|07090379878|Bulevar Oslobodjenja 89,Novi Sad|ZENSKI|227|2022-04-21|10|true|1
+2|Stefan|Aleksic|30070588167|Carice Milice 1, Futog|MUSKI|039|2022-09-12|15|true|2

@@ -10,8 +10,7 @@ public class IzdavanjeKnjige {
     protected PrimerakKnjige primerak;
     protected Bibliotekar bibliotekar;
     protected ClanBiblioteke clan;
-	public IzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja, PrimerakKnjige primerak,
-			Bibliotekar bibliotekar, ClanBiblioteke clan) {
+	public IzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja,Zaposleni zaposleni,PrimerakKnjige primerak, ClanBiblioteke clan) {
 		super();
 		this.datumIznajmljivanja = datumIznajmljivanja;
 		this.datumVracanja = datumVracanja;
@@ -19,6 +18,10 @@ public class IzdavanjeKnjige {
 		this.bibliotekar = bibliotekar;
 		this.clan = clan;
 	}
+	
+
+
+
 	public IzdavanjeKnjige() {
 		super();
 	}

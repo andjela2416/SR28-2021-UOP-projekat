@@ -3,6 +3,7 @@ package bibliotekaMain;
 import java.util.ArrayList;
 
 import biblioteka.Biblioteka;
+import guiProzori.GlavniProzor;
 import projekat.ClanBiblioteke;
 import projekat.IzdavanjeKnjige;
 import projekat.Knjiga;
@@ -16,20 +17,23 @@ import projekat.Zaposleni;
 public class BibliotekaMain {
 
 	private static String CLANOVI_FAJL = "clanovi.txt";
-	private static String IZNAJMLJIVANJE_FAJL = "iznajmljivanje.txt";
-	private static String KNJIGE_FAJL = "knjige.txt";
+	private static String IZNAJMLJIVANJE_FAJL = "izdavanje.txt";
+	private static String KNJIGE_FAJL = "Knjiga.txt";
 	private static String PRIMERCIKNJIGA_FAJL = "primerciKnjiga.txt";
 	private static String TIPOVICLANARINE_FAJL = "tipoviClanarine.txt";
 	private static String ZANROVI_FAJL = "zanrovi.txt";
-	private static String ZAPOSLENI_FAJL = "zaposleni.txt";
+	private static String BIBLIOTEKARI_FAJL= "bibliotekari.txt";
+	private static String ADMINISTRATORI_FAJL= "administratori.txt";
+	private static String ZAPOSLENI_FAJL= "zaposleni.txt";
 	
-	
-	
-	
+
 	public static void main(String[] args) {
 
 		
 		Biblioteka biblioteka = new Biblioteka();
+		
+		GlavniProzor g=new GlavniProzor(biblioteka);
+		g.setVisible(true);
 		
 		biblioteka.ucitajTip(TIPOVICLANARINE_FAJL);
 		biblioteka.ucitajClanove(CLANOVI_FAJL);
@@ -37,7 +41,9 @@ public class BibliotekaMain {
 		biblioteka.ucitajKnjige(KNJIGE_FAJL);
 		biblioteka.ucitajPrimerkeKnjiga(PRIMERCIKNJIGA_FAJL);
 		biblioteka.ucitajIznajmljivanje(IZNAJMLJIVANJE_FAJL);
-		
+		biblioteka.ucitajBibliotekare(BIBLIOTEKARI_FAJL);
+		biblioteka.ucitajAdministratore(ADMINISTRATORI_FAJL);
+		biblioteka.ucitajZaposlene(ZAPOSLENI_FAJL);
 		
 		System.out.println("PODACI UCITANI IZ DATOTEKA:");
 		System.out.println("----------------------------------------------");
@@ -74,7 +80,7 @@ public class BibliotekaMain {
 		
 	
 		
-		for(Tip tip : biblioteka.getListaTipova() {
+		for(Tip tip : biblioteka.getListaTipova()) {
 			System.out.println(tip + "\n");
 		}
 		
@@ -98,7 +104,11 @@ public class BibliotekaMain {
 			System.out.println(iznajmljivanje + "\n");
 		}
 		
+		for(Zaposleni zaposleni : biblioteka.getListaZaposlenih()) {
+			System.out.println(zaposleni + "\n");
+		}
 	}
+	
 	
 	
 

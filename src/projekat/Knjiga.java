@@ -18,7 +18,6 @@ public class Knjiga {
     
     protected Zanr zanr;
 
-	
 
 
 	public String getId() {
@@ -86,6 +85,7 @@ public class Knjiga {
 	}
 
 
+
 	public Knjiga(String id, String naslovKnjige, String originalNaslovKnjige, String pisac, int godinaObjavljivanja,
 			String jezikOriginala, String opis, Zanr zanr) {
 		super();
@@ -99,6 +99,8 @@ public class Knjiga {
 		this.zanr = zanr;
 	}
 
+	
+
 	public Knjiga() {
 		super();
 		this.id = "";
@@ -109,7 +111,6 @@ public class Knjiga {
 		this.originalNaslovKnjige="";
 		this.pisac="";
 		this.zanr= new Zanr();
-		
 	}
 
 	@Override
@@ -118,6 +119,7 @@ public class Knjiga {
 				+ ", pisac=" + pisac + ", godinaObjavljivanja=" + godinaObjavljivanja + ", jezikOriginala="
 				+ jezikOriginala + ", opis=" + opis + ", zanr=" + zanr + "]";
 	}
+
 
 
 

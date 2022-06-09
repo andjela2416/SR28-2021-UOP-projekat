@@ -35,12 +35,6 @@ public class Biblioteka {
     protected ArrayList<Zaposleni> listaZaposlenih;
     
 
-
-
-
-
-
-
 	public String getNaziv() {
 		return naziv;
 	}
@@ -181,13 +175,8 @@ public class Biblioteka {
 		this.listaIzdavanja = new ArrayList<IzdavanjeKnjige> ();
 		this.listaAdministratora = new ArrayList<Administrator> ();
 		this.listaBibliotekara = new ArrayList<Bibliotekar> ();
-		this.listaZaposlenih = new ArrayList<Zaposleni>();
+		this.listaZaposlenih = new ArrayList<Zaposleni> ();
 	}
-
-
-
-
-
 
 	@Override
 	public String toString() {
@@ -198,13 +187,13 @@ public class Biblioteka {
 				+ ", listaBibliotekara=" + listaBibliotekara + ", listaZaposlenih=" + listaZaposlenih + "]";
 	}
 
-	public void ucitajAdministratore() {
+	public void ucitajAdministratore(String ADMINISTRATORI_FAJL) {
         try {
             File administratoriFile = new File("fajlovi/administratori.txt");
             BufferedReader reader = new BufferedReader(new FileReader(administratoriFile));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] lineSplit = line.split("|");
+                String[] lineSplit = line.split("\\|");
                 String id = lineSplit[0];
                 String ime = lineSplit[1];
                 String prezime = lineSplit[2];
@@ -215,20 +204,20 @@ public class Biblioteka {
                 String korisnickoIme = lineSplit[7];
                 String lozinka = lineSplit[8];
 
-                Administrator korisnik = new Administrator(id,ime,prezime,jmbg,adresa,pol,plata,korisnickoIme,lozinka);
-                this.listaAdministratora.add(korisnik);
+                Administrator administrator = new Administrator(id,ime,prezime,jmbg,adresa,pol,plata,korisnickoIme,lozinka);
+                this.listaAdministratora.add(administrator);
             }
         } catch (IOException e) {
             System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
         }
     }
-	public void ucitajBibliotekare() {
+	public void ucitajBibliotekare(String BIBLIOTEKARI_FAJL) {
         try {
             File bibliotekariFile = new File("fajlovi/bibliotekari.txt");
             BufferedReader reader = new BufferedReader(new FileReader(bibliotekariFile));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] lineSplit = line.split("|");
+                String[] lineSplit = line.split("\\|");
                 String id = lineSplit[0];
                 String ime = lineSplit[1];
                 String prezime = lineSplit[2];
@@ -239,20 +228,48 @@ public class Biblioteka {
                 String korisnickoIme = lineSplit[7];
                 String lozinka = lineSplit[8];
 
-                Bibliotekar korisnik = new Bibliotekar(id,ime,prezime,jmbg,adresa,pol,plata,korisnickoIme,lozinka);
-                this.listaBibliotekara.add(korisnik);
+                Bibliotekar bibliotekar = new Bibliotekar(id,ime,prezime,jmbg,adresa,pol,plata,korisnickoIme,lozinka);
+                this.listaBibliotekara.add(bibliotekar);
             }
         } catch (IOException e) {
             System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
         }
     }
-	public void ucitajKnjige(String kNJIGE_FAJL) {
+	public void ucitajZaposlene(String ZAPOSLENI_FAJL) {
         try {
-            File knjigeFile = new File("fajlovi/knjige.txt");
+            File zaposleniFile = new File("fajlovi/zaposleni.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(zaposleniFile));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] lineSplit = line.split("\\|");
+                String id = lineSplit[0];
+                String ime = lineSplit[1];
+                String prezime = lineSplit[2];
+                String jmbg = lineSplit[3];
+                String adresa = lineSplit[4];
+                Pol pol = Pol.valueOf(lineSplit[5]);
+                String brojClanskeKarte = lineSplit[6];
+                LocalDate datumPoslUplate = LocalDate.parse(lineSplit[7]);
+                int brojMeseci = Integer.parseInt(lineSplit[8]);
+                boolean aktivnost = Boolean.parseBoolean(lineSplit[9]);
+                Tip tipClanarine = this.nadjiTip(lineSplit[10]);
+                
+
+                ClanBiblioteke korisnik = new ClanBiblioteke (id,ime, prezime, jmbg,adresa,pol,brojClanskeKarte,datumPoslUplate,brojMeseci,aktivnost,tipClanarine );
+                this.listaClanova.add(korisnik);
+            }
+        } catch (IOException e) {
+            System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
+        }
+    }
+	
+	public void ucitajKnjige(String KNJIGE_FAJL) {
+        try {
+            File knjigeFile = new File("fajlovi/Knjiga.txt");
             BufferedReader reader = new BufferedReader(new FileReader(knjigeFile));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] lineSplit = line.split("|");
+                String[] lineSplit = line.split("\\|");
                 String id = lineSplit[0];
                 String naslovKnjige = lineSplit[1];
                 String originalNaslovKnjige = lineSplit[2];
@@ -263,8 +280,8 @@ public class Biblioteka {
                 Zanr zanr = this.nadjiZanr(lineSplit[7]);
                 
 
-                Knjiga korisnik = new Knjiga (id,naslovKnjige, originalNaslovKnjige,pisac,godinaObjavljivanja,jezikOriginala,opis,zanr );
-                this.listaKnjiga.add(korisnik);
+                Knjiga knjiga = new Knjiga (id,naslovKnjige, originalNaslovKnjige,pisac,godinaObjavljivanja,jezikOriginala,opis,zanr );
+                this.listaKnjiga.add(knjiga);
             }
         } catch (IOException e) {
             System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
@@ -308,7 +325,7 @@ public class Biblioteka {
     }
 	public Tip nadjiTip(String id) {
         Tip trazeni = null;
-        System.out.println(this.listaTipova);
+        //System.out.println(this.listaTipova);
         for(Tip t:this.listaTipova) {
             if (t.getId().equals(id)) {
                 trazeni = t;
@@ -322,7 +339,7 @@ public class Biblioteka {
             BufferedReader reader = new BufferedReader(new FileReader(primerciKnjigaFile));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] lineSplit = line.split("|");
+                String[] lineSplit = line.split("\\|");
                 String id = lineSplit[0];
                 int brojStrana = Integer.parseInt(lineSplit[1]);
                 boolean mekPovez = Boolean.parseBoolean(lineSplit[2]);
@@ -331,8 +348,8 @@ public class Biblioteka {
                 boolean iznajmljena = Boolean.parseBoolean(lineSplit[5]);
                 Knjiga knjiga= this.nadjiKnjigu(lineSplit[6]);
 
-                PrimerakKnjige korisnik = new PrimerakKnjige (id,brojStrana,mekPovez,godinaStampanja,jezikStampanja,iznajmljena,knjiga);
-                this.listaPrimeraka.add(korisnik);
+                PrimerakKnjige primerakKnjige = new PrimerakKnjige (id,brojStrana,mekPovez,godinaStampanja,jezikStampanja,iznajmljena,knjiga);
+                this.listaPrimeraka.add(primerakKnjige);
             }
         } catch (IOException e) {
             System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
@@ -372,9 +389,9 @@ public class Biblioteka {
 		}
 	}
 	
-	public void ucitajIznajmljivanje(String imeFajla) {
+	public void ucitajIznajmljivanje(String IZNAJMLJIVANJE_FAJL) {
 		try {
-			File file = new File("src/fajlovi/" + imeFajla);
+			File file = new File("fajlovi/" + IZNAJMLJIVANJE_FAJL);
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -390,12 +407,13 @@ public class Biblioteka {
 				String ClanId = split[3];
 				ClanBiblioteke clan = (ClanBiblioteke) nadjiClana(ClanId);
 				
-				PrimerakKnjige = split[4];
+				String PrimerakKnjigeId = split[4];
+				//PrimerakKnjige primerak = PrimerakKnjige.valueOf(Integer.parseInt(split[4]));
 				PrimerakKnjige primerakKnjige = (PrimerakKnjige) pronadjiPrimerak(PrimerakKnjigeId);
 				
 				
-				Iznajmljivanje iznajmljivanje = new Iznajmljivanje(datumIznajmljivanja, datumVracanja, zaposleni, clan, primerakKnjige);
-				listaIznajmljivanja.add(iznajmljivanje);
+				IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIzdavanja, datumVracanja, zaposleni, primerakKnjige, clan);
+				listaIzdavanja.add(izdavanje);
 				
 			}
 			reader.close();
