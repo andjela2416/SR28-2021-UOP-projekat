@@ -1,6 +1,6 @@
 package projekat;
 
-public abstract class Zaposleni extends Osoba {
+public class Zaposleni extends Osoba {
 
     protected double plata;
 

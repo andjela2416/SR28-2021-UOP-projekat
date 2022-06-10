@@ -1,3 +1,1 @@
-R|Romantika
-K|Komedija
-T|Tragedija
+R|romantika

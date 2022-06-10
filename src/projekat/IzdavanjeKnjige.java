@@ -8,14 +8,14 @@ public class IzdavanjeKnjige {
     protected LocalDate datumIznajmljivanja;
     protected LocalDate datumVracanja;
     protected PrimerakKnjige primerak;
-    protected Bibliotekar bibliotekar;
+    protected Zaposleni zaposleni;
     protected ClanBiblioteke clan;
 	public IzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja,Zaposleni zaposleni,PrimerakKnjige primerak, ClanBiblioteke clan) {
 		super();
 		this.datumIznajmljivanja = datumIznajmljivanja;
 		this.datumVracanja = datumVracanja;
 		this.primerak = primerak;
-		this.bibliotekar = bibliotekar;
+		this.zaposleni = zaposleni;
 		this.clan = clan;
 	}
 	
@@ -43,11 +43,11 @@ public class IzdavanjeKnjige {
 	public void setPrimerak(PrimerakKnjige primerak) {
 		this.primerak = primerak;
 	}
-	public Bibliotekar getBibliotekar() {
-		return bibliotekar;
+	public Zaposleni getZaposleni() {
+		return zaposleni;
 	}
-	public void setBibliotekar(Bibliotekar bibliotekar) {
-		this.bibliotekar = bibliotekar;
+	public void setZaposleni(Zaposleni zaposleni) {
+		this.zaposleni = zaposleni;
 	}
 	public ClanBiblioteke getClan() {
 		return clan;
@@ -58,7 +58,7 @@ public class IzdavanjeKnjige {
 	@Override
 	public String toString() {
 		return "IzdavanjeKnjige [datumIznajmljivanja=" + datumIznajmljivanja + ", datumVracanja=" + datumVracanja
-				+ ", primerak=" + primerak + ", bibliotekar=" + bibliotekar + ", clan=" + clan + "]";
+				+ ", primerak=" + primerak + ", zaposleni=" + zaposleni + ", clan=" + clan + "]";
 	}
     
 
