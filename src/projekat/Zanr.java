@@ -6,7 +6,8 @@ public class Zanr {
     protected String oznaka;
 
     protected String opis;
-
+    
+    protected boolean obrisan;
 
 	public String getOznaka() {
 		return oznaka;
@@ -24,23 +25,31 @@ public class Zanr {
 		this.opis = opis;
 	}
 
-	public Zanr(String oznaka, String opis) {
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
+
+	public Zanr(String oznaka, String opis, boolean obrisan) {
 		super();
 		this.oznaka = oznaka;
 		this.opis = opis;
+		this.obrisan = obrisan;
 	}
 
 	public Zanr() {
 		super();
-		this.oznaka="";
-		this.opis="";
-		
 	}
 
 	@Override
 	public String toString() {
-		return "Zanr [oznaka=" + oznaka + ", opis=" + opis + "]";
+		return "Zanr [oznaka=" + oznaka + ", opis=" + opis + ", obrisan=" + obrisan + "]";
 	}
+
+
 
 
 }

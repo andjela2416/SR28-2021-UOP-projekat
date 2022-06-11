@@ -7,9 +7,8 @@ public class Tip {
     protected String naziv;
 
     protected double cena;
-
-
-	
+    
+    protected boolean obrisan;
 
 	public String getId() {
 		return id;
@@ -35,24 +34,34 @@ public class Tip {
 		this.cena = cena;
 	}
 
-	public Tip(String id, String naziv, double cena) {
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
+
+	public Tip(String id, String naziv, double cena, boolean obrisan) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
 		this.cena = cena;
+		this.obrisan = obrisan;
 	}
 
 	public Tip() {
 		super();
-		this.id="";
-		this.cena=0;
-		this.naziv="";
 	}
 
 	@Override
 	public String toString() {
-		return "Tip [id=" + id + ", naziv=" + naziv + ", cena=" + cena + "]";
+		return "Tip [id=" + id + ", naziv=" + naziv + ", cena=" + cena + ", obrisan=" + obrisan + "]";
 	}
 
+
+	
+
+	
 
 }

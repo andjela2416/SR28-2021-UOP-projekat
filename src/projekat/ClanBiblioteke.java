@@ -18,10 +18,9 @@ public class ClanBiblioteke extends Osoba {
 
 
 
-
-	public ClanBiblioteke(String id, String ime, String prezime, String jmbg, String adresa, Pol pol,
+	public ClanBiblioteke(String id, String ime, String prezime, String jmbg, String adresa, Pol pol, boolean obrisan,
 			String brojClanskeKarte, LocalDate datumPoslUplate, int brojMeseciClan, boolean aktivan, Tip tip) {
-		super(id, ime, prezime, jmbg, adresa, pol);
+		super(id, ime, prezime, jmbg, adresa, pol, obrisan);
 		this.brojClanskeKarte = brojClanskeKarte;
 		this.datumPoslUplate = datumPoslUplate;
 		this.brojMeseciClan = brojMeseciClan;
@@ -30,18 +29,9 @@ public class ClanBiblioteke extends Osoba {
 	}
 
 
-
-
-	public ClanBiblioteke() {
-		super();
-		this.brojClanskeKarte="";
-		this.datumPoslUplate=LocalDate.of(0,0,0);
-		this.aktivan=true;
-		this.brojMeseciClan=0;
-		this.tip = new Tip();
+	public ClanBiblioteke(String id, String ime, String prezime, String jmbg, String adresa, Pol pol, boolean obrisan) {
+		super(id, ime, prezime, jmbg, adresa, pol, obrisan);
 	}
-
-
 
 
 	public String getBrojClanskeKarte() {
@@ -49,11 +39,9 @@ public class ClanBiblioteke extends Osoba {
 	}
 
 
-
 	public void setBrojClanskeKarte(String brojClanskeKarte) {
 		this.brojClanskeKarte = brojClanskeKarte;
 	}
-
 
 
 	public LocalDate getDatumPoslUplate() {
@@ -61,11 +49,9 @@ public class ClanBiblioteke extends Osoba {
 	}
 
 
-
 	public void setDatumPoslUplate(LocalDate datumPoslUplate) {
 		this.datumPoslUplate = datumPoslUplate;
 	}
-
 
 
 	public int getBrojMeseciClan() {
@@ -73,11 +59,9 @@ public class ClanBiblioteke extends Osoba {
 	}
 
 
-
 	public void setBrojMeseciClan(int brojMeseciClan) {
 		this.brojMeseciClan = brojMeseciClan;
 	}
-
 
 
 	public boolean isAktivan() {
@@ -85,11 +69,9 @@ public class ClanBiblioteke extends Osoba {
 	}
 
 
-
 	public void setAktivan(boolean aktivan) {
 		this.aktivan = aktivan;
 	}
-
 
 
 	public Tip getTip() {
@@ -97,11 +79,9 @@ public class ClanBiblioteke extends Osoba {
 	}
 
 
-
 	public void setTip(Tip tip) {
 		this.tip = tip;
 	}
-
 
 
 	@Override
@@ -109,9 +89,16 @@ public class ClanBiblioteke extends Osoba {
 		return "ClanBiblioteke [brojClanskeKarte=" + brojClanskeKarte + ", datumPoslUplate=" + datumPoslUplate
 				+ ", brojMeseciClan=" + brojMeseciClan + ", aktivan=" + aktivan + ", tip=" + tip + ", id=" + id
 				+ ", ime=" + ime + ", prezime=" + prezime + ", jmbg=" + jmbg + ", adresa=" + adresa + ", pol=" + pol
-				+ "]";
+				+ ", obrisan=" + obrisan + "]";
 	}
 
+
+
+
+
+
+
+	
 
 
 

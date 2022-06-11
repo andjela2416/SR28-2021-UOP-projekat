@@ -17,8 +17,33 @@ public class Knjiga {
     protected String opis;
     
     protected Zanr zanr;
+    
+    protected boolean obrisan;
 
+	public Knjiga(String id, String naslovKnjige, String originalNaslovKnjige, String pisac, int godinaObjavljivanja,
+			String jezikOriginala, String opis, Zanr zanr, boolean obrisan) {
+		super();
+		this.id = id;
+		this.naslovKnjige = naslovKnjige;
+		this.originalNaslovKnjige = originalNaslovKnjige;
+		this.pisac = pisac;
+		this.godinaObjavljivanja = godinaObjavljivanja;
+		this.jezikOriginala = jezikOriginala;
+		this.opis = opis;
+		this.zanr = zanr;
+		this.obrisan = obrisan;
+	}
 
+	public Knjiga() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Knjiga [id=" + id + ", naslovKnjige=" + naslovKnjige + ", originalNaslovKnjige=" + originalNaslovKnjige
+				+ ", pisac=" + pisac + ", godinaObjavljivanja=" + godinaObjavljivanja + ", jezikOriginala="
+				+ jezikOriginala + ", opis=" + opis + ", zanr=" + zanr + ", obrisan=" + obrisan + "]";
+	}
 
 	public String getId() {
 		return id;
@@ -84,40 +109,12 @@ public class Knjiga {
 		this.zanr = zanr;
 	}
 
-
-
-	public Knjiga(String id, String naslovKnjige, String originalNaslovKnjige, String pisac, int godinaObjavljivanja,
-			String jezikOriginala, String opis, Zanr zanr) {
-		super();
-		this.id = id;
-		this.naslovKnjige = naslovKnjige;
-		this.originalNaslovKnjige = originalNaslovKnjige;
-		this.pisac = pisac;
-		this.godinaObjavljivanja = godinaObjavljivanja;
-		this.jezikOriginala = jezikOriginala;
-		this.opis = opis;
-		this.zanr = zanr;
+	public boolean isObrisan() {
+		return obrisan;
 	}
 
-	
-
-	public Knjiga() {
-		super();
-		this.id = "";
-		this.naslovKnjige = "";
-		this.godinaObjavljivanja = 0;
-		this.jezikOriginala="";
-		this.opis = "";
-		this.originalNaslovKnjige="";
-		this.pisac="";
-		this.zanr= new Zanr();
-	}
-
-	@Override
-	public String toString() {
-		return "Knjiga [id=" + id + ", naslovKnjige=" + naslovKnjige + ", originalNaslovKnjige=" + originalNaslovKnjige
-				+ ", pisac=" + pisac + ", godinaObjavljivanja=" + godinaObjavljivanja + ", jezikOriginala="
-				+ jezikOriginala + ", opis=" + opis + ", zanr=" + zanr + "]";
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
 	}
 
 

@@ -17,6 +17,7 @@ public class PrimerakKnjige {
     
     protected Knjiga knjiga;
     
+    protected boolean obrisan;
 
 	public String getId() {
 		return id;
@@ -74,8 +75,16 @@ public class PrimerakKnjige {
 		this.knjiga = knjiga;
 	}
 
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
+
 	public PrimerakKnjige(String id, int brojStrana, boolean mekPovez, int godinaStampanja, String jezikStampanja,
-			boolean iznajmljena, Knjiga knjiga) {
+			boolean iznajmljena, Knjiga knjiga, boolean obrisan) {
 		super();
 		this.id = id;
 		this.brojStrana = brojStrana;
@@ -84,25 +93,21 @@ public class PrimerakKnjige {
 		this.jezikStampanja = jezikStampanja;
 		this.iznajmljena = iznajmljena;
 		this.knjiga = knjiga;
+		this.obrisan = obrisan;
 	}
 
 	public PrimerakKnjige() {
 		super();
-		this.id = "";
-		this.brojStrana =0;
-		this.mekPovez = true;
-		this.godinaStampanja = 0;
-		this.jezikStampanja = "";
-		this.iznajmljena = true;
-		this.knjiga= new Knjiga();
 	}
 
 	@Override
 	public String toString() {
 		return "PrimerakKnjige [id=" + id + ", brojStrana=" + brojStrana + ", mekPovez=" + mekPovez
 				+ ", godinaStampanja=" + godinaStampanja + ", jezikStampanja=" + jezikStampanja + ", iznajmljena="
-				+ iznajmljena + ", knjiga=" + knjiga + "]";
+				+ iznajmljena + ", knjiga=" + knjiga + ", obrisan=" + obrisan + "]";
 	}
+    
+
 
 
 

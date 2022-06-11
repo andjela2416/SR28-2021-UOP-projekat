@@ -1,0 +1,192 @@
+package guiProzori;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import biblioteka.Biblioteka;
+
+import java.awt.Color;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import javax.swing.JLabel;
+import java.awt.Font;
+
+public class AdminProzor extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+	private JTable table_1;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
+	private JLabel lblNewLabel_5;
+	private JLabel lblNewLabel_6;
+	private JLabel lblNewLabel_7;
+	private JTextField textField_9;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AdminProzor frame = new AdminProzor(null);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 * @param biblioteka 
+	 */
+	public AdminProzor(Biblioteka biblioteka) {
+		setTitle("Administrator");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 900, 584);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(219, 112, 147));
+        panel.setBounds(0, 0, 884, 545);
+        contentPane.add(panel);
+        panel.setLayout(null);
+
+        table = new JTable();
+        table.setBounds(78, 42, 421, 420);
+        panel.add(table);
+        
+        JButton btnNewButton = new JButton("Dodaj");
+        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        btnNewButton.setBounds(39, 489, 109, 38);
+        panel.add(btnNewButton);
+        
+        JButton btnNewButton_1 = new JButton("Obrisi");
+        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        btnNewButton_1.setBounds(432, 489, 109, 38);
+        panel.add(btnNewButton_1);
+        
+        JButton btnNewButton_2 = new JButton("Azuriraj");
+        btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        btnNewButton_2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnNewButton_2.setBounds(193, 489, 96, 38);
+        panel.add(btnNewButton_2);
+        
+        textField = new JTextField();
+        textField.setBounds(656, 85, 96, 20);
+        panel.add(textField);
+        textField.setColumns(10);
+        
+        textField_1 = new JTextField();
+        textField_1.setBounds(656, 129, 96, 20);
+        panel.add(textField_1);
+        textField_1.setColumns(10);
+        
+        textField_2 = new JTextField();
+        textField_2.setBounds(656, 174, 96, 20);
+        panel.add(textField_2);
+        textField_2.setColumns(10);
+        
+        textField_3 = new JTextField();
+        textField_3.setBounds(656, 219, 96, 20);
+        panel.add(textField_3);
+        textField_3.setColumns(10);
+        
+        textField_4 = new JTextField();
+        textField_4.setBounds(656, 262, 96, 20);
+        panel.add(textField_4);
+        textField_4.setColumns(10);
+        
+        textField_5 = new JTextField();
+        textField_5.setBounds(656, 309, 96, 20);
+        panel.add(textField_5);
+        textField_5.setColumns(10);
+        
+        textField_6 = new JTextField();
+        textField_6.setBounds(656, 355, 96, 20);
+        panel.add(textField_6);
+        textField_6.setColumns(10);
+        
+        textField_7 = new JTextField();
+        textField_7.setBounds(656, 402, 96, 20);
+        panel.add(textField_7);
+        textField_7.setColumns(10);
+        
+        textField_8 = new JTextField();
+        textField_8.setBounds(656, 39, 96, 20);
+        panel.add(textField_8);
+        textField_8.setColumns(10);
+        
+        JLabel lblNewLabel = new JLabel("ID:");
+        lblNewLabel.setBounds(656, 26, 16, 14);
+        panel.add(lblNewLabel);
+        
+        lblNewLabel_1 = new JLabel("Ime:");
+        lblNewLabel_1.setBounds(656, 70, 23, 14);
+        panel.add(lblNewLabel_1);
+        
+        lblNewLabel_2 = new JLabel("Prezime:");
+        lblNewLabel_2.setBounds(656, 115, 43, 14);
+        panel.add(lblNewLabel_2);
+        
+        lblNewLabel_3 = new JLabel("Adresa:");
+        lblNewLabel_3.setBounds(656, 205, 39, 14);
+        panel.add(lblNewLabel_3);
+        
+        JLabel lblNewLabel_4 = new JLabel("Jmbg:");
+        lblNewLabel_4.setBounds(656, 160, 49, 14);
+        panel.add(lblNewLabel_4);
+        
+        lblNewLabel_5 = new JLabel("Pol:");
+        lblNewLabel_5.setBounds(656, 250, 49, 14);
+        panel.add(lblNewLabel_5);
+        
+        lblNewLabel_6 = new JLabel("Obrisan:");
+        lblNewLabel_6.setBounds(656, 293, 49, 14);
+        panel.add(lblNewLabel_6);
+        
+        lblNewLabel_7 = new JLabel("Plata:");
+        lblNewLabel_7.setBounds(656, 340, 49, 14);
+        panel.add(lblNewLabel_7);
+        
+        textField_9 = new JTextField();
+        textField_9.setBounds(656, 451, 96, 20);
+        panel.add(textField_9);
+        textField_9.setColumns(10);
+        
+        JLabel lblNewLabel_8 = new JLabel("Korisnicko ime:");
+        lblNewLabel_8.setBounds(656, 390, 96, 14);
+        panel.add(lblNewLabel_8);
+        
+        JLabel lblNewLabel_9 = new JLabel("Lozinka:");
+        lblNewLabel_9.setBounds(656, 436, 49, 14);
+        panel.add(lblNewLabel_9);
+	}
+}

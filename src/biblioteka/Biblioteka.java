@@ -140,6 +140,14 @@ public class Biblioteka {
 	public void setListaZaposlenih(ArrayList<Zaposleni> listaZaposlenih) {
 		this.listaZaposlenih = listaZaposlenih;
 	}
+	
+	public void dodajBibliotekara(Bibliotekar bibliotekar) {
+		this.listaBibliotekara.add(bibliotekar);
+	}
+
+	public void obrisiBibliotekara(Bibliotekar bibliotekar) {
+		this.listaBibliotekara.remove(bibliotekar);
+	}
 
 
 	public Biblioteka(String naziv, String adresa, String telefon, String radnoVreme,
@@ -202,11 +210,12 @@ public class Biblioteka {
                 String jmbg= lineSplit[3];
                 String adresa = lineSplit[4];
                 Pol pol = Pol.valueOf(lineSplit[5]);
-                double plata = Double.parseDouble(lineSplit[6]);
-                String korisnickoIme = lineSplit[7];
-                String lozinka = lineSplit[8];
+                boolean obrisan = Boolean.parseBoolean(lineSplit[6]);
+                double plata = Double.parseDouble(lineSplit[7]);
+                String korisnickoIme = lineSplit[8];
+                String lozinka = lineSplit[9];
 
-                Administrator administrator = new Administrator(id,ime,prezime,jmbg,adresa,pol,plata,korisnickoIme,lozinka);
+                Administrator administrator = new Administrator(id,ime,prezime,jmbg,adresa,pol,obrisan,plata,korisnickoIme,lozinka);
                 this.listaAdministratora.add(administrator);
             }
         } catch (IOException e) {
@@ -226,11 +235,12 @@ public class Biblioteka {
                 String jmbg= lineSplit[3];
                 String adresa = lineSplit[4];
                 Pol pol = Pol.valueOf(lineSplit[5]);
-                double plata = Double.parseDouble(lineSplit[6]);
-                String korisnickoIme = lineSplit[7];
-                String lozinka = lineSplit[8];
+                boolean obrisan = Boolean.parseBoolean(lineSplit[6]);
+                double plata = Double.parseDouble(lineSplit[7]);
+                String korisnickoIme = lineSplit[8];
+                String lozinka = lineSplit[9];
 
-                Bibliotekar bibliotekar = new Bibliotekar(id,ime,prezime,jmbg,adresa,pol,plata,korisnickoIme,lozinka);
+                Bibliotekar bibliotekar = new Bibliotekar(id,ime,prezime,jmbg,adresa,pol,obrisan,plata,korisnickoIme,lozinka);
                 this.listaBibliotekara.add(bibliotekar);
             }
         } catch (IOException e) {
@@ -278,9 +288,10 @@ public class Biblioteka {
                 String jezikOriginala = lineSplit[5];
                 String opis = lineSplit[6];
                 Zanr zanr = this.nadjiZanr(lineSplit[7]);
+                boolean obrisan = Boolean.parseBoolean(lineSplit[8]);
                 
 
-                Knjiga knjiga = new Knjiga (id,naslovKnjige, originalNaslovKnjige,pisac,godinaObjavljivanja,jezikOriginala,opis,zanr );
+                Knjiga knjiga = new Knjiga (id,naslovKnjige, originalNaslovKnjige,pisac,godinaObjavljivanja,jezikOriginala,opis,zanr,obrisan );
                 this.listaKnjiga.add(knjiga);
             }
         } catch (IOException e) {
@@ -309,14 +320,15 @@ public class Biblioteka {
                 String jmbg = lineSplit[3];
                 String adresa = lineSplit[4];
                 Pol pol = Pol.valueOf(lineSplit[5]);
-                String brojClanskeKarte = lineSplit[6];
-                LocalDate datumPoslUplate = LocalDate.parse(lineSplit[7]);
-                int brojMeseci = Integer.parseInt(lineSplit[8]);
-                boolean aktivnost = Boolean.parseBoolean(lineSplit[9]);
-                Tip tipClanarine = this.nadjiTip(lineSplit[10]);
+                boolean obrisan = Boolean.parseBoolean(lineSplit[6]);
+                String brojClanskeKarte = lineSplit[7];
+                LocalDate datumPoslUplate = LocalDate.parse(lineSplit[8]);
+                int brojMeseci = Integer.parseInt(lineSplit[9]);
+                boolean aktivnost = Boolean.parseBoolean(lineSplit[10]);
+                Tip tipClanarine = this.nadjiTip(lineSplit[11]);
                 
 
-                ClanBiblioteke korisnik = new ClanBiblioteke (id,ime, prezime, jmbg,adresa,pol,brojClanskeKarte,datumPoslUplate,brojMeseci,aktivnost,tipClanarine );
+                ClanBiblioteke korisnik = new ClanBiblioteke (id,ime, prezime, jmbg,adresa,pol,obrisan,brojClanskeKarte,datumPoslUplate,brojMeseci,aktivnost,tipClanarine );
                 this.listaClanova.add(korisnik);
             }
         } catch (IOException e) {
@@ -347,8 +359,10 @@ public class Biblioteka {
                 String jezikStampanja = lineSplit[4];
                 boolean iznajmljena = Boolean.parseBoolean(lineSplit[5]);
                 Knjiga knjiga= this.nadjiKnjigu(lineSplit[6]);
+                //System.out.println(this.nadjiKnjigu(lineSplit[6]));
+                boolean obrisan = Boolean.parseBoolean(lineSplit[7]);
 
-                PrimerakKnjige primerakKnjige = new PrimerakKnjige (id,brojStrana,mekPovez,godinaStampanja,jezikStampanja,iznajmljena,knjiga);
+                PrimerakKnjige primerakKnjige = new PrimerakKnjige (id,brojStrana,mekPovez,godinaStampanja,jezikStampanja,iznajmljena,knjiga,obrisan);
                 this.listaPrimeraka.add(primerakKnjige);
             }
         } catch (IOException e) {
@@ -357,16 +371,18 @@ public class Biblioteka {
     }
 	public Knjiga nadjiKnjigu(String id) {
         Knjiga trazeni = null;
-        for(int i = 0; i < this.listaKnjiga.size(); i++) {
-            if (this.listaKnjiga.get(i).getId().equals(id)) {
+        
+        for(int i = 0; i < this.getListaKnjiga().size(); i++) {
+            if (this.getListaKnjiga().get(i).getId().equals(id)) {
                 trazeni = this.listaKnjiga.get(i);
+                
             }
         }
         return trazeni;
         }
-	public void ucitajTip(String imeFajla) {
+	public void ucitajTip(String TIPOVI_FAJL) {
 		try {
-			File file = new File("fajlovi/" + imeFajla);
+			File file = new File("fajlovi/" + TIPOVI_FAJL);
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -376,9 +392,10 @@ public class Biblioteka {
 				String id = split[0];
 				String naziv = split[1];
 				double cena = Double.parseDouble(split[2]);
+				boolean obrisan = Boolean.parseBoolean(split[3]);
 				
 				
-				Tip tip = new Tip(id, naziv, cena);
+				Tip tip = new Tip(id, naziv, cena,obrisan);
 				listaTipova.add(tip);
 				
 			}
@@ -400,19 +417,21 @@ public class Biblioteka {
 				
 				LocalDate datumIzdavanja = LocalDate.parse(split[0]);
 				LocalDate datumVracanja = LocalDate.parse(split[1]);
-				
-				String ZaposleniId = split[2];
-				Zaposleni zaposleni = (Zaposleni) pronadjiZaposlenog(ZaposleniId);
-				
-				String ClanId = split[3];
-				ClanBiblioteke clan = (ClanBiblioteke) nadjiClana(ClanId);
-				
-				String PrimerakKnjigeId = split[4];
+				String PrimerakKnjigeId = split[2];
 				//PrimerakKnjige primerak = PrimerakKnjige.valueOf(Integer.parseInt(split[4]));
 				PrimerakKnjige primerakKnjige = (PrimerakKnjige) pronadjiPrimerak(PrimerakKnjigeId);
 				
+				String ZaposleniId = split[3];
+				Zaposleni zaposleni = pronadjiZaposlenog(ZaposleniId);
+				//System.out.println(zaposleni);
 				
-				IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIzdavanja, datumVracanja, zaposleni, primerakKnjige, clan);
+				String ClanId = split[4];
+				ClanBiblioteke clan = (ClanBiblioteke) nadjiClana(ClanId);
+				
+				boolean obrisan = Boolean.parseBoolean(split[5]);
+				
+				
+				IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIzdavanja, datumVracanja, primerakKnjige,zaposleni, clan,obrisan);
 				listaIzdavanja.add(izdavanje);
 				
 			}
@@ -424,26 +443,36 @@ public class Biblioteka {
 	}
 	public Zaposleni pronadjiZaposlenog(String id) {
 		Zaposleni zaposleni = null;
+		this.ucitajAdministratore("administratori.txt");
+		this.ucitajBibliotekare("bibliotekari.txt");
 		for (Administrator a:this.listaAdministratora) {
+			
 			if (a.getId().equals(id)) {
 				zaposleni = a;
+				//System.out.println(zaposleni);
+				
 			}
 		}
 		if (zaposleni==null) {
 			for (Bibliotekar a:this.listaBibliotekara) {
+				
 				if (a.getId().equals(id)) {
+					
 					zaposleni = a;
 				}
 			}
 			
 		}
+		//System.out.println(zaposleni);
 		return zaposleni;
 	}
 	
 	public ClanBiblioteke nadjiClana(String id) {
 		for (ClanBiblioteke clan : this.listaClanova) {
+			//System.out.println(clan);
 			if(clan.getId().equals(id)) {
 				return clan;
+			
 			}
 		}
 		return null;
@@ -469,9 +498,11 @@ public class Biblioteka {
 				
 				String oznaka = split[0];
 				String opis = split[1];
+				boolean obrisan = Boolean.parseBoolean(split[2]);
 				
 				
-				Zanr zanr = new Zanr(oznaka, opis);
+				
+				Zanr zanr = new Zanr(oznaka, opis,obrisan);
 				listaZanrova.add(zanr);
 				
 			}
@@ -488,7 +519,7 @@ public class Biblioteka {
 			for (Knjiga knjiga : this.listaKnjiga) {
 				content += knjiga.getId() + "|" + knjiga.getNaslovKnjige() + "|"
 						+ knjiga.getOriginalNaslovKnjige() + "|" + knjiga.getPisac() + "|"
-						+ knjiga.getGodinaObjavljivanja() + "|" + knjiga.getOpis() + "|" + knjiga.getZanr().getOznaka() + "|" + knjiga.getJezikOriginala() + "\n";
+						+ knjiga.getGodinaObjavljivanja() + "|"+ knjiga.getJezikOriginala()+ "|" + knjiga.getOpis() + "|" + knjiga.getZanr().getOznaka() + "|" + knjiga.isObrisan() + "\n";
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			writer.write(content);
@@ -502,7 +533,7 @@ public class Biblioteka {
 			File file = new File("fajlovi/" + ZANROVI_FAJL);
 			String content = "";
 			for (Zanr zanr : this.listaZanrova) {
-				content += zanr.getOznaka() + "|" + zanr.getOpis() + "\n";
+				content += zanr.getOznaka() + "|" + zanr.getOpis()+ "|" +zanr.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -521,7 +552,7 @@ public class Biblioteka {
 			for (ClanBiblioteke clan : this.listaClanova) {    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				content += clan.getId() + "|" + clan.getIme() + "|" 
 						+ clan.getPrezime() + "|" + clan.getJmbg() + "|"
-						+ clan.getAdresa() + "|" + clan.getPol() + "|" + clan.getBrojClanskeKarte()
+						+ clan.getAdresa() + "|" + clan.getPol() + "|" + clan.isObrisan()+ "|"+ clan.getBrojClanskeKarte()
 						+ "|" + clan.getDatumPoslUplate() + "|" + clan.getBrojMeseciClan() 
 						+ "|" + clan.isAktivan() + "|" + clan.getTip().getId() + "\n";
 			}
@@ -543,7 +574,7 @@ public class Biblioteka {
 			for (PrimerakKnjige primerak : this.listaPrimeraka) {
 				content += primerak.getId() + "|" + primerak.getBrojStrana() + "|" 
 						+ primerak.isMekPovez() + "|" + primerak.getGodinaStampanja() + "|"
-						+ primerak.isIznajmljena() + "|" + primerak.getKnjiga().getId() + "|" + primerak.getJezikStampanja() + "\n";
+						+ primerak.getJezikStampanja()+"|"+ primerak.isIznajmljena() + "|" + primerak.getKnjiga().getId() + "|" + primerak.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -560,7 +591,7 @@ public class Biblioteka {
 			File file = new File("fajlovi/" + TIPOVICLANARINE_FAJL);
 			String content = "";
 			for (Tip tip : this.listaTipova) {
-				content += tip.getId() + "|" + tip.getNaziv() + "|" + tip.getCena() + "\n";
+				content += tip.getId() + "|" + tip.getNaziv() + "|" + tip.getCena()+ "|" + tip.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -577,7 +608,7 @@ public class Biblioteka {
 			for (Zaposleni zaposleni : this.listaZaposlenih) {
 				content += zaposleni.getId() + "|" + zaposleni.getIme() + "|" 
 						+ zaposleni.getPrezime() + "|" + zaposleni.getJmbg() + "|"
-						+ zaposleni.getAdresa() + "|" + zaposleni.getPol() + "|" + zaposleni.getPlata() + "|" + zaposleni.getKorisnickoIme() + "|" 
+						+ zaposleni.getAdresa() + "|" + zaposleni.getPol() + "|" + zaposleni.isObrisan()+ "|" + zaposleni.getPlata() + "|" + zaposleni.getKorisnickoIme() + "|" 
 						+ zaposleni.getLozinka() + "\n";
 			}
 
@@ -595,9 +626,8 @@ public class Biblioteka {
 			File file = new File("fajlovi/" + IZNAJMLJIVANJE_FAJL);
 			String content = "";
 			for (IzdavanjeKnjige iznajmljivanje : this.listaIzdavanja) {
-				content += iznajmljivanje.getDatumIznajmljivanja() + "|" + iznajmljivanje.getDatumVracanja() + "|" 
-						+ iznajmljivanje.getZaposleni().getId() + "|" + iznajmljivanje.getClan().getId() + "|"
-						+ iznajmljivanje.getPrimerak().getId() + "\n";
+				content += iznajmljivanje.getDatumIznajmljivanja() + "|" + iznajmljivanje.getDatumVracanja() + "|" + iznajmljivanje.getPrimerak().getId()+ "|"
+						+ iznajmljivanje.getZaposleni().getId() + "|" + iznajmljivanje.getClan().getId() + "|" + iznajmljivanje.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -614,7 +644,7 @@ public class Biblioteka {
 			for (Bibliotekar bibliotekar : this.listaBibliotekara) {
 				content +=bibliotekar.getId() + "|" + bibliotekar.getIme() + "|" 
 						+ bibliotekar.getPrezime() + "|" + bibliotekar.getJmbg() + "|"
-						+ bibliotekar.getAdresa() + "|" + bibliotekar.getPol() + "|" + bibliotekar.getPlata() + "|" + bibliotekar.getKorisnickoIme() + "|" 
+						+ bibliotekar.getAdresa() + "|" + bibliotekar.getPol() + "|"+ bibliotekar.isObrisan()+ "|" + bibliotekar.getPlata() + "|" + bibliotekar.getKorisnickoIme() + "|" 
 						+ bibliotekar.getLozinka() + "\n";
 			}
 
@@ -632,7 +662,7 @@ public class Biblioteka {
 			for (Administrator administrator : this.listaAdministratora) {
 				content +=administrator.getId() + "|" + administrator.getIme() + "|" 
 						+ administrator.getPrezime() + "|" + administrator.getJmbg() + "|"
-						+ administrator.getAdresa() + "|" + administrator.getPol() + "|" + administrator.getPlata() + "|" + administrator.getKorisnickoIme() + "|" 
+						+ administrator.getAdresa() + "|" + administrator.getPol() + "|" + administrator.isObrisan()+ "|"+ administrator.getPlata() + "|" + administrator.getKorisnickoIme() + "|" 
 						+ administrator.getLozinka() + "\n";
 			}
 
@@ -642,6 +672,15 @@ public class Biblioteka {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+	public Zaposleni login(String korisnickoIme, String lozinka) {
+		for(Zaposleni zaposleni : listaZaposlenih) {
+			if(zaposleni.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) &&
+					zaposleni.getLozinka().equals(lozinka) && !zaposleni.isObrisan()) {
+				return zaposleni;
+			}
+		}
+		return null;
 	}
 
 
