@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import biblioteka.Biblioteka;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -42,7 +45,7 @@ public class KnjigeProzor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					KnjigeProzor frame = new KnjigeProzor();
+					KnjigeProzor frame = new KnjigeProzor(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,10 +56,11 @@ public class KnjigeProzor extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param biblioteka 
 	 */
-	public KnjigeProzor() {
+	public KnjigeProzor(Biblioteka biblioteka) {
 		setTitle("Knjiga");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 900, 584);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -138,11 +142,11 @@ public class KnjigeProzor extends JFrame {
         panel.add(lblNewLabel);
         
         lblNewLabel_1 = new JLabel("Naslov knjige:");
-        lblNewLabel_1.setBounds(651, 88, 81, 14);
+        lblNewLabel_1.setBounds(651, 88, 123, 14);
         panel.add(lblNewLabel_1);
         
         lblNewLabel_2 = new JLabel("Original naslov knjige:");
-        lblNewLabel_2.setBounds(651, 146, 158, 14);
+        lblNewLabel_2.setBounds(651, 146, 194, 14);
         panel.add(lblNewLabel_2);
         
         lblNewLabel_3 = new JLabel("Pisac:");
@@ -169,5 +173,7 @@ public class KnjigeProzor extends JFrame {
         lblNewLabel_8.setBounds(651, 455, 49, 14);
         panel.add(lblNewLabel_8);
 	}
+
+	
 
 }

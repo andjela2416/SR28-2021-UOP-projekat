@@ -133,13 +133,19 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import biblioteka.Biblioteka;
-//import gui.formeZaPrikaz.DiskoviProzor;
-//import gui.formeZaPrikaz.KnjigeProzor;
-//import gui.formeZaPrikaz.KompozicijeProzor;
-//import gui.formeZaPrikaz.ProdavciProzor;
+import guiProzori.AdminProzor;
+import guiProzori.KnjigeProzor;
+import guiProzori.BibliotekaProzor;
+import guiProzori.BibliotekarProzor;
+import guiProzori.AdminProzor;
+import guiProzori.ClanProzor;
+import guiProzori.IzdavanjeProzor;
+import guiProzori.PrimerakProzor;
+import guiProzori.TipProzor;
+import guiProzori.ZanrProzor;
 import projekat.Zaposleni;
-import biblioteka.Biblioteka;
-import projekat.Zaposleni;
+import projekat.Bibliotekar;
+import projekat.Administrator;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
@@ -171,7 +177,7 @@ public class GlavniProzor extends JFrame {
 	private final JMenuItem mntmNewMenuItem = new JMenuItem("Zanrovi");
 	private final JMenuItem mntmNewMenuItem_1 = new JMenuItem("Tipovi");
 	private final JMenu mnNewMenu = new JMenu("Biblioteka");
-	private final JMenuItem mntmNewMenuItem_2 = new JMenuItem("Liste");
+	//private final JMenuItem mntmNewMenuItem_2 = new JMenuItem("Liste");
 	
 	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik) {
 		getContentPane().setBackground(new Color(255, 228, 225));
@@ -179,7 +185,7 @@ public class GlavniProzor extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(GlavniProzor.class.getResource("/slike/biblioteks.jpeg")));
 		this.biblioteka = biblioteka;
 		this.prijavljeniKorisnik = prijavljeniKorisnik;
-		setTitle("Biblioteka");
+		setTitle("Zaposleni: "+ prijavljeniKorisnik.getKorisnickoIme());
 		setSize(500, 500);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -193,7 +199,7 @@ public class GlavniProzor extends JFrame {
 		
 		mainMenu.add(mnNewMenu);
 		
-		mnNewMenu.add(mntmNewMenuItem_2);
+		//mnNewMenu.add(mntmNewMenuItem_2);
 		mainMenu.add(ljudiMenu);
 		ljudiMenu.add(adminiItem);
 		ljudiMenu.add(bibliotekariItem);
@@ -234,6 +240,7 @@ public class GlavniProzor extends JFrame {
 	}
 	
 	private void initActions() {
+		
 		adminiItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -242,29 +249,66 @@ public class GlavniProzor extends JFrame {
 			}
 		});
 		
-//		kompozicijeItem.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				KompozicijeProzor kp = new KompozicijeProzor(prodavnica);
-//				kp.setVisible(true);
-//			}
-//		});
-//		
-//		diskoviItem.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				DiskoviProzor dp = new DiskoviProzor(prodavnica);
-//				dp.setVisible(true);
-//			}
-//		});
-//		
-//		knjigeItem.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				KnjigeProzor kp = new KnjigeProzor(prodavnica);
-//				kp.setVisible(true);
-//			}
-//		});
+		bibliotekariItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BibliotekarProzor kp = new BibliotekarProzor(biblioteka);
+				kp.setVisible(true);
+			}
+		});
+		
+		clanoviItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ClanProzor dp = new ClanProzor(biblioteka);
+				dp.setVisible(true);
+			}
+		});
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				KnjigeProzor kp = new KnjigeProzor(biblioteka);
+				kp.setVisible(true);
+			}
+		});
+		btnNewButton_2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IzdavanjeProzor kp = new IzdavanjeProzor(biblioteka);
+				kp.setVisible(true);
+			}
+		});
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ZanrProzor kp = new ZanrProzor(biblioteka);
+				kp.setVisible(true);
+			}
+		});
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PrimerakProzor kp = new PrimerakProzor(biblioteka);
+				kp.setVisible(true);
+			}
+		});
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TipProzor kp = new TipProzor(biblioteka);
+				kp.setVisible(true);
+			}
+		});
+		mnNewMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BibliotekaProzor kp = new BibliotekaProzor(biblioteka);
+				kp.setVisible(true);
+			}
+		});
+		
+		
 	}
 }
 

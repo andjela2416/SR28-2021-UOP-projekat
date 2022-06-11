@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import biblioteka.Biblioteka;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,7 +32,7 @@ public class BibliotekaProzor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BibliotekaProzor frame = new BibliotekaProzor();
+					BibliotekaProzor frame = new BibliotekaProzor(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,10 +43,11 @@ public class BibliotekaProzor extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param biblioteka 
 	 */
-	public BibliotekaProzor() {
+	public BibliotekaProzor(Biblioteka biblioteka) {
 		setTitle("Biblioteka");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 900, 584);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

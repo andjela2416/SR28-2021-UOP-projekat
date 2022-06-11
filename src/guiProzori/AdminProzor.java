@@ -63,7 +63,7 @@ public class AdminProzor extends JFrame {
 	 */
 	public AdminProzor(Biblioteka biblioteka) {
 		setTitle("Administrator");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 900, 584);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -145,31 +145,31 @@ public class AdminProzor extends JFrame {
         textField_8.setColumns(10);
         
         JLabel lblNewLabel = new JLabel("ID:");
-        lblNewLabel.setBounds(656, 26, 16, 14);
+        lblNewLabel.setBounds(656, 26, 165, 14);
         panel.add(lblNewLabel);
         
         lblNewLabel_1 = new JLabel("Ime:");
-        lblNewLabel_1.setBounds(656, 70, 23, 14);
+        lblNewLabel_1.setBounds(656, 70, 96, 14);
         panel.add(lblNewLabel_1);
         
         lblNewLabel_2 = new JLabel("Prezime:");
-        lblNewLabel_2.setBounds(656, 115, 43, 14);
+        lblNewLabel_2.setBounds(656, 115, 109, 14);
         panel.add(lblNewLabel_2);
         
         lblNewLabel_3 = new JLabel("Adresa:");
-        lblNewLabel_3.setBounds(656, 205, 39, 14);
+        lblNewLabel_3.setBounds(656, 205, 96, 14);
         panel.add(lblNewLabel_3);
         
         JLabel lblNewLabel_4 = new JLabel("Jmbg:");
-        lblNewLabel_4.setBounds(656, 160, 49, 14);
+        lblNewLabel_4.setBounds(656, 160, 96, 14);
         panel.add(lblNewLabel_4);
         
         lblNewLabel_5 = new JLabel("Pol:");
-        lblNewLabel_5.setBounds(656, 250, 49, 14);
+        lblNewLabel_5.setBounds(656, 250, 79, 14);
         panel.add(lblNewLabel_5);
         
         lblNewLabel_6 = new JLabel("Obrisan:");
-        lblNewLabel_6.setBounds(656, 293, 49, 14);
+        lblNewLabel_6.setBounds(656, 293, 96, 14);
         panel.add(lblNewLabel_6);
         
         lblNewLabel_7 = new JLabel("Plata:");

@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import biblioteka.Biblioteka;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -28,7 +31,7 @@ public class TipProzor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TipProzor frame = new TipProzor();
+					TipProzor frame = new TipProzor(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,10 +42,11 @@ public class TipProzor extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param biblioteka 
 	 */
-	public TipProzor() {
+	public TipProzor(Biblioteka biblioteka) {
 		setTitle("Tip Clanarine");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 900, 584);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -107,7 +111,7 @@ public class TipProzor extends JFrame {
         panel.add(lblNewLabel_2);
         
         JLabel lblNewLabel_3 = new JLabel("Obrisan:");
-        lblNewLabel_3.setBounds(649, 308, 49, 14);
+        lblNewLabel_3.setBounds(649, 308, 159, 14);
         panel.add(lblNewLabel_3);
 	}
 

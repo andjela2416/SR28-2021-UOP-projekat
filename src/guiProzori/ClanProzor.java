@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import biblioteka.Biblioteka;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -36,7 +39,7 @@ public class ClanProzor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClanProzor frame = new ClanProzor();
+					ClanProzor frame = new ClanProzor(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,11 +50,12 @@ public class ClanProzor extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param biblioteka 
 	 * @param table 
 	 */
-	public ClanProzor() {
+	public ClanProzor(Biblioteka biblioteka) {
 		setTitle("Clan");   // tu mi je biblioteka kod admina
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 900, 584);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,7 +88,7 @@ public class ClanProzor extends JFrame {
         panel.add(btnNewButton_2);
         
         textField = new JTextField();
-        textField.setBounds(640, 63, 96, 20);
+        textField.setBounds(640, 59, 96, 20);
         panel.add(textField);
         textField.setColumns(10);
         
@@ -119,7 +123,7 @@ public class ClanProzor extends JFrame {
         textField_6.setColumns(10);
         
         textField_7 = new JTextField();
-        textField_7.setBounds(640, 282, 96, 20);
+        textField_7.setBounds(640, 284, 96, 20);
         panel.add(textField_7);
         textField_7.setColumns(10);
         
@@ -129,12 +133,12 @@ public class ClanProzor extends JFrame {
         textField_8.setColumns(10);
         
         textField_9 = new JTextField();
-        textField_9.setBounds(640, 355, 96, 20);
+        textField_9.setBounds(640, 359, 96, 20);
         panel.add(textField_9);
         textField_9.setColumns(10);
         
         textField_10 = new JTextField();
-        textField_10.setBounds(640, 393, 96, 20);
+        textField_10.setBounds(640, 396, 96, 20);
         panel.add(textField_10);
         textField_10.setColumns(10);
         
@@ -152,7 +156,7 @@ public class ClanProzor extends JFrame {
         panel.add(lblNewLabel_1);
         
         JLabel lblNewLabel_2 = new JLabel("Prezime:");
-        lblNewLabel_2.setBounds(640, 113, 49, 14);
+        lblNewLabel_2.setBounds(640, 113, 96, 14);
         panel.add(lblNewLabel_2);
         
         JLabel lblNewLabel_3 = new JLabel("Jmbg:");
@@ -160,7 +164,7 @@ public class ClanProzor extends JFrame {
         panel.add(lblNewLabel_3);
         
         JLabel lblNewLabel_4 = new JLabel("Adresa:");
-        lblNewLabel_4.setBounds(640, 175, 49, 14);
+        lblNewLabel_4.setBounds(640, 176, 49, 14);
         panel.add(lblNewLabel_4);
         
         JLabel lblNewLabel_5 = new JLabel("Pol:");
@@ -168,11 +172,11 @@ public class ClanProzor extends JFrame {
         panel.add(lblNewLabel_5);
         
         JLabel lblNewLabel_6 = new JLabel("Obrisan:");
-        lblNewLabel_6.setBounds(640, 238, 49, 14);
+        lblNewLabel_6.setBounds(641, 238, 136, 14);
         panel.add(lblNewLabel_6);
         
         JLabel lblNewLabel_7 = new JLabel("Broj clanske karte:");
-        lblNewLabel_7.setBounds(640, 271, 96, 14);
+        lblNewLabel_7.setBounds(640, 271, 148, 14);
         panel.add(lblNewLabel_7);
         
         JLabel lblNewLabel_8 = new JLabel("Datum posl. uplate:");
@@ -180,11 +184,11 @@ public class ClanProzor extends JFrame {
         panel.add(lblNewLabel_8);
         
         JLabel lblNewLabel_9 = new JLabel("Br.meseci clanarine:");
-        lblNewLabel_9.setBounds(640, 342, 148, 14);
+        lblNewLabel_9.setBounds(640, 346, 148, 14);
         panel.add(lblNewLabel_9);
         
         JLabel lblNewLabel_10 = new JLabel("Aktivan:");
-        lblNewLabel_10.setBounds(640, 380, 49, 14);
+        lblNewLabel_10.setBounds(640, 384, 49, 14);
         panel.add(lblNewLabel_10);
         
         JLabel lblNewLabel_11 = new JLabel("Tip:");

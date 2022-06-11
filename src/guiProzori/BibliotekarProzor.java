@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import biblioteka.Biblioteka;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -44,7 +47,7 @@ public class BibliotekarProzor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BibliotekarProzor frame = new BibliotekarProzor();
+					BibliotekarProzor frame = new BibliotekarProzor(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,11 +58,12 @@ public class BibliotekarProzor extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param biblioteka 
 	 * @param table 
 	 */
-	public BibliotekarProzor() {
+	public BibliotekarProzor(Biblioteka biblioteka) {
 		setTitle("Bibliotekar");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 900, 584);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -150,7 +154,7 @@ public class BibliotekarProzor extends JFrame {
         panel.add(lblNewLabel_1);
         
         lblNewLabel_2 = new JLabel("Prezime:");
-        lblNewLabel_2.setBounds(649, 124, 49, 14);
+        lblNewLabel_2.setBounds(649, 124, 96, 14);
         panel.add(lblNewLabel_2);
         
         lblNewLabel_3 = new JLabel("Jmbg:");
@@ -166,7 +170,7 @@ public class BibliotekarProzor extends JFrame {
         panel.add(lblNewLabel_5);
         
         lblNewLabel_6 = new JLabel("Obrisan:");
-        lblNewLabel_6.setBounds(649, 326, 49, 14);
+        lblNewLabel_6.setBounds(649, 326, 96, 14);
         panel.add(lblNewLabel_6);
         
         lblNewLabel_7 = new JLabel("Plata:");

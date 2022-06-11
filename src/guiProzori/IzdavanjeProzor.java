@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import biblioteka.Biblioteka;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -30,7 +33,7 @@ public class IzdavanjeProzor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IzdavanjeProzor frame = new IzdavanjeProzor();
+					IzdavanjeProzor frame = new IzdavanjeProzor(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,10 +44,11 @@ public class IzdavanjeProzor extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param biblioteka 
 	 */
-	public IzdavanjeProzor() {
+	public IzdavanjeProzor(Biblioteka biblioteka) {
 		setTitle("Izdavanje");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 900, 584);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -107,19 +111,19 @@ public class IzdavanjeProzor extends JFrame {
         panel.add(btnNewButton_2);
         
         JLabel lblNewLabel = new JLabel("Datum iznajmljivanja:");
-        lblNewLabel.setBounds(652, 56, 120, 14);
+        lblNewLabel.setBounds(652, 56, 150, 14);
         panel.add(lblNewLabel);
         
         JLabel lblNewLabel_1 = new JLabel("Datum vracanja:");
-        lblNewLabel_1.setBounds(652, 105, 96, 14);
+        lblNewLabel_1.setBounds(652, 105, 150, 14);
         panel.add(lblNewLabel_1);
         
         JLabel lblNewLabel_2 = new JLabel("Primerak knjige:");
-        lblNewLabel_2.setBounds(652, 156, 96, 14);
+        lblNewLabel_2.setBounds(652, 156, 139, 14);
         panel.add(lblNewLabel_2);
         
         JLabel lblNewLabel_3 = new JLabel("Zaposleni koji je izdao:");
-        lblNewLabel_3.setBounds(652, 204, 130, 14);
+        lblNewLabel_3.setBounds(652, 204, 191, 14);
         panel.add(lblNewLabel_3);
         
         JLabel lblNewLabel_4 = new JLabel("Clan:");

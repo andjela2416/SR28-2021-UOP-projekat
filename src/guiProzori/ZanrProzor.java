@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import biblioteka.Biblioteka;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -27,10 +30,11 @@ public class ZanrProzor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZanrProzor frame = new ZanrProzor();
+					ZanrProzor frame = new ZanrProzor(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					
 				}
 			}
 		});
@@ -38,15 +42,17 @@ public class ZanrProzor extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param biblioteka 
 	 */
-	public ZanrProzor() {
+	public ZanrProzor(Biblioteka biblioteka) {
 		setTitle("Zanrovi Knjiga");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 900, 584);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        
 
         JPanel panel = new JPanel();
         panel.setBackground(new Color(219, 112, 147));
@@ -98,7 +104,7 @@ public class ZanrProzor extends JFrame {
         panel.add(lblNewLabel_1);
         
         JLabel lblNewLabel_2 = new JLabel("Obrisan:");
-        lblNewLabel_2.setBounds(637, 282, 49, 14);
+        lblNewLabel_2.setBounds(637, 282, 118, 14);
         panel.add(lblNewLabel_2);
 	}
 

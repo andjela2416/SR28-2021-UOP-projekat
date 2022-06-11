@@ -141,6 +141,7 @@ public class BibliotekaMain {
 //		String korisnickoIme, String lozinka
 		
 		
+		
 		Bibliotekar testBibliotekar = new Bibliotekar("3","Andjela","Andjelic","07090379878","Bulevar Oslobodjenja 89,Novi Sad",Pol.ZENSKI,false,80000,"andjela24","lozinka");
 		ArrayList <Bibliotekar> listaBibliotekara = new ArrayList <Bibliotekar>();
 		listaBibliotekara.add(testBibliotekar);

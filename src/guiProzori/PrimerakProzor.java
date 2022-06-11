@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import biblioteka.Biblioteka;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -32,7 +35,7 @@ public class PrimerakProzor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PrimerakProzor frame = new PrimerakProzor();
+					PrimerakProzor frame = new PrimerakProzor(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,10 +46,11 @@ public class PrimerakProzor extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param biblioteka 
 	 */
-	public PrimerakProzor() {
+	public PrimerakProzor(Biblioteka biblioteka) {
 		setTitle("Primerak");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 900, 584);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -68,7 +72,7 @@ public class PrimerakProzor extends JFrame {
         btnNewButton.setBounds(10, 473, 110, 40);
         panel.add(btnNewButton);
         
-        JButton btnNewButton_1 = new JButton("Azuriraj:");
+        JButton btnNewButton_1 = new JButton("Azuriraj");
         btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
         btnNewButton_1.setBounds(149, 473, 110, 40);
         panel.add(btnNewButton_1);
@@ -131,23 +135,23 @@ public class PrimerakProzor extends JFrame {
         panel.add(lblNewLabel_2);
         
         JLabel lblNewLabel_3 = new JLabel("Godina stampanja:");
-        lblNewLabel_3.setBounds(646, 230, 96, 14);
+        lblNewLabel_3.setBounds(646, 230, 121, 14);
         panel.add(lblNewLabel_3);
         
         JLabel lblNewLabel_4 = new JLabel("Jezik stampanja:");
-        lblNewLabel_4.setBounds(646, 288, 96, 14);
+        lblNewLabel_4.setBounds(646, 288, 121, 14);
         panel.add(lblNewLabel_4);
         
         JLabel lblNewLabel_5 = new JLabel("Iznajmljena:");
-        lblNewLabel_5.setBounds(646, 342, 96, 14);
+        lblNewLabel_5.setBounds(646, 342, 121, 14);
         panel.add(lblNewLabel_5);
         
         JLabel lblNewLabel_6 = new JLabel("Knjiga kojoj pripada:");
-        lblNewLabel_6.setBounds(646, 392, 110, 20);
+        lblNewLabel_6.setBounds(646, 392, 160, 20);
         panel.add(lblNewLabel_6);
         
         JLabel lblNewLabel_7 = new JLabel("Obrisana:");
-        lblNewLabel_7.setBounds(646, 450, 49, 14);
+        lblNewLabel_7.setBounds(646, 450, 110, 14);
         panel.add(lblNewLabel_7);
 	}
 

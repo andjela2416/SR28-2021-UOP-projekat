@@ -16,10 +16,10 @@ import net.miginfocom.swing.MigLayout;
 
 public class Login extends JFrame {
 
-	private JLabel lblGreeting = new JLabel("DobrodoÅ¡li. Molimo da se prijavite.");
-	private JLabel lblUsername = new JLabel("KorisniÄ�ko ime");
+	private JLabel lblGreeting = new JLabel("Dobrodosli. Molimo da se prijavite.");
+	private JLabel lblUsername = new JLabel("Korisnicko ime");
 	private JTextField txtKorisnickoIme = new JTextField(20);
-	private JLabel lblPassword = new JLabel("Å ifra");
+	private JLabel lblPassword = new JLabel("Sifra");
 	private JPasswordField pfPassword = new JPasswordField(20);
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
@@ -50,8 +50,8 @@ public class Login extends JFrame {
 		add(btnCancel);
 		
 		
-		txtKorisnickoIme.setText("petarp");
-		pfPassword.setText("12345");
+		txtKorisnickoIme.setText("andjela2416");
+		pfPassword.setText("lozinka");
 		getRootPane().setDefaultButton(btnOk);
 	}
 	
@@ -75,7 +75,7 @@ public class Login extends JFrame {
 				}else {
 					Zaposleni prijavljeni = biblioteka.login(korisnikoIme, sifra);
 					if(prijavljeni == null) {
-						JOptionPane.showMessageDialog(null, "PogreÅ¡ni login podaci.", "GreÅ¡ka", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Pogresni login podaci.", "Greska", JOptionPane.WARNING_MESSAGE);
 					}else {
 						Login.this.dispose();
 						Login.this.setVisible(false);
