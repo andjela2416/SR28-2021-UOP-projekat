@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import projekat.Administrator;
 import projekat.Pol;
+import projekat.PrimerakKnjige;
 import biblioteka.Biblioteka;
 import bibliotekaMain.BibliotekaMain;
 
@@ -69,11 +70,9 @@ public class PrimerakProzor extends JFrame {
 //				polValue = "ZENSKI";
 //			}
 //			Pol pol = Pol.valueOf(polValue);
-			Pol pol = Pol.valueOf(textPol.getText());
+			
 			if (isNum(textId.getText()) == true) {
-				Administrator novi = new Administrator(ajdi, textIme.getText(), textPrezime.getText(),
-						textJmbg.getText(), textAdresa.getText(), pol, obrisan,textPlataDouble,textKorisnickoIme.getText(),
-						textKorisnickaSifra.getText());
+				PrimerakKnjige novi = new PrimerakKnjige();
 
 				String[] zaglavlja = new String[] { "ID", "broj strana","mek povez","godina stampanja","jezik stampanja","iznamljena","knjiga" };
 				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
@@ -91,17 +90,17 @@ public class PrimerakProzor extends JFrame {
 
 				}
 				if (greska != true) {
-					biblioteka.dodajAdministratora(novi);
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.dodajPrimerakKnjige(novi);
+					biblioteka.snimiPrimerkeKnjiga("primerci.txt");
 
 					sadrzaj[0] = novi.getId();
-					sadrzaj[1] = novi.getIme();
-					sadrzaj[2] = novi.getPrezime();
-					sadrzaj[3] = novi.getJmbg();
-					sadrzaj[4] = novi.getAdresa();
-					sadrzaj[5] = novi.getPol();
-					sadrzaj[6] = novi.getPlata();
-					sadrzaj[7] = novi.getKorisnickoIme();
+					sadrzaj[1] = novi.getBrojStrana();
+					sadrzaj[2] = novi.isMekPovez();
+					sadrzaj[3] = novi.getGodinaStampanja();
+					sadrzaj[4] = novi.getJezikStampanja();
+					sadrzaj[5] = novi.isIznajmljena();
+					sadrzaj[6] = novi.getKnjiga();
+				
 				
 					biblioteka.snimiAdministratore("administratori.txt");
 					modelTabele.addRow(sadrzaj);
@@ -142,7 +141,7 @@ public class PrimerakProzor extends JFrame {
 			sadrzaj[i][4] = admin.getAdresa();
 			sadrzaj[i][5] = admin.getPol();
 			sadrzaj[i][6] = admin.getKorisnickoIme();
-			sadrzaj[i][7] = admin.getLozinka();
+
 		
 
 		}
@@ -173,7 +172,7 @@ public class PrimerakProzor extends JFrame {
 				int izabraniIDint = Integer.parseInt(izabraniID);
 				//comboBox.getSelectedIndex();
 				//int indeks = comboBox.getSelectedIndex();
-				Pol pol = Pol.valueOf(textPol.getText());
+		
 				boolean obrisan = false;
 
 //				String polValue = "";
@@ -185,10 +184,8 @@ public class PrimerakProzor extends JFrame {
 //				}
 //				Pol pol = Pol.valueOf(polValue);
 
-				Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(rowIndex);
-				Administrator novi = new Administrator(ajdi, textIme.getText(), textPrezime.getText(),
-						textJmbg.getText(), textAdresa.getText(), pol,obrisan,textPlataDouble, textKorisnickoIme.getText(),
-						textKorisnickaSifra.getText());
+				PrimerakKnjige admin = biblioteka.sviNeobrisaniPrimerciKnjiga().get(rowIndex);
+				PrimerakKnjige novi = new PrimerakKnjige();
 
 //				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
 //					Administrator uneti = biblioteka.getAdministratori().get(x);
@@ -207,24 +204,22 @@ public class PrimerakProzor extends JFrame {
 				if (greska != true) {
 
 					admin.setId(novi.getId());
-					admin.setIme(novi.getIme());
-					admin.setPrezime(novi.getPrezime());
-					admin.setJmbg(novi.getJmbg());
-					admin.setAdresa(novi.getAdresa());
-					admin.setPol(novi.getPol());
-					admin.setPlata(novi.getPlata());
-					admin.setKorisnickoIme(novi.getKorisnickoIme());
-					admin.setLozinka(novi.getLozinka());
+					admin.setBrojStrana(novi.getBrojStrana());
+					admin.setMekPovez(novi.isMekPovez());
+					admin.setGodinaStampanja(novi.getGodinaStampanja());
+					admin.setJezikStampanja(novi.getJezikStampanja());
+					admin.setIznajmljena(novi.isIznajmljena());
+					admin.setKnjiga(novi.getKnjiga());
+				
 
 					model.setValueAt(admin.getId(), rowIndex, 0);
-					model.setValueAt(admin.getIme(), rowIndex, 1);
-					model.setValueAt(admin.getPrezime(), rowIndex, 2);
-					model.setValueAt(admin.getJmbg(), rowIndex, 3);
-					model.setValueAt(admin.getAdresa(), rowIndex, 4);
-					model.setValueAt(admin.getPol(), rowIndex, 5);
-					model.setValueAt(admin.getPlata(), rowIndex, 6);
-					model.setValueAt(admin.getKorisnickoIme(), rowIndex, 7);
-					model.setValueAt(admin.getLozinka(), rowIndex, 8);
+					model.setValueAt(admin.getBrojStrana(), rowIndex, 1);
+					model.setValueAt(admin.isMekPovez(), rowIndex, 2);
+					model.setValueAt(admin.getGodinaStampanja(), rowIndex, 3);
+					model.setValueAt(admin.getJezikStampanja(), rowIndex, 4);
+					model.setValueAt(admin.isIznajmljena(), rowIndex, 5);
+					model.setValueAt(admin.getKnjiga(), rowIndex, 6);
+				
 
 					biblioteka.snimiAdministratore("administratori.txt");
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
@@ -261,8 +256,7 @@ public class PrimerakProzor extends JFrame {
 			textJmbg.setText("");
 			textAdresa.setText("");
 			textKorisnickoIme.setText("");
-			textKorisnickaSifra.setText("");
-			textPol.setText("");
+	
 			
 			model.removeRow(izabraniIDint);
 			table_1.setModel(model);

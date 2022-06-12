@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import projekat.Administrator;
+import projekat.Knjiga;
 import projekat.Pol;
 import biblioteka.Biblioteka;
 import bibliotekaMain.BibliotekaMain;
@@ -187,9 +188,7 @@ public class KnjigeProzor extends JFrame {
 //				Pol pol = Pol.valueOf(polValue);
 
 				Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(rowIndex);
-				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
-						textJmbg.getText(), textAdresa.getText(), pol,obrisan,textPlataDouble, textKorisnickoIme.getText(),
-						textKorisnickaSifra.getText());
+				Knjiga novi = new Knjiga();
 
 //				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
 //					Administrator uneti = biblioteka.getAdministratori().get(x);
@@ -208,7 +207,7 @@ public class KnjigeProzor extends JFrame {
 				if (greska != true) {
 
 					admin.setId(novi.getId());
-					admin.setIme(novi.getIme());
+					admin.setIme(novi.getNaslovKnjige());
 					admin.setPrezime(novi.getPrezime());
 					admin.setJmbg(novi.getJmbg());
 					admin.setAdresa(novi.getAdresa());
@@ -263,7 +262,7 @@ public class KnjigeProzor extends JFrame {
 			textAdresa.setText("");
 			textKorisnickoIme.setText("");
 			textKorisnickaSifra.setText("");
-			textPol.setText("");
+	
 			
 			model.removeRow(izabraniIDint);
 			table_1.setModel(model);
