@@ -21,9 +21,13 @@ public class IzdavanjeKnjige {
 		this.clan = clan;
 		this.obrisan = obrisan;
 	}
-	public IzdavanjeKnjige() {
-		super();
+	
+
+	public IzdavanjeKnjige(LocalDate datum, LocalDate datum2, Zaposleni zaposleni2, ClanBiblioteke clan2,
+			PrimerakKnjige primerak2) {
+		// TODO Auto-generated constructor stub
 	}
+
 
 	public LocalDate getDatumIznajmljivanja() {
 		return datumIznajmljivanja;

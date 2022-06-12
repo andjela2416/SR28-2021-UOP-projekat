@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import projekat.Administrator;
+import projekat.Bibliotekar;
 import projekat.Pol;
 import biblioteka.Biblioteka;
 import bibliotekaMain.BibliotekaMain;
@@ -164,21 +165,40 @@ public class BibliotekarProzor extends JFrame {
 
 			String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
 					"Plata"  };
-			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniBibliotekari().size()][zaglavlja.length];
 			Object[] sadrzaj = new Object[zaglavlja.length];
 			String ID = textId.getText();
 
 			if (isNum(ID) == true) {
+				int rowIndex = table_1.getSelectedRow();
+				Bibliotekar admin1 = biblioteka.sviNeobrisaniBibliotekari().get(rowIndex);
 				boolean greska = false;
 				String Id = textId.getText();
+				admin1.setId(Id);
+				String ime = textIme.getText();
+				admin1.setIme(ime);
+				String Prezime =  textPrezime.getText();
+				admin1.setPrezime(Prezime);
+				String jmbg = textJmbg.getText();
+				admin1.setJmbg(jmbg);
+				String adresa = textAdresa.getText();
+				admin1.setAdresa(adresa);
 				double textPlataDouble = Double.parseDouble(textPlata.getText());
+				admin1.setPlata(textPlataDouble);
+				String korime = textKorisnickoIme.getText();
+				admin1.setKorisnickoIme(korime);
+				String korsifra =textKorisnickaSifra.getText();
+				admin1.setLozinka(korsifra);
+				Pol pol = Pol.valueOf(textPol.getText());
+				admin1.setPol(pol);
+				
 				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
-				int rowIndex = table_1.getSelectedRow();
+				
 				String izabraniID = model.getValueAt(rowIndex, 0).toString();
 				int izabraniIDint = Integer.parseInt(izabraniID);
 				//comboBox.getSelectedIndex();
 				//int indeks = comboBox.getSelectedIndex();
-				Pol pol = Pol.valueOf(textPol.getText());
+				
 				boolean obrisan = false;
 
 //				String polValue = "";
@@ -231,7 +251,7 @@ public class BibliotekarProzor extends JFrame {
 					model.setValueAt(admin.getKorisnickoIme(), rowIndex, 7);
 					model.setValueAt(admin.getLozinka(), rowIndex, 8);
 
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiAdministratore("bibliotekari.txt");
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
 					table_1.setModel(model);
 					model.fireTableDataChanged();

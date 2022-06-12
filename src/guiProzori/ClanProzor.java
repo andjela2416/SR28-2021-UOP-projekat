@@ -146,6 +146,7 @@ public class ClanProzor extends JFrame {
 	private void popuniTabelu() {
 		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Br. clanske karte", "Datum pos. uplate",
 				"Br. meseci clanarine","Aktivan","Tip"  };
+		System.out.println(biblioteka.sviNeobrisaniClanovi());
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniClanovi().size()][zaglavlja.length];
 
 		for (int i = 0; i < biblioteka.sviNeobrisaniClanovi().size(); i++) {
@@ -186,13 +187,29 @@ public class ClanProzor extends JFrame {
 				boolean greska = false;
 				String Id = textId.getText();
 				clan.setId(Id);   ///////set svaki
+				String ime = textIme.getText();
+				clan.setIme(ime);
+				String Prezime =  textPrezime.getText();
+				clan.setPrezime(Prezime);
+				String jmbg = textJmbg.getText();
+				clan.setJmbg(jmbg);
+				String adresa = textAdresa.getText();
+				clan.setAdresa(adresa);
 				String textBrojCK = textBrCK.getText();
 				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 				String izabraniID = model.getValueAt(rowIndex, 0).toString();
 				int izabraniIDint = Integer.parseInt(izabraniID);
+				LocalDate datum= LocalDate.parse(textDatum.getText());
+				clan.setDatumPoslUplate(datum);
+				brojmeseciclan = Integer.parseInt(textBrojMeseci.getText());
+				clan.setBrojMeseciClan(brojmeseciclan);
+				Tip tipClanarine = biblioteka.nadjiTip(textField_1.getText());
+				clan.setTip(tipClanarine);
+				
 				//comboBox.getSelectedIndex();
 				//int indeks = comboBox.getSelectedIndex();
 				Pol pol = Pol.valueOf(textPol.getText());
+				clan.setPol(pol);
 				boolean obrisan = false;
 				clan.setBrojClanskeKarte(textBrojCK);
 
