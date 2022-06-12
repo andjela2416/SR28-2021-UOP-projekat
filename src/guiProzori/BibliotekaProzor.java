@@ -320,25 +320,6 @@ public class BibliotekaProzor extends JFrame {
 		lblNewLabel_3.setBounds(650, 174, 96, 14);
 		contentPane.add(lblNewLabel_3);
 
-		JLabel lblNewLabel_4 = new JLabel("Adresa");
-		lblNewLabel_4.setBounds(650, 221, 49, 14);
-		contentPane.add(lblNewLabel_4);
-
-		JLabel lblNewLabel_5 = new JLabel("Pol");
-		lblNewLabel_5.setBounds(650, 424, 49, 14);
-		contentPane.add(lblNewLabel_5);
-
-		JLabel lblNewLabel_6 = new JLabel("Kor. Ime");
-		lblNewLabel_6.setBounds(650, 327, 49, 14);
-		contentPane.add(lblNewLabel_6);
-
-		JLabel lblNewLabel_7 = new JLabel("Kor. Sifra");
-		lblNewLabel_7.setBounds(650, 378, 49, 14);
-		contentPane.add(lblNewLabel_7);
-
-		JLabel lblNewLabel_8 = new JLabel("Plata");
-		lblNewLabel_8.setBounds(650, 276, 49, 14);
-		contentPane.add(lblNewLabel_8);
 
 		textId = new JTextField();
 		textId.setBounds(650, 43, 96, 20);
@@ -355,30 +336,7 @@ public class BibliotekaProzor extends JFrame {
 		contentPane.add(textPrezime);
 		textPrezime.setColumns(10);
 
-		textJmbg = new JTextField();
-		textJmbg.setBounds(650, 193, 96, 20);
-		contentPane.add(textJmbg);
-		textJmbg.setColumns(10);
-
-		textAdresa = new JTextField();
-		textAdresa.setBounds(650, 245, 96, 20);
-		contentPane.add(textAdresa);
-		textAdresa.setColumns(10);
-
-		textKorisnickoIme = new JTextField();
-		textKorisnickoIme.setBounds(650, 347, 96, 20);
-		contentPane.add(textKorisnickoIme);
-		textKorisnickoIme.setColumns(10);
-
-		textKorisnickaSifra = new JTextField();
-		textKorisnickaSifra.setBounds(650, 393, 96, 20);
-		contentPane.add(textKorisnickaSifra);
-		textKorisnickaSifra.setColumns(10);
-
-		textPlata = new JTextField();
-		textPlata.setBounds(650, 296, 96, 20);
-		contentPane.add(textPlata);
-		textPlata.setColumns(10);
+	
 
 		JButton btnNewButton_2 = new JButton("Azuriraj");
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -400,7 +358,7 @@ public class BibliotekaProzor extends JFrame {
 		table_1.setBackground(Color.WHITE);
 		
 		textPol = new JTextField();
-		textPol.setBounds(650, 445, 96, 19);
+		textPol.setBounds(650, 199, 96, 19);
 		contentPane.add(textPol);
 		textPol.setColumns(10);
 
