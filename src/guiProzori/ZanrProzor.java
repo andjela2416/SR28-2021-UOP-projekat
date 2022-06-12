@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import projekat.Administrator;
 import projekat.Pol;
+import projekat.Zanr;
 import biblioteka.Biblioteka;
 import bibliotekaMain.BibliotekaMain;
 
@@ -70,11 +71,9 @@ public class ZanrProzor extends JFrame {
 //				polValue = "ZENSKI";
 //			}
 //			Pol pol = Pol.valueOf(polValue);
-			Pol pol = Pol.valueOf(textPol.getText());
+		
 			if (isNum(textId.getText()) == true) {
-				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
-						textJmbg.getText(), textAdresa.getText(), pol, obrisan,textPlataDouble,textKorisnickoIme.getText(),
-						textKorisnickaSifra.getText());
+				Zanr novi = new Zanr();
 
 				String[] zaglavlja = new String[] { "oznaka","opis"};
 				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
@@ -92,13 +91,13 @@ public class ZanrProzor extends JFrame {
 
 				}
 				if (greska != true) {
-					biblioteka.dodajAdministratora(novi);
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.dodajZanr(novi);
+					biblioteka.snimiZanrove("zanrovi.txt");
 
-					sadrzaj[0] = novi.getId();
-					sadrzaj[1] = novi.getIme();
+					sadrzaj[0] = novi.getOznaka();
+					sadrzaj[1] = novi.getOpis();
 				
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiZanrove("zanrovi.txt");
 					modelTabele.addRow(sadrzaj);
 					table_1.setModel(modelTabele);
 
@@ -162,7 +161,7 @@ public class ZanrProzor extends JFrame {
 				int izabraniIDint = Integer.parseInt(izabraniID);
 				//comboBox.getSelectedIndex();
 				//int indeks = comboBox.getSelectedIndex();
-				Pol pol = Pol.valueOf(textPol.getText());
+				
 				boolean obrisan = false;
 
 //				String polValue = "";
@@ -174,10 +173,8 @@ public class ZanrProzor extends JFrame {
 //				}
 //				Pol pol = Pol.valueOf(polValue);
 
-				Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(rowIndex);
-				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
-						textJmbg.getText(), textAdresa.getText(), pol,obrisan,textPlataDouble, textKorisnickoIme.getText(),
-						textKorisnickaSifra.getText());
+				Zanr admin = biblioteka.sviNeobrisaniZanrovi().get(rowIndex);
+				Zanr novi = new Zanr();
 
 //				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
 //					Administrator uneti = biblioteka.getAdministratori().get(x);
@@ -195,25 +192,13 @@ public class ZanrProzor extends JFrame {
 
 				if (greska != true) {
 
-					admin.setId(novi.getId());
-					admin.setIme(novi.getIme());
-					admin.setPrezime(novi.getPrezime());
-					admin.setJmbg(novi.getJmbg());
-					admin.setAdresa(novi.getAdresa());
-					admin.setPol(novi.getPol());
-					admin.setPlata(novi.getPlata());
-					admin.setKorisnickoIme(novi.getKorisnickoIme());
-					admin.setLozinka(novi.getLozinka());
+					admin.setOznaka(novi.getOznaka());
+					admin.setOpis(novi.getOpis());
+			
 
-					model.setValueAt(admin.getId(), rowIndex, 0);
-					model.setValueAt(admin.getIme(), rowIndex, 1);
-					model.setValueAt(admin.getPrezime(), rowIndex, 2);
-					model.setValueAt(admin.getJmbg(), rowIndex, 3);
-					model.setValueAt(admin.getAdresa(), rowIndex, 4);
-					model.setValueAt(admin.getPol(), rowIndex, 5);
-					model.setValueAt(admin.getPlata(), rowIndex, 6);
-					model.setValueAt(admin.getKorisnickoIme(), rowIndex, 7);
-					model.setValueAt(admin.getLozinka(), rowIndex, 8);
+					model.setValueAt(admin.getOznaka(), rowIndex, 0);
+					model.setValueAt(admin.getOpis(), rowIndex, 1);
+			
 
 					biblioteka.snimiAdministratore("administratori.txt");
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
@@ -251,7 +236,7 @@ public class ZanrProzor extends JFrame {
 			textAdresa.setText("");
 			textKorisnickoIme.setText("");
 			textKorisnickaSifra.setText("");
-			textPol.setText("");
+		
 			
 			model.removeRow(izabraniIDint);
 			table_1.setModel(model);

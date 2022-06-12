@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import projekat.Administrator;
 import projekat.Pol;
+import projekat.Tip;
 import biblioteka.Biblioteka;
 import bibliotekaMain.BibliotekaMain;
 
@@ -70,11 +71,9 @@ public class TipProzor extends JFrame {
 //				polValue = "ZENSKI";
 //			}
 //			Pol pol = Pol.valueOf(polValue);
-			Pol pol = Pol.valueOf(textPol.getText());
+			
 			if (isNum(textId.getText()) == true) {
-				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
-						textJmbg.getText(), textAdresa.getText(), pol, obrisan,textPlataDouble,textKorisnickoIme.getText(),
-						textKorisnickaSifra.getText());
+				Tip novi = new Tip();
 
 				String[] zaglavlja = new String[] { "id","naziv","cena" };
 				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
@@ -92,12 +91,12 @@ public class TipProzor extends JFrame {
 
 				}
 				if (greska != true) {
-					biblioteka.dodajAdministratora(novi);
+					biblioteka.dodajTip(novi);
 					biblioteka.snimiAdministratore("administratori.txt");
 
 					sadrzaj[0] = novi.getId();
-					sadrzaj[1] = novi.getIme();
-					sadrzaj[2] = novi.getPrezime();
+					sadrzaj[1] = novi.getNaziv();
+					sadrzaj[2] = novi.getCena();
 		
 					biblioteka.snimiAdministratore("administratori.txt");
 					modelTabele.addRow(sadrzaj);
@@ -164,7 +163,7 @@ public class TipProzor extends JFrame {
 				int izabraniIDint = Integer.parseInt(izabraniID);
 				//comboBox.getSelectedIndex();
 				//int indeks = comboBox.getSelectedIndex();
-				Pol pol = Pol.valueOf(textPol.getText());
+				
 				boolean obrisan = false;
 
 //				String polValue = "";
@@ -176,10 +175,8 @@ public class TipProzor extends JFrame {
 //				}
 //				Pol pol = Pol.valueOf(polValue);
 
-				Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(rowIndex);
-				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
-						textJmbg.getText(), textAdresa.getText(), pol,obrisan,textPlataDouble, textKorisnickoIme.getText(),
-						textKorisnickaSifra.getText());
+				Tip admin = biblioteka.sviNeobrisaniTipovi().get(rowIndex);
+				Tip novi = new Tip();
 
 //				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
 //					Administrator uneti = biblioteka.getAdministratori().get(x);
@@ -198,24 +195,14 @@ public class TipProzor extends JFrame {
 				if (greska != true) {
 
 					admin.setId(novi.getId());
-					admin.setIme(novi.getIme());
-					admin.setPrezime(novi.getPrezime());
-					admin.setJmbg(novi.getJmbg());
-					admin.setAdresa(novi.getAdresa());
-					admin.setPol(novi.getPol());
-					admin.setPlata(novi.getPlata());
-					admin.setKorisnickoIme(novi.getKorisnickoIme());
-					admin.setLozinka(novi.getLozinka());
+					admin.setNaziv(novi.getNaziv());
+					admin.setCena(novi.getCena());
+			
 
 					model.setValueAt(admin.getId(), rowIndex, 0);
-					model.setValueAt(admin.getIme(), rowIndex, 1);
-					model.setValueAt(admin.getPrezime(), rowIndex, 2);
-					model.setValueAt(admin.getJmbg(), rowIndex, 3);
-					model.setValueAt(admin.getAdresa(), rowIndex, 4);
-					model.setValueAt(admin.getPol(), rowIndex, 5);
-					model.setValueAt(admin.getPlata(), rowIndex, 6);
-					model.setValueAt(admin.getKorisnickoIme(), rowIndex, 7);
-					model.setValueAt(admin.getLozinka(), rowIndex, 8);
+					model.setValueAt(admin.getNaziv(), rowIndex, 1);
+					model.setValueAt(admin.getCena(), rowIndex, 2);
+				
 
 					biblioteka.snimiAdministratore("administratori.txt");
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
@@ -253,7 +240,7 @@ public class TipProzor extends JFrame {
 			textAdresa.setText("");
 			textKorisnickoIme.setText("");
 			textKorisnickaSifra.setText("");
-			textPol.setText("");
+		
 			
 			model.removeRow(izabraniIDint);
 			table_1.setModel(model);

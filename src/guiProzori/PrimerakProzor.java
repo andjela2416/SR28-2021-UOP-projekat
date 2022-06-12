@@ -39,14 +39,12 @@ public class PrimerakProzor extends JFrame {
 	private JTextField textJmbg;
 	private JTextField textAdresa;
 	private JTextField textKorisnickoIme;
-	private JTextField textKorisnickaSifra;
 	private JTextField textPlata;
 	private JComboBox comboBox;
 	private DefaultTableModel modelTabele;
 	private DefaultTableModel tableModelNovi;
 	private Biblioteka biblioteka;
 	private JTable table_1;
-	private JTextField textPol;
 	
 
 	/**
@@ -77,8 +75,7 @@ public class PrimerakProzor extends JFrame {
 						textJmbg.getText(), textAdresa.getText(), pol, obrisan,textPlataDouble,textKorisnickoIme.getText(),
 						textKorisnickaSifra.getText());
 
-				String[] zaglavlja = new String[] { "ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
-						"Plata" };
+				String[] zaglavlja = new String[] { "ID", "broj strana","mek povez","godina stampanja","jezik stampanja","iznamljena","knjiga" };
 				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
 				Object[] sadrzaj = new Object[zaglavlja.length];
 
@@ -105,7 +102,7 @@ public class PrimerakProzor extends JFrame {
 					sadrzaj[5] = novi.getPol();
 					sadrzaj[6] = novi.getPlata();
 					sadrzaj[7] = novi.getKorisnickoIme();
-					sadrzaj[8] = novi.getLozinka();
+				
 					biblioteka.snimiAdministratore("administratori.txt");
 					modelTabele.addRow(sadrzaj);
 					table_1.setModel(modelTabele);
@@ -133,8 +130,7 @@ public class PrimerakProzor extends JFrame {
 	/* READ */
 
 	private void popuniTabelu() {
-		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
-				"Plata" };
+		String[] zaglavlja = new String[] {"ID", "broj strana","mek povez","godina stampanja","jezik stampanja","iznamljena","knjiga"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
 
 		for (int i = 0; i < biblioteka.sviNeobrisaniAdministratori().size(); i++) {
@@ -147,7 +143,7 @@ public class PrimerakProzor extends JFrame {
 			sadrzaj[i][5] = admin.getPol();
 			sadrzaj[i][6] = admin.getKorisnickoIme();
 			sadrzaj[i][7] = admin.getLozinka();
-			sadrzaj[i][8] = admin.getPlata();
+		
 
 		}
 		modelTabele = new DefaultTableModel(sadrzaj, zaglavlja);
@@ -162,8 +158,7 @@ public class PrimerakProzor extends JFrame {
 	private void azuriraj() {
 		try {
 
-			String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
-					"Plata"  };
+			String[] zaglavlja = new String[] {"ID", "broj strana","mek povez","godina stampanja","jezik stampanja","iznamljena","knjiga"};
 			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
 			Object[] sadrzaj = new Object[zaglavlja.length];
 			String ID = textId.getText();
@@ -308,35 +303,27 @@ public class PrimerakProzor extends JFrame {
 		lblNewLabel.setBounds(650, 18, 49, 14);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Ime");
+		JLabel lblNewLabel_1 = new JLabel("broj strana");
 		lblNewLabel_1.setBounds(650, 71, 49, 14);
 		contentPane.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("Prezime");
+		JLabel lblNewLabel_2 = new JLabel("mek povez");
 		lblNewLabel_2.setBounds(650, 121, 49, 14);
 		contentPane.add(lblNewLabel_2);
 
-		JLabel lblNewLabel_3 = new JLabel("JMBG");
+		JLabel lblNewLabel_3 = new JLabel("godina stampanja");
 		lblNewLabel_3.setBounds(650, 174, 49, 14);
 		contentPane.add(lblNewLabel_3);
 
-		JLabel lblNewLabel_4 = new JLabel("Adresa");
+		JLabel lblNewLabel_4 = new JLabel("jezik stampanja");
 		lblNewLabel_4.setBounds(650, 221, 49, 14);
 		contentPane.add(lblNewLabel_4);
 
-		JLabel lblNewLabel_5 = new JLabel("Pol");
-		lblNewLabel_5.setBounds(650, 424, 49, 14);
-		contentPane.add(lblNewLabel_5);
-
-		JLabel lblNewLabel_6 = new JLabel("Kor. Ime");
+		JLabel lblNewLabel_6 = new JLabel("knjiga");
 		lblNewLabel_6.setBounds(650, 327, 49, 14);
 		contentPane.add(lblNewLabel_6);
 
-		JLabel lblNewLabel_7 = new JLabel("Kor. Sifra");
-		lblNewLabel_7.setBounds(650, 378, 49, 14);
-		contentPane.add(lblNewLabel_7);
-
-		JLabel lblNewLabel_8 = new JLabel("Plata");
+		JLabel lblNewLabel_8 = new JLabel("iznamljena");
 		lblNewLabel_8.setBounds(650, 276, 49, 14);
 		contentPane.add(lblNewLabel_8);
 
@@ -369,11 +356,6 @@ public class PrimerakProzor extends JFrame {
 		textKorisnickoIme.setBounds(650, 347, 96, 20);
 		contentPane.add(textKorisnickoIme);
 		textKorisnickoIme.setColumns(10);
-
-		textKorisnickaSifra = new JTextField();
-		textKorisnickaSifra.setBounds(650, 393, 96, 20);
-		contentPane.add(textKorisnickaSifra);
-		textKorisnickaSifra.setColumns(10);
 
 		textPlata = new JTextField();
 		textPlata.setBounds(650, 296, 96, 20);
@@ -409,7 +391,7 @@ public class PrimerakProzor extends JFrame {
 		contentPane.add(btnNewButton_3);
 
 		JScrollPane scrollPane = new JScrollPane(table_1);
-		scrollPane.setBounds(86, 39, 441, 342);
+		scrollPane.setBounds(44, 39, 483, 342);
 		contentPane.add(scrollPane);
 		
 
@@ -417,11 +399,6 @@ public class PrimerakProzor extends JFrame {
 		table_1.setRowSelectionAllowed(true);
 		table_1.setColumnSelectionAllowed(false);
 		table_1.setBackground(Color.WHITE);
-		
-		textPol = new JTextField();
-		textPol.setBounds(650, 445, 96, 19);
-		contentPane.add(textPol);
-		textPol.setColumns(10);
 
 	
 }

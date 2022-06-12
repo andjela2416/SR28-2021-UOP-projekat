@@ -46,7 +46,6 @@ public class KnjigeProzor extends JFrame {
 	private DefaultTableModel tableModelNovi;
 	private Biblioteka biblioteka;
 	private JTable table_1;
-	private JTextField textPol;
 	
 
 	/**
@@ -77,8 +76,7 @@ public class KnjigeProzor extends JFrame {
 						textJmbg.getText(), textAdresa.getText(), pol, obrisan,textPlataDouble,textKorisnickoIme.getText(),
 						textKorisnickaSifra.getText());
 
-				String[] zaglavlja = new String[] { "ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
-						"Plata" };
+				String[] zaglavlja = new String[] { "ID", "Naslov Knjige", "OriginalNalov", "Pisac", "godina objavljivanja", "jezikoriginala", "opis", " zanr"};
 				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
 				Object[] sadrzaj = new Object[zaglavlja.length];
 
@@ -105,7 +103,7 @@ public class KnjigeProzor extends JFrame {
 					sadrzaj[5] = novi.getPol();
 					sadrzaj[6] = novi.getPlata();
 					sadrzaj[7] = novi.getKorisnickoIme();
-					sadrzaj[8] = novi.getLozinka();
+				
 					biblioteka.snimiAdministratore("administratori.txt");
 					modelTabele.addRow(sadrzaj);
 					table_1.setModel(modelTabele);
@@ -133,8 +131,7 @@ public class KnjigeProzor extends JFrame {
 	/* READ */
 
 	private void popuniTabelu() {
-		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
-				"Plata" };
+		String[] zaglavlja = new String[] {"ID", "Naslov Knjige", "OriginalNalov", "Pisac", "godina objavljivanja", "jezikoriginala", "opis", " zanr" };
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
 
 		for (int i = 0; i < biblioteka.sviNeobrisaniAdministratori().size(); i++) {
@@ -147,7 +144,7 @@ public class KnjigeProzor extends JFrame {
 			sadrzaj[i][5] = admin.getPol();
 			sadrzaj[i][6] = admin.getKorisnickoIme();
 			sadrzaj[i][7] = admin.getLozinka();
-			sadrzaj[i][8] = admin.getPlata();
+		
 
 		}
 		modelTabele = new DefaultTableModel(sadrzaj, zaglavlja);
@@ -162,8 +159,7 @@ public class KnjigeProzor extends JFrame {
 	private void azuriraj() {
 		try {
 
-			String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
-					"Plata"  };
+			String[] zaglavlja = new String[] {"ID", "Naslov Knjige", "OriginalNalov", "Pisac", "godina objavljivanja", "jezikoriginala", "opis", " zanr" };
 			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
 			Object[] sadrzaj = new Object[zaglavlja.length];
 			String ID = textId.getText();
@@ -178,7 +174,7 @@ public class KnjigeProzor extends JFrame {
 				int izabraniIDint = Integer.parseInt(izabraniID);
 				//comboBox.getSelectedIndex();
 				//int indeks = comboBox.getSelectedIndex();
-				Pol pol = Pol.valueOf(textPol.getText());
+				
 				boolean obrisan = false;
 
 //				String polValue = "";
@@ -308,35 +304,31 @@ public class KnjigeProzor extends JFrame {
 		lblNewLabel.setBounds(650, 18, 49, 14);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Ime");
+		JLabel lblNewLabel_1 = new JLabel("Nalov");
 		lblNewLabel_1.setBounds(650, 71, 49, 14);
 		contentPane.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("Prezime");
-		lblNewLabel_2.setBounds(650, 121, 49, 14);
+		JLabel lblNewLabel_2 = new JLabel("Original naslov");
+		lblNewLabel_2.setBounds(650, 118, 49, 14);
 		contentPane.add(lblNewLabel_2);
 
-		JLabel lblNewLabel_3 = new JLabel("JMBG");
+		JLabel lblNewLabel_3 = new JLabel("pisac");
 		lblNewLabel_3.setBounds(650, 174, 49, 14);
 		contentPane.add(lblNewLabel_3);
 
-		JLabel lblNewLabel_4 = new JLabel("Adresa");
+		JLabel lblNewLabel_4 = new JLabel("godina objavljivanja");
 		lblNewLabel_4.setBounds(650, 221, 49, 14);
 		contentPane.add(lblNewLabel_4);
 
-		JLabel lblNewLabel_5 = new JLabel("Pol");
-		lblNewLabel_5.setBounds(650, 424, 49, 14);
-		contentPane.add(lblNewLabel_5);
-
-		JLabel lblNewLabel_6 = new JLabel("Kor. Ime");
+		JLabel lblNewLabel_6 = new JLabel("opis");
 		lblNewLabel_6.setBounds(650, 327, 49, 14);
 		contentPane.add(lblNewLabel_6);
 
-		JLabel lblNewLabel_7 = new JLabel("Kor. Sifra");
+		JLabel lblNewLabel_7 = new JLabel("zanr");
 		lblNewLabel_7.setBounds(650, 378, 49, 14);
 		contentPane.add(lblNewLabel_7);
 
-		JLabel lblNewLabel_8 = new JLabel("Plata");
+		JLabel lblNewLabel_8 = new JLabel("jezik");
 		lblNewLabel_8.setBounds(650, 276, 49, 14);
 		contentPane.add(lblNewLabel_8);
 
@@ -417,11 +409,6 @@ public class KnjigeProzor extends JFrame {
 		table_1.setRowSelectionAllowed(true);
 		table_1.setColumnSelectionAllowed(false);
 		table_1.setBackground(Color.WHITE);
-		
-		textPol = new JTextField();
-		textPol.setBounds(650, 445, 96, 19);
-		contentPane.add(textPol);
-		textPol.setColumns(10);
 
 	
 }
