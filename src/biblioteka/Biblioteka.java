@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import guiProzori.GlavniProzor;
 import projekat.Administrator;
 import projekat.Bibliotekar;
 import projekat.ClanBiblioteke;
@@ -122,7 +123,7 @@ public class Biblioteka {
 		this.listaZanrova = listaZanrova;
 	}
 	public void dodajZanr(Zanr zanr) {
-		this.listaZanrova.add(zanr);
+		this.listaZanrova.add(zanr); 
 	}
 
 	public void obrisiZanr(Zanr zanr) {
@@ -278,7 +279,7 @@ public class Biblioteka {
 		return neobrisani;
 	}
 	public Administrator pronadjiAdministratora(String id) {
-		for (Administrator administrator : sviNeobrisaniAdministratori()) {
+		for (Administrator administrator : this.listaAdministratora) {
 			if(administrator.getId().equals(id)) {
 				return administrator;
 			}
@@ -379,6 +380,8 @@ public class Biblioteka {
 		this.listaBibliotekara = new ArrayList<Bibliotekar> ();
 		this.listaZaposlenih = new ArrayList<Zaposleni> ();
 	}
+
+
 
 	@Override
 	public String toString() {
@@ -861,7 +864,7 @@ public class Biblioteka {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			writer.write(content);
 			writer.close();
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			System.out.println(e);
 		}
 	}
@@ -874,24 +877,29 @@ public class Biblioteka {
 //		}
 //		return null;
 //	}
-	public Zaposleni login(String korisnickoIme, String lozinka) {
+	public Zaposleni login(String korisnickoIme, String lozinka, Biblioteka biblioteka) {
 		Zaposleni zaposleni = null;
+		
 		this.ucitajAdministratore("administratori.txt");
 		this.ucitajBibliotekare("bibliotekari.txt");
 		for (Administrator a:this.listaAdministratora) {
 			
-			if (a.getKorisnickoIme().equals(korisnickoIme) && zaposleni.getLozinka().equals(lozinka) && !zaposleni.isObrisan()) {
+			if (a.getKorisnickoIme().equals(korisnickoIme) && a.getLozinka().equals(lozinka) && !a.isObrisan()) {
 				zaposleni = a;
 				//System.out.println(zaposleni);
+				//GlavniProzor g=new GlavniProzor(biblioteka, a);
+				//g.setVisible(true);
 				
 			}
 		}
 		if (zaposleni==null) {
 			for (Bibliotekar a:this.listaBibliotekara) {
 				
-				if (a.getKorisnickoIme().equals(korisnickoIme) && zaposleni.getLozinka().equals(lozinka) && !zaposleni.isObrisan()) {
-					
+				if (a.getKorisnickoIme().equals(korisnickoIme) && a.getLozinka().equals(lozinka) && !a.isObrisan()) {
+
 					zaposleni = a;
+//					GlavniProzor g=new GlavniProzor(biblioteka,a);
+//					g.setVisible(true);
 				}
 			}
 			

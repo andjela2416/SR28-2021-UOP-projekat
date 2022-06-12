@@ -1,240 +1,469 @@
+
 package guiProzori;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import biblioteka.Biblioteka;
+
 import projekat.ClanBiblioteke;
+import projekat.Pol;
+import projekat.Tip;
+import biblioteka.Biblioteka;
+import bibliotekaMain.BibliotekaMain;
 
-
-import javax.swing.JButton;
-import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import java.awt.Button;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.awt.event.ActionEvent;
 
 public class ClanProzor extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textId;
+	private JTextField textIme;
+	private JTextField textPrezime;
+	private JTextField textJmbg;
+	private JTextField textAdresa;
+	private JTextField textDatum;
+	private JTextField textBrojMeseci;
+	private JTextField textBrCK;
+	private JComboBox comboBox;
+	private DefaultTableModel modelTabele;
+	private DefaultTableModel tableModelNovi;
+	private Biblioteka biblioteka;
+	private JTable table_1;
+	private JTextField textPol;
 	private JTextField textField;
 	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private DefaultTableModel tableModel;
-	private JTable clanoviTabela;
-	private Biblioteka biblioteka;
+	private String brojclankarte;
+	private int brojmeseciclan;
+	private LocalDate datumposluplate;
+	private boolean aktivan;
+	private Tip tip;
+	
+	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ClanProzor frame = new ClanProzor(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+
+	/* CREATE */
+
+	private void dodaj() {
+		try {
+			boolean greska = false;
+			String Id = textId.getText();
+			boolean obrisan = false;
+//			Tip tip= Tip.valueOf(textField_1.getText());
+			brojclankarte = textBrCK.getText();
+			datumposluplate = LocalDate.parse(textDatum.getText());
+			brojmeseciclan = Integer.parseInt(textBrojMeseci.getText());
+			Tip tipClanarine = biblioteka.nadjiTip(textField_1.getText());
+			
+
+			Pol pol = Pol.valueOf(textPol.getText());
+			if (isNum(textId.getText()) == true) {
+			
+				ClanBiblioteke novi = new ClanBiblioteke(Id, textIme.getText(), textPrezime.getText(),
+						textJmbg.getText(), textAdresa.getText(), pol, obrisan,brojclankarte,datumposluplate,brojmeseciclan,aktivan,tip);
+
+				String[] zaglavlja = new String[] { "ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Br. clanske karte", "Datum pos. uplate",
+						"Br. meseci clanarine","Aktivan","Tip"  };
+				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniClanovi().size()][zaglavlja.length];
+				Object[] sadrzaj = new Object[zaglavlja.length];
+
+				for (int x = 0; x < biblioteka.sviNeobrisaniClanovi().size(); x++) {
+					ClanBiblioteke clan = biblioteka.sviNeobrisaniClanovi().get(x);
+					sadrzaj1[x][0] = clan.getId();
+					if (sadrzaj1[x][0].equals(textId.getText())) {
+						JOptionPane.showMessageDialog(null, "Vec postoji entitet sa istim ID-em", "Greska",
+								JOptionPane.WARNING_MESSAGE);
+						greska = true;
+						break;
+					}
+
+				}
+				if (greska != true) {
+					biblioteka.dodajClana(novi);
+					biblioteka.snimiClanove("clanovi.txt");
+
+					sadrzaj[0] = novi.getId();
+					sadrzaj[1] = novi.getIme();
+					sadrzaj[2] = novi.getPrezime();
+					sadrzaj[3] = novi.getJmbg();
+					sadrzaj[4] = novi.getAdresa();
+					sadrzaj[5] = novi.getPol();
+					sadrzaj[6] = novi.getBrojClanskeKarte();
+					sadrzaj[7] = novi.getDatumPoslUplate();
+					sadrzaj[8] = novi.getBrojMeseciClan();
+					sadrzaj[9] = novi.isAktivan();
+					sadrzaj[10] = novi.getTip();
+					
+					
+					biblioteka.snimiClanove("clanovi.txt");
+					modelTabele.addRow(sadrzaj);
+					table_1.setModel(modelTabele);
+
 				}
 			}
-		});
+		} catch (NumberFormatException x) {
+			JOptionPane.showMessageDialog(null, "Unesite ispravno podatke", "Greska",
+					JOptionPane.WARNING_MESSAGE);
+		}
 	}
+
+	/* Validacija broja */
+
+	public static boolean isNum(String str) {
+		try {
+			Integer.parseInt(str);
+			return true;
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "ID mora biti broj", "Greska", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+	}
+
+	/* READ */
+
+	private void popuniTabelu() {
+		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Br. clanske karte", "Datum pos. uplate",
+				"Br. meseci clanarine","Aktivan","Tip"  };
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniClanovi().size()][zaglavlja.length];
+
+		for (int i = 0; i < biblioteka.sviNeobrisaniClanovi().size(); i++) {
+			ClanBiblioteke clan = biblioteka.sviNeobrisaniClanovi().get(i);
+			sadrzaj[i][0] = clan.getId();
+			sadrzaj[i][1] = clan.getIme();
+			sadrzaj[i][2] = clan.getPrezime();
+			sadrzaj[i][3] = clan.getJmbg();
+			sadrzaj[i][4] = clan.getAdresa();
+			sadrzaj[i][5] = clan.getPol();
+			sadrzaj[i][6] = clan.getBrojClanskeKarte();
+			sadrzaj[i][7] = clan.getDatumPoslUplate();
+			sadrzaj[i][8] = clan.getBrojMeseciClan();
+			sadrzaj[i][9] = clan.isAktivan();
+			sadrzaj[i][10] = clan.getTip().getId();
+		}
+		modelTabele = new DefaultTableModel(sadrzaj, zaglavlja);
+		table_1 = new JTable(modelTabele);
+		//System.out.println(modelTabele.getValueAt(0, 1)); sto neceeeeeeeeeeeeeeeeeeeeeee
+		
+
+	}
+
+	/* UPDATE */
+
+	private void azuriraj() {
+		try {
+
+			String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Br. clanske karte", "Datum pos. uplate",
+					"Br. meseci clanarine","Aktivan","Tip"  };
+			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniClanovi().size()][zaglavlja.length];
+			Object[] sadrzaj = new Object[zaglavlja.length];
+			String ID = textId.getText();
+
+			if (isNum(ID) == true) {
+				int rowIndex = table_1.getSelectedRow();
+				ClanBiblioteke clan = biblioteka.sviNeobrisaniClanovi().get(rowIndex);
+				boolean greska = false;
+				String Id = textId.getText();
+				clan.setId(Id);   ///////set svaki
+				String textBrojCK = textBrCK.getText();
+				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+				String izabraniID = model.getValueAt(rowIndex, 0).toString();
+				int izabraniIDint = Integer.parseInt(izabraniID);
+				//comboBox.getSelectedIndex();
+				//int indeks = comboBox.getSelectedIndex();
+				Pol pol = Pol.valueOf(textPol.getText());
+				boolean obrisan = false;
+				clan.setBrojClanskeKarte(textBrojCK);
+
+//				String polValue = "";
+//				if (indeks == 0) {
+//					polValue = "MUSKI";
+//
+//				} else {
+//					polValue = "ZENSKI";
+//				}
+//				Pol pol = Pol.valueOf(polValue);
+
+				
+//				ClanBiblioteke novi = new ClanBiblioteke(Id, textIme.getText(), textPrezime.getText(),
+//						textJmbg.getText(), textAdresa.getText(), pol, obrisan,brojclankarte,datumposluplate,brojmeseciclan,aktivan,tip
+//						);
+
+//				for (int x = 0; x < biblioteka.getclanistratori().size(); x++) {
+//					clanistrator uneti = biblioteka.getclanistratori().get(x);
+//					sadrzaj1[x][0] = uneti.getId();
+//					if (sadrzaj1[x][0] == clan.getId()) {
+//						break;
+//					} else if (sadrzaj1[x][0].equals(textId.getText())) {
+//						JOptionPane.showMessageDialog(null, "Postoji entitet sa istim id-om", "Greska",
+//							JOptionPane.WARNING_MESSAGE);
+//						greska = true;
+//						break;
+//					}
+//
+//				}
+				//biblioteka.getListaClanova().add(novi);
+				biblioteka.snimiClanove("clanovi.txt");
+
+				if (greska != true) {
+
+					clan.setId(clan.getId());
+					clan.setIme(clan.getIme());
+					clan.setPrezime(clan.getPrezime());
+					clan.setJmbg(clan.getJmbg());
+					clan.setAdresa(clan.getAdresa());
+					clan.setPol(clan.getPol());
+					clan.setBrojClanskeKarte(clan.getBrojClanskeKarte());
+					clan.setDatumPoslUplate(clan.getDatumPoslUplate());
+					clan.setBrojMeseciClan(clan.getBrojMeseciClan());
+					clan.setAktivan(clan.isAktivan());
+					clan.setTip(clan.getTip());
+
+					model.setValueAt(clan.getId(), rowIndex, 0);
+					model.setValueAt(clan.getIme(), rowIndex, 1);
+					model.setValueAt(clan.getPrezime(), rowIndex, 2);
+					model.setValueAt(clan.getJmbg(), rowIndex, 3);
+					model.setValueAt(clan.getAdresa(), rowIndex, 4);
+					model.setValueAt(clan.getPol(), rowIndex, 5);
+					model.setValueAt(clan.getBrojClanskeKarte(), rowIndex, 6);
+					model.setValueAt(clan.getDatumPoslUplate(), rowIndex, 7);
+					model.setValueAt(clan.getBrojMeseciClan(), rowIndex, 8);
+					model.setValueAt(clan.isAktivan(), rowIndex, 8);
+					model.setValueAt(clan.getTip(), rowIndex, 8);
+
+					biblioteka.snimiClanove("clanovi.txt");
+					model.fireTableRowsInserted(rowIndex, izabraniIDint);
+					table_1.setModel(model);
+					model.fireTableDataChanged();
+				}
+			}
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(null, "Izaberite red", "Greska", JOptionPane.WARNING_MESSAGE);
+		} catch (NumberFormatException x) {
+			JOptionPane.showMessageDialog(null, "Niste uneli dobre podatke", "Greska",
+					JOptionPane.WARNING_MESSAGE);
+		}
+		
+	}
+	
+	/* DELETE */
+	
+	private void obrisi() {
+		try {
+			DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+			int indexReda = table_1.getSelectedRow();
+			String izabraniID = model.getValueAt(indexReda, 0).toString();
+			int izabraniIDint = Integer.parseInt(izabraniID);
+			ClanBiblioteke clan = biblioteka.getListaClanova().get(indexReda);
+			clan.setObrisan(true);
+			clan.setId("0");
+			biblioteka.snimiClanove(izabraniID);
+			
+			textId.setText("");
+			textIme.setText("");
+			textBrCK.setText("");
+			textPrezime.setText("");
+			textJmbg.setText("");
+			textAdresa.setText("");
+			textDatum.setText("");
+			textBrojMeseci.setText("");
+			textPol.setText("");
+			
+			model.removeRow(izabraniIDint);
+			table_1.setModel(model);
+			model.fireTableDataChanged();
+
+		}catch(ArrayIndexOutOfBoundsException x) {
+			JOptionPane.showMessageDialog(null, "Izaberite red.", "Greska", JOptionPane.WARNING_MESSAGE);
+		}
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Greska (nepoznata): " + e, "Greska", JOptionPane.WARNING_MESSAGE);
+		}
+		}
 
 	/**
 	 * Create the frame.
-	 * @param biblioteka 
-	 * @param table 
+	 * 
+	 * @param clan
+	 * @param biblioteka2
 	 */
-	public ClanProzor(Biblioteka biblioteka) {
-		setTitle("Clan");   // tu mi je biblioteka kod admina
+	public ClanProzor(Biblioteka biblioteka, boolean clan
+			) {
+		this.biblioteka = biblioteka;
+		popuniTabelu();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 900, 584);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
+		setBounds(100, 100, 770, 550);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.MAGENTA);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setTitle("Clanovi");
+		ImageIcon image = new ImageIcon("src/fajlovi/archive.png");
+		setIconImage(image.getImage());
+		getContentPane().setBackground(new Color(204, 61, 158));
+		
+		
 
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(219, 112, 147));
-        panel.setBounds(0, 0, 884, 545);
-        contentPane.add(panel);
-        panel.setLayout(null);
-        
-    	String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "Jmbg", "Adresa","Pol","Obrisan","Plata","Korisnicko ime","Lozinka","aktivan","tip"};
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniClanovi().size()][zaglavlja.length];
+		JLabel lblNewLabel = new JLabel("ID");
+		lblNewLabel.setBounds(650, 18, 49, 14);
+		contentPane.add(lblNewLabel);
+
+		JLabel lblNewLabel_1 = new JLabel("Ime");
+		lblNewLabel_1.setBounds(650, 66, 49, 14);
+		contentPane.add(lblNewLabel_1);
+
+		JLabel lblNewLabel_2 = new JLabel("Prezime");
+		lblNewLabel_2.setBounds(650, 117, 49, 14);
+		contentPane.add(lblNewLabel_2);
+
+		JLabel lblNewLabel_3 = new JLabel("JMBG");
+		lblNewLabel_3.setBounds(650, 170, 49, 14);
+		contentPane.add(lblNewLabel_3);
+
+		JLabel lblNewLabel_4 = new JLabel("Adresa");
+		lblNewLabel_4.setBounds(650, 221, 49, 14);
+		contentPane.add(lblNewLabel_4);
+
+		JLabel lblNewLabel_5 = new JLabel("Pol");
+		lblNewLabel_5.setBounds(650, 398, 49, 14);
+		contentPane.add(lblNewLabel_5);
+
+		JLabel lblNewLabel_6 = new JLabel("Datum posl uplate:");
+		lblNewLabel_6.setBounds(650, 310, 106, 14);
+		contentPane.add(lblNewLabel_6);
+
+		JLabel lblNewLabel_7 = new JLabel("Broj meseci clan:");
+		lblNewLabel_7.setBounds(650, 354, 125, 14);
+		contentPane.add(lblNewLabel_7);
+
+		JLabel lblNewLabel_8 = new JLabel("Broj clanske karte:");
+		lblNewLabel_8.setBounds(650, 266, 145, 14);
+		contentPane.add(lblNewLabel_8);
+
+		textId = new JTextField();
+		textId.setBounds(650, 35, 96, 20);
+		contentPane.add(textId);
+		textId.setColumns(10);
+
+		textIme = new JTextField();
+		textIme.setBounds(650, 85, 96, 20);
+		contentPane.add(textIme);
+		textIme.setColumns(10);
+
+		textPrezime = new JTextField();
+		textPrezime.setBounds(650, 136, 96, 20);
+		contentPane.add(textPrezime);
+		textPrezime.setColumns(10);
+
+		textJmbg = new JTextField();
+		textJmbg.setBounds(650, 189, 96, 20);
+		contentPane.add(textJmbg);
+		textJmbg.setColumns(10);
+
+		textAdresa = new JTextField();
+		textAdresa.setBounds(650, 235, 96, 20);
+		contentPane.add(textAdresa);
+		textAdresa.setColumns(10);
+
+		textDatum = new JTextField();
+		textDatum.setBounds(650, 323, 96, 20);
+		contentPane.add(textDatum);
+		textDatum.setColumns(10);
+
+		textBrojMeseci = new JTextField();
+		textBrojMeseci.setBounds(650, 367, 96, 20);
+		contentPane.add(textBrojMeseci);
+		textBrojMeseci.setColumns(10);
+
+		textBrCK = new JTextField();
+		textBrCK.setBounds(650, 279, 96, 20);
+		contentPane.add(textBrCK);
+		textBrCK.setColumns(10);
+
+		JButton btnNewButton = new JButton("Dodaj");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dodaj();
+			}
+		});
+		btnNewButton.setBounds(44, 445, 89, 42);
+		contentPane.add(btnNewButton);
+
+		JButton btnNewButton_2 = new JButton("Azuriraj");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				azuriraj();
+			}
+		});
+		btnNewButton_2.setBounds(190, 445, 96, 42);
+		contentPane.add(btnNewButton_2);
+
+		JButton btnNewButton_3 = new JButton("Obrisi");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				obrisi();
+			}
+		});
 		
-		 
-		for(int i=0; i<biblioteka.sviNeobrisaniClanovi().size(); i++) {
-			ClanBiblioteke clan = biblioteka.sviNeobrisaniClanovi().get(i);
-            sadrzaj[i][0] = clan.getId();
-            sadrzaj[i][1] = clan.getIme();
-            sadrzaj[i][2] = clan.getPrezime();
-            sadrzaj[i][3] = clan.getJmbg();
-            sadrzaj[i][4] = clan.getAdresa(); 
-            sadrzaj[i][5] = clan.getPol();
-            sadrzaj[i][6] = clan.isObrisan();
-            sadrzaj[i][7] = clan.getBrojClanskeKarte();
-            sadrzaj[i][8] = clan.getDatumPoslUplate();
-            sadrzaj[i][9] = clan.getBrojMeseciClan();
-            sadrzaj[i][10] = clan.isAktivan();
-            sadrzaj[i][11] = clan.getTip();
-		}
+		btnNewButton_3.setBounds(475, 445, 96, 42);
+		contentPane.add(btnNewButton_3);
+
+		JScrollPane scrollPane = new JScrollPane(table_1);
+		scrollPane.setBounds(30, 64, 561, 342);
+		contentPane.add(scrollPane);
 		
-		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		clanoviTabela = new JTable(tableModel);
+
+		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table_1.setRowSelectionAllowed(true);
+		table_1.setColumnSelectionAllowed(false);
+		table_1.setBackground(Color.WHITE);
 		
-		clanoviTabela.setRowSelectionAllowed(true);
-		clanoviTabela.setColumnSelectionAllowed(false);
-		clanoviTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		clanoviTabela.setDefaultEditor(Object.class, null);
-		clanoviTabela.getTableHeader().setReorderingAllowed(false);
+		textPol = new JTextField();
+		textPol.setBounds(650, 413, 96, 19);
+		contentPane.add(textPol);
+		textPol.setColumns(10);
 		
-		//JScrollPane scrollPane = new JScrollPane(clanoviTabela);
-		//add(scrollPane, BorderLayout.CENTER);
+		textField = new JTextField();
+		textField.setBounds(650, 448, 96, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
 		
+		textField_1 = new JTextField();
+		textField_1.setBounds(650, 482, 96, 20);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
 		
+		JLabel lblNewLabel_9 = new JLabel("Aktivan:");
+		lblNewLabel_9.setBounds(650, 433, 49, 14);
+		contentPane.add(lblNewLabel_9);
+		
+		JLabel lblNewLabel_10 = new JLabel("Tip:");
+		lblNewLabel_10.setBounds(650, 467, 49, 14);
+		contentPane.add(lblNewLabel_10);
+
 	
-        clanoviTabela.setBounds(39, 70, 565, 371);
-        panel.add(clanoviTabela);
-        
-        JButton btnNewButton = new JButton("Dodaj");
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        btnNewButton.setBounds(32, 488, 111, 46);
-        panel.add(btnNewButton);
-        
-        JButton btnNewButton_1 = new JButton("Azuriraj");
-        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        btnNewButton_1.setBounds(184, 488, 105, 46);
-        panel.add(btnNewButton_1);
-        
-        JButton btnNewButton_2 = new JButton("Obrisi");
-        btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        btnNewButton_2.setBounds(437, 488, 105, 46);
-        panel.add(btnNewButton_2);
-        
-        textField = new JTextField();
-        textField.setBounds(640, 59, 96, 20);
-        panel.add(textField);
-        textField.setColumns(10);
-        
-        textField_1 = new JTextField();
-        textField_1.setBounds(640, 94, 96, 20);
-        panel.add(textField_1);
-        textField_1.setColumns(10);
-        
-        textField_2 = new JTextField();
-        textField_2.setBounds(640, 125, 96, 20);
-        panel.add(textField_2);
-        textField_2.setColumns(10);
-        
-        textField_3 = new JTextField();
-        textField_3.setBounds(640, 158, 96, 20);
-        panel.add(textField_3);
-        textField_3.setColumns(10);
-        
-        textField_4 = new JTextField();
-        textField_4.setBounds(640, 189, 96, 20);
-        panel.add(textField_4);
-        textField_4.setColumns(10);
-        
-        textField_5 = new JTextField();
-        textField_5.setBounds(640, 220, 96, 20);
-        panel.add(textField_5);
-        textField_5.setColumns(10);
-        
-        textField_6 = new JTextField();
-        textField_6.setBounds(640, 251, 96, 20);
-        panel.add(textField_6);
-        textField_6.setColumns(10);
-        
-        textField_7 = new JTextField();
-        textField_7.setBounds(640, 284, 96, 20);
-        panel.add(textField_7);
-        textField_7.setColumns(10);
-        
-        textField_8 = new JTextField();
-        textField_8.setBounds(640, 321, 96, 20);
-        panel.add(textField_8);
-        textField_8.setColumns(10);
-        
-        textField_9 = new JTextField();
-        textField_9.setBounds(640, 359, 96, 20);
-        panel.add(textField_9);
-        textField_9.setColumns(10);
-        
-        textField_10 = new JTextField();
-        textField_10.setBounds(640, 396, 96, 20);
-        panel.add(textField_10);
-        textField_10.setColumns(10);
-        
-        textField_11 = new JTextField();
-        textField_11.setBounds(640, 433, 96, 20);
-        panel.add(textField_11);
-        textField_11.setColumns(10);
-        
-        JLabel lblNewLabel = new JLabel("ID:");
-        lblNewLabel.setBounds(640, 46, 49, 14);
-        panel.add(lblNewLabel);
-        
-        JLabel lblNewLabel_1 = new JLabel("Ime:");
-        lblNewLabel_1.setBounds(640, 81, 49, 14);
-        panel.add(lblNewLabel_1);
-        
-        JLabel lblNewLabel_2 = new JLabel("Prezime:");
-        lblNewLabel_2.setBounds(640, 113, 96, 14);
-        panel.add(lblNewLabel_2);
-        
-        JLabel lblNewLabel_3 = new JLabel("Jmbg:");
-        lblNewLabel_3.setBounds(640, 144, 49, 14);
-        panel.add(lblNewLabel_3);
-        
-        JLabel lblNewLabel_4 = new JLabel("Adresa:");
-        lblNewLabel_4.setBounds(640, 176, 49, 14);
-        panel.add(lblNewLabel_4);
-        
-        JLabel lblNewLabel_5 = new JLabel("Pol:");
-        lblNewLabel_5.setBounds(640, 207, 49, 14);
-        panel.add(lblNewLabel_5);
-        
-        JLabel lblNewLabel_6 = new JLabel("Obrisan:");
-        lblNewLabel_6.setBounds(641, 238, 136, 14);
-        panel.add(lblNewLabel_6);
-        
-        JLabel lblNewLabel_7 = new JLabel("Broj clanske karte:");
-        lblNewLabel_7.setBounds(640, 271, 148, 14);
-        panel.add(lblNewLabel_7);
-        
-        JLabel lblNewLabel_8 = new JLabel("Datum posl. uplate:");
-        lblNewLabel_8.setBounds(640, 309, 117, 14);
-        panel.add(lblNewLabel_8);
-        
-        JLabel lblNewLabel_9 = new JLabel("Br.meseci clanarine:");
-        lblNewLabel_9.setBounds(640, 346, 148, 14);
-        panel.add(lblNewLabel_9);
-        
-        JLabel lblNewLabel_10 = new JLabel("Aktivan:");
-        lblNewLabel_10.setBounds(640, 384, 49, 14);
-        panel.add(lblNewLabel_10);
-        
-        JLabel lblNewLabel_11 = new JLabel("Tip:");
-        lblNewLabel_11.setBounds(640, 418, 49, 14);
-        panel.add(lblNewLabel_11);
-        
-	}
+}
 }

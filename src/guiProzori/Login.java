@@ -10,11 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import net.miginfocom.swing.MigLayout;
 import projekat.Zaposleni;
 import biblioteka.Biblioteka;
-import net.miginfocom.swing.MigLayout;
-
-
 
 public class Login extends JFrame {
 
@@ -28,13 +26,12 @@ public class Login extends JFrame {
 	
 	private Biblioteka biblioteka;
 	
-	
 	public Login(Biblioteka biblioteka) {
 		this.biblioteka = biblioteka;
 		setTitle("Prijava");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		//initGUI();
+		initGUI();
 		initActions();
 		pack();
 	}
@@ -53,8 +50,8 @@ public class Login extends JFrame {
 		add(btnCancel);
 		
 		
-		txtKorisnickoIme.setText("andjela2416");
-		pfPassword.setText("lozinka");
+		txtKorisnickoIme.setText("petarp");
+		pfPassword.setText("12345");
 		getRootPane().setDefaultButton(btnOk);
 	}
 	
@@ -76,7 +73,7 @@ public class Login extends JFrame {
 				if(korisnikoIme.equals("") || sifra.equals("")) {
 					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za prijavu.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}else {
-					Zaposleni prijavljeni = biblioteka.login(korisnikoIme, sifra);
+					Zaposleni prijavljeni = biblioteka.login(korisnikoIme, sifra,biblioteka);
 					if(prijavljeni == null) {
 						JOptionPane.showMessageDialog(null, "Pogresni login podaci.", "Greska", JOptionPane.WARNING_MESSAGE);
 					}else {
@@ -85,7 +82,7 @@ public class Login extends JFrame {
 						GlavniProzor gp = new GlavniProzor(biblioteka, prijavljeni);
 						gp.setVisible(true);
 					}
-				}
+				} 
 			}
 		});
 		

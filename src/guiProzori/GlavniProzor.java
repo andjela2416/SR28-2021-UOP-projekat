@@ -177,6 +177,7 @@ public class GlavniProzor extends JFrame {
 	private final JMenuItem mntmNewMenuItem = new JMenuItem("Zanrovi");
 	private final JMenuItem mntmNewMenuItem_1 = new JMenuItem("Tipovi");
 	private final JMenu mnNewMenu = new JMenu("Biblioteka");
+	private final JMenuItem mntmNewMenuItem_2 = new JMenuItem("Biblioteka");
 	//private final JMenuItem mntmNewMenuItem_2 = new JMenuItem("Liste");
 	
 	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik) {
@@ -193,11 +194,13 @@ public class GlavniProzor extends JFrame {
 		initMenu();
 		initActions();
 	}
-	
+	 
 	private void initMenu() {
 		setJMenuBar(mainMenu);
 		
 		mainMenu.add(mnNewMenu);
+		
+		mnNewMenu.add(mntmNewMenuItem_2);
 		
 		//mnNewMenu.add(mntmNewMenuItem_2);
 		mainMenu.add(ljudiMenu);
@@ -241,18 +244,23 @@ public class GlavniProzor extends JFrame {
 	
 	private void initActions() {
 		
+//		if (prijavljeniKorisnik==bibliotekar) {
+//			
+//		}
+		
 		adminiItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AdminProzor pp = new AdminProzor(biblioteka);
+				AdminProzor pp = new AdminProzor(biblioteka, rootPaneCheckingEnabled);
 				pp.setVisible(true);
+				//System.out.println(biblioteka.getListaAdministratora());
 			}
 		});
 		
 		bibliotekariItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BibliotekarProzor kp = new BibliotekarProzor(biblioteka);
+				BibliotekarProzor kp = new BibliotekarProzor(biblioteka, rootPaneCheckingEnabled);
 				kp.setVisible(true);
 			}
 		});
@@ -260,7 +268,7 @@ public class GlavniProzor extends JFrame {
 		clanoviItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ClanProzor dp = new ClanProzor(biblioteka);
+				ClanProzor dp = new ClanProzor(biblioteka, rootPaneCheckingEnabled);
 				dp.setVisible(true); 
 			}
 		});
@@ -268,45 +276,45 @@ public class GlavniProzor extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				KnjigeProzor kp = new KnjigeProzor(biblioteka);
+				KnjigeProzor kp = new KnjigeProzor(biblioteka, rootPaneCheckingEnabled);
 				kp.setVisible(true);
 			}
 		});
 		btnNewButton_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				IzdavanjeProzor kp = new IzdavanjeProzor(biblioteka);
+				IzdavanjeProzor kp = new IzdavanjeProzor(biblioteka, rootPaneCheckingEnabled); //???????
 				kp.setVisible(true);
 			}
 		});
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ZanrProzor kp = new ZanrProzor(biblioteka);
+				ZanrProzor kp = new ZanrProzor(biblioteka, rootPaneCheckingEnabled);
 				kp.setVisible(true);
 			}
 		});
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				PrimerakProzor kp = new PrimerakProzor(biblioteka);
+				PrimerakProzor kp = new PrimerakProzor(biblioteka, rootPaneCheckingEnabled);
 				kp.setVisible(true);
 			}
 		});
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TipProzor kp = new TipProzor(biblioteka);
+				TipProzor kp = new TipProzor(biblioteka, rootPaneCheckingEnabled);
 				kp.setVisible(true);
 			}
 		});
-		mnNewMenu.addActionListener(new ActionListener() {
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BibliotekaProzor kp = new BibliotekaProzor(biblioteka);
+				BibliotekaProzor kp = new BibliotekaProzor(biblioteka, rootPaneCheckingEnabled);
 				kp.setVisible(true);
 			}
-		});
+		}); 
 		
 		
 	}

@@ -16,8 +16,6 @@ public class ClanBiblioteke extends Osoba {
 
 
 
-
-
 	public ClanBiblioteke(String id, String ime, String prezime, String jmbg, String adresa, Pol pol, boolean obrisan,
 			String brojClanskeKarte, LocalDate datumPoslUplate, int brojMeseciClan, boolean aktivan, Tip tip) {
 		super(id, ime, prezime, jmbg, adresa, pol, obrisan);
@@ -28,10 +26,12 @@ public class ClanBiblioteke extends Osoba {
 		this.tip = tip;
 	}
 
+	
 
-	public ClanBiblioteke(String id, String ime, String prezime, String jmbg, String adresa, Pol pol, boolean obrisan) {
+	public ClanBiblioteke(String id, String ime, String prezime, String jmbg, String adresa, Pol pol, boolean obrisan, Tip tip2 ) {
 		super(id, ime, prezime, jmbg, adresa, pol, obrisan);
 	}
+
 
 
 	public String getBrojClanskeKarte() {

@@ -43,81 +43,81 @@ public class BibliotekaMain {
 		
 		
 		
-		biblioteka.ucitajTip(TIPOVICLANARINE_FAJL);
-		biblioteka.ucitajClanove(CLANOVI_FAJL);
-		//biblioteka.ucitajZaposlene(ZAPOSLENI_FAJL);
-		biblioteka.ucitajZanrove(ZANROVI_FAJL);
-		biblioteka.ucitajKnjige(KNJIGE_FAJL);
-		biblioteka.ucitajPrimerkeKnjiga(PRIMERCIKNJIGA_FAJL);
-		biblioteka.ucitajIznajmljivanje(IZNAJMLJIVANJE_FAJL);
-		biblioteka.ucitajBibliotekare(BIBLIOTEKARI_FAJL);
-		biblioteka.ucitajAdministratore(ADMINISTRATORI_FAJL);
+//		biblioteka.ucitajTip(TIPOVICLANARINE_FAJL);
+//		biblioteka.ucitajClanove(CLANOVI_FAJL);
+//		//biblioteka.ucitajZaposlene(ZAPOSLENI_FAJL);
+//		biblioteka.ucitajZanrove(ZANROVI_FAJL);
+//		biblioteka.ucitajKnjige(KNJIGE_FAJL);
+//		biblioteka.ucitajPrimerkeKnjiga(PRIMERCIKNJIGA_FAJL);
+//		biblioteka.ucitajIznajmljivanje(IZNAJMLJIVANJE_FAJL);
+//		biblioteka.ucitajBibliotekare(BIBLIOTEKARI_FAJL);
+		//biblioteka.ucitajAdministratore(ADMINISTRATORI_FAJL);
+	
 		
-		
-		System.out.println("PODACI UCITANI IZ DATOTEKA:");
-		System.out.println("----------------------------------------------");
-		ispisiSvePodatke(biblioteka);
-		System.out.println("----------------------------------------------");
+//		System.out.println("PODACI UCITANI IZ DATOTEKA:");
+//		System.out.println("----------------------------------------------");
+//		ispisiSvePodatke(biblioteka);
+//		System.out.println("----------------------------------------------");
 		
 		
 		
 		//String id, String ime, String prezime, String jmbg, String adresa, Pol pol,
 		//String brojClanskeKarte, LocalDate datumPoslUplate, int brojMeseciClan, boolean aktivan, Tip tip
-		
-		ClanBiblioteke testClan = new ClanBiblioteke("2","Marko","Peric","6551546542","test adresa",Pol.MUSKI,false,"006", LocalDate.of(2022, 02, 19), 24, true, biblioteka.nadjiTip("1"));
-		ArrayList<ClanBiblioteke> listaClanova = new ArrayList <ClanBiblioteke> ();
-		listaClanova.add(testClan);
-		biblioteka.setListaClanova(listaClanova);
-		biblioteka.snimiClanove(CLANOVI_FAJL);
-		
+//		
+//		ClanBiblioteke testClan = new ClanBiblioteke("2","Marko","Peric","6551546542","test adresa",Pol.MUSKI,false,"006", LocalDate.of(2022, 02, 19), 24, true, biblioteka.nadjiTip("1"));
+//		ArrayList<ClanBiblioteke> listaClanova = new ArrayList <ClanBiblioteke> ();
+//		listaClanova.add(testClan);
+//		biblioteka.setListaClanova(listaClanova);
+//		biblioteka.snimiClanove(CLANOVI_FAJL);
+//		
 		//System.out.println(biblioteka.getListaClanova().get(0));
 		
-		//LocalDate datumIznajmljivanja, LocalDate datumVracanja,Zaposleni zaposleni,PrimerakKnjige primerak, ClanBiblioteke clan
-		IzdavanjeKnjige testIzdavanje = new IzdavanjeKnjige(LocalDate.of(2025, 02, 19),LocalDate.of(2022, 03, 20),biblioteka.pronadjiPrimerak("2"),biblioteka.pronadjiZaposlenog("3"),biblioteka.nadjiClana("2"),false);
-		//System.out.println(biblioteka.pronadjiZaposlenog("3"));
-		ArrayList<IzdavanjeKnjige> listaIzdavanja = new ArrayList <IzdavanjeKnjige> ();
-		listaIzdavanja.add(testIzdavanje);
-		biblioteka.setListaIzdavanja(listaIzdavanja);
-		biblioteka.snimiIznajmljivanje(IZNAJMLJIVANJE_FAJL);
-		
+//		//LocalDate datumIznajmljivanja, LocalDate datumVracanja,Zaposleni zaposleni,PrimerakKnjige primerak, ClanBiblioteke clan
+//		IzdavanjeKnjige testIzdavanje = new IzdavanjeKnjige(LocalDate.of(2025, 02, 19),LocalDate.of(2022, 03, 20),biblioteka.pronadjiPrimerak("2"),biblioteka.pronadjiZaposlenog("3"),biblioteka.nadjiClana("2"),false);
+//		//System.out.println(biblioteka.pronadjiZaposlenog("3"));
+//		ArrayList<IzdavanjeKnjige> listaIzdavanja = new ArrayList <IzdavanjeKnjige> ();
+//		listaIzdavanja.add(testIzdavanje);
+//		biblioteka.setListaIzdavanja(listaIzdavanja);
+//		biblioteka.snimiIznajmljivanje(IZNAJMLJIVANJE_FAJL);
+//		
 		//System.out.println(biblioteka.getListaIzdavanja().get(0));
 		
 		//String id, String naslovKnjige, String originalNaslovKnjige, String pisac, int godinaObjavljivanja,
-		//String jezikOriginala, String opis, Zanr zanr;
-		Knjiga testKnjiga = new Knjiga("2","Sumnjivo lice","Sumnjivo lice","Branislav Nusic",1888,"Srpski","U jednoj srpskoj varoÅ¡i za vreme dinastije ObrenoviÄ‡a vlast su obavljali korumpirani, polupismeni i nesposobni drÅ¾avni Ä�inovnici...",biblioteka.nadjiZanr("R"),false);
-		ArrayList <Knjiga> listaKnjiga = new ArrayList <Knjiga>();
-		listaKnjiga.add(testKnjiga);
-		biblioteka.setListaKnjiga(listaKnjiga);
-		biblioteka.snimiKnjige(KNJIGE_FAJL);
+//		//String jezikOriginala, String opis, Zanr zanr;
+//		Knjiga testKnjiga = new Knjiga("2","Sumnjivo lice","Sumnjivo lice","Branislav Nusic",1888,"Srpski","U jednoj srpskoj varoÅ¡i za vreme dinastije ObrenoviÄ‡a vlast su obavljali korumpirani, polupismeni i nesposobni drÅ¾avni Ä�inovnici...",biblioteka.nadjiZanr("R"),false);
+//		ArrayList <Knjiga> listaKnjiga = new ArrayList <Knjiga>();
+//		listaKnjiga.add(testKnjiga);
+//		biblioteka.setListaKnjiga(listaKnjiga);
+//		biblioteka.snimiKnjige(KNJIGE_FAJL);
 		
 		//System.out.println(biblioteka.getListaKnjiga().get(0));
 		
 		//String id, int brojStrana, boolean mekPovez, int godinaStampanja, String jezikStampanja,
-		//boolean iznajmljena, Knjiga knjiga
-		PrimerakKnjige testPrimerakKnjige = new PrimerakKnjige("2",200,true,1888,"Srpski",true,biblioteka.nadjiKnjigu("2"),false);
-		ArrayList <PrimerakKnjige> listaPrimeraka = new ArrayList <PrimerakKnjige>();
-		listaPrimeraka.add(testPrimerakKnjige);
-		biblioteka.setListaPrimeraka(listaPrimeraka);
-		biblioteka.snimiPrimerkeKnjiga(PRIMERCIKNJIGA_FAJL);
+//		//boolean iznajmljena, Knjiga knjiga
+//		PrimerakKnjige testPrimerakKnjige = new PrimerakKnjige("2",200,true,1888,"Srpski",true,biblioteka.nadjiKnjigu("2"),false);
+//		ArrayList <PrimerakKnjige> listaPrimeraka = new ArrayList <PrimerakKnjige>();
+//		listaPrimeraka.add(testPrimerakKnjige);
+//		biblioteka.setListaPrimeraka(listaPrimeraka);
+//		biblioteka.snimiPrimerkeKnjiga(PRIMERCIKNJIGA_FAJL);
 		
 		//System.out.println(biblioteka.getListaPrimeraka().get(0));
-		
-		Zanr testZanrovi = new Zanr("R","romantika",false);
-		ArrayList <Zanr> listaZanrova = new ArrayList <Zanr>();
-		listaZanrova.add(testZanrovi);
-		biblioteka.setListaZanrova(listaZanrova);
-		biblioteka.snimiZanrove(ZANROVI_FAJL);
-		
+//		
+//		Zanr testZanrovi = new Zanr("R","romantika",false);
+//		ArrayList <Zanr> listaZanrova = new ArrayList <Zanr>();
+//		listaZanrova.add(testZanrovi);
+//		biblioteka.setListaZanrova(listaZanrova);
+//		biblioteka.snimiZanrove(ZANROVI_FAJL);
+//		
 		//System.out.println(biblioteka.getListaZanrova().get(0));
 		
 		//String id, String ime, String prezime, String jmbg, String adresa, Pol pol, double plata,
 		//String korisnickoIme, String lozinka
-		
-		Zaposleni testZaposleni = new Zaposleni("3","Andjela","Andjelic","07090379878","Bulevar Oslobodjenja 89,Novi Sad",Pol.ZENSKI,false,80000,"andjela24","lozinka");
-		ArrayList <Zaposleni> listaZaposlenih = new ArrayList <Zaposleni>();
-		listaZaposlenih.add(testZaposleni);
-		biblioteka.setListaZaposlenih(listaZaposlenih);
-		biblioteka.snimiZaposlene(ZAPOSLENI_FAJL);                   
+//		
+//		Zaposleni testZaposleni = new Zaposleni("3","Andjela","Andjelic","07090379878","Bulevar Oslobodjenja 89,Novi Sad",Pol.ZENSKI,false,80000,"andjela24","lozinka");
+//		ArrayList <Zaposleni> listaZaposlenih = new ArrayList <Zaposleni>();
+//		listaZaposlenih.add(testZaposleni);
+//		biblioteka.setListaZaposlenih(listaZaposlenih);
+//		biblioteka.snimiZaposlene(ZAPOSLENI_FAJL);                   
 		
 		//System.out.println(biblioteka.getListaZaposlenih().get(0));
 		
@@ -125,43 +125,43 @@ public class BibliotekaMain {
 //		2|deca do 14|150
 //		3|ostali|250
 		
-		Tip testTipovi = new Tip("1","penzioneri", 100,false);
-		Tip testTipovi2 = new Tip("2","deca do 14", 150,false);
-		Tip testTipovi3 = new Tip("3", "ostali",250,false);
-		ArrayList <Tip> listaTipova = new ArrayList <Tip>();
-		listaTipova.add(testTipovi);
-		listaTipova.add(testTipovi2);
-		listaTipova.add(testTipovi3);
-		biblioteka.setListaTipova(listaTipova);
-		biblioteka.snimiTipClanarine(TIPOVICLANARINE_FAJL);
+//		Tip testTipovi = new Tip("1","penzioneri", 100,false);
+//		Tip testTipovi2 = new Tip("2","deca do 14", 150,false);
+//		Tip testTipovi3 = new Tip("3", "ostali",250,false);
+//		ArrayList <Tip> listaTipova = new ArrayList <Tip>();
+//		listaTipova.add(testTipovi);
+//		listaTipova.add(testTipovi2);
+//		listaTipova.add(testTipovi3);
+//		biblioteka.setListaTipova(listaTipova);
+//		biblioteka.snimiTipClanarine(TIPOVICLANARINE_FAJL);
 
 //		String id, String ime, String prezime, String jmbg, String adresa, Pol pol, double plata,
 //		String korisnickoIme, String lozinka
 		
 		
 		
-		Bibliotekar testBibliotekar = new Bibliotekar("3","Andjela","Andjelic","07090379878","Bulevar Oslobodjenja 89,Novi Sad",Pol.ZENSKI,false,80000,"andjela24","lozinka");
-		ArrayList <Bibliotekar> listaBibliotekara = new ArrayList <Bibliotekar>();
-		listaBibliotekara.add(testBibliotekar);
-		biblioteka.setListaBibliotekara(listaBibliotekara);
-		biblioteka.snimiBibliotekare(BIBLIOTEKARI_FAJL);
+//		Bibliotekar testBibliotekar = new Bibliotekar("3","Andjela","Andjelic","07090379878","Bulevar Oslobodjenja 89,Novi Sad",Pol.ZENSKI,false,80000,"andjela24","lozinka");
+//		ArrayList <Bibliotekar> listaBibliotekara = new ArrayList <Bibliotekar>();
+//		listaBibliotekara.add(testBibliotekar);
+//		biblioteka.setListaBibliotekara(listaBibliotekara);
+//		biblioteka.snimiBibliotekare(BIBLIOTEKARI_FAJL);
 		
 		//System.out.println(biblioteka.getListaBibliotekara().get(0));
 		
-		Administrator testAdministrator = new Administrator("3","Andjela","Andjelic","07090379878","Bulevar Oslobodjenja 89,Novi Sad",Pol.ZENSKI,false,80000,"andjela24","lozinka");
-		ArrayList <Administrator> listaAdministratora = new ArrayList <Administrator>();
-		listaAdministratora.add(testAdministrator);
-		biblioteka.setListaAdministratora(listaAdministratora);
-		biblioteka.snimiAdministratore(ADMINISTRATORI_FAJL);
+//		Administrator testAdministrator = new Administrator("4","Andjela","Lozanov","07090379878","Bulevar Oslobodjenja 89,Novi Sad",Pol.ZENSKI,false,80000,"andjela2416","lozinka");
+//		ArrayList <Administrator> listaAdministratora = new ArrayList <Administrator>();
+//		listaAdministratora.add(testAdministrator);
+//		biblioteka.setListaAdministratora(listaAdministratora);
+//		biblioteka.snimiAdministratore(ADMINISTRATORI_FAJL);
 		
 
-//		Login lp = new Login(biblioteka);
-//		
-//		lp.setVisible(true);
+		Login lp = new Login(biblioteka);
+		
+		lp.setVisible(true);
 		
 		//System.out.println(biblioteka.getListaAdministratora().get(0));
-		GlavniProzor g=new GlavniProzor(biblioteka,testZaposleni);
-		g.setVisible(true);
+//		GlavniProzor g=new GlavniProzor(biblioteka,testAdministrator);
+//		g.setVisible(true);
 	}
 	
 	
