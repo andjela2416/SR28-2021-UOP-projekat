@@ -71,11 +71,9 @@ public class KnjigeProzor extends JFrame {
 //				polValue = "ZENSKI";
 //			}
 //			Pol pol = Pol.valueOf(polValue);
-			Pol pol = Pol.valueOf(textPol.getText());
+		
 			if (isNum(textId.getText()) == true) {
-				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
-						textJmbg.getText(), textAdresa.getText(), pol, obrisan,textPlataDouble,textKorisnickoIme.getText(),
-						textKorisnickaSifra.getText());
+				Knjiga novi = new Knjiga();
 
 				String[] zaglavlja = new String[] { "ID", "Naslov Knjige", "OriginalNalov", "Pisac", "godina objavljivanja", "jezikoriginala", "opis", " zanr"};
 				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
@@ -93,17 +91,17 @@ public class KnjigeProzor extends JFrame {
 
 				}
 				if (greska != true) {
-					biblioteka.dodajAdministratora(novi);
+					biblioteka.dodajKnjigu(novi);
 					biblioteka.snimiAdministratore("administratori.txt");
 
 					sadrzaj[0] = novi.getId();
-					sadrzaj[1] = novi.getIme();
-					sadrzaj[2] = novi.getPrezime();
-					sadrzaj[3] = novi.getJmbg();
-					sadrzaj[4] = novi.getAdresa();
-					sadrzaj[5] = novi.getPol();
-					sadrzaj[6] = novi.getPlata();
-					sadrzaj[7] = novi.getKorisnickoIme();
+					sadrzaj[1] = novi.getNaslovKnjige();
+					sadrzaj[2] = novi.getOriginalNaslovKnjige();
+					sadrzaj[3] = novi.getPisac();
+					sadrzaj[4] = novi.getGodinaObjavljivanja();
+					sadrzaj[5] = novi.getJezikOriginala();
+					sadrzaj[6] = novi.getOpis();
+					sadrzaj[7] = novi.getZanr();
 				
 					biblioteka.snimiAdministratore("administratori.txt");
 					modelTabele.addRow(sadrzaj);
@@ -187,7 +185,7 @@ public class KnjigeProzor extends JFrame {
 //				}
 //				Pol pol = Pol.valueOf(polValue);
 
-				Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(rowIndex);
+				Knjiga admin = biblioteka.sveNeobrisaneKnjige().get(rowIndex);
 				Knjiga novi = new Knjiga();
 
 //				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
@@ -207,24 +205,24 @@ public class KnjigeProzor extends JFrame {
 				if (greska != true) {
 
 					admin.setId(novi.getId());
-					admin.setIme(novi.getNaslovKnjige());
-					admin.setPrezime(novi.getPrezime());
-					admin.setJmbg(novi.getJmbg());
-					admin.setAdresa(novi.getAdresa());
-					admin.setPol(novi.getPol());
-					admin.setPlata(novi.getPlata());
-					admin.setKorisnickoIme(novi.getKorisnickoIme());
-					admin.setLozinka(novi.getLozinka());
+					admin.setNaslovKnjige(novi.getNaslovKnjige());
+					admin.setOriginalNaslovKnjige(novi.getOriginalNaslovKnjige());
+					admin.setPisac(novi.getPisac());
+					admin.setGodinaObjavljivanja(novi.getGodinaObjavljivanja());
+					admin.setJezikOriginala(novi.getJezikOriginala());
+					admin.setOpis(novi.getOpis());
+					admin.setZanr(novi.getZanr());
+					
 
 					model.setValueAt(admin.getId(), rowIndex, 0);
-					model.setValueAt(admin.getIme(), rowIndex, 1);
-					model.setValueAt(admin.getPrezime(), rowIndex, 2);
-					model.setValueAt(admin.getJmbg(), rowIndex, 3);
-					model.setValueAt(admin.getAdresa(), rowIndex, 4);
-					model.setValueAt(admin.getPol(), rowIndex, 5);
-					model.setValueAt(admin.getPlata(), rowIndex, 6);
-					model.setValueAt(admin.getKorisnickoIme(), rowIndex, 7);
-					model.setValueAt(admin.getLozinka(), rowIndex, 8);
+					model.setValueAt(admin.getNaslovKnjige(), rowIndex, 1);
+					model.setValueAt(admin.getOriginalNaslovKnjige(), rowIndex, 2);
+					model.setValueAt(admin.getPisac(), rowIndex, 3);
+					model.setValueAt(admin.getGodinaObjavljivanja(), rowIndex, 4);
+					model.setValueAt(admin.getJezikOriginala(), rowIndex, 5);
+					model.setValueAt(admin.getOpis(), rowIndex, 6);
+					model.setValueAt(admin.getZanr(), rowIndex, 7);
+				
 
 					biblioteka.snimiAdministratore("administratori.txt");
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
