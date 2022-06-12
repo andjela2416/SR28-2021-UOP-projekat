@@ -5,25 +5,35 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
+
+//import artikli.admin;
 import biblioteka.Biblioteka;
+import bibliotekaMain.BibliotekaMain;
+import projekat.Administrator;
+
 
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 
 public class AdminProzor extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JTable table_1;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -40,7 +50,30 @@ public class AdminProzor extends JFrame {
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_7;
 	private JTextField textField_9;
-
+	private DefaultTableModel tableModel;
+	private JTable adminiTabela;
+	JButton dodaj = new JButton("Dodaj");
+	private Biblioteka biblioteka;
+	JButton obrisi = new JButton("Obrisi");
+	JButton azuriraj = new JButton("Azuriraj");
+	private Administrator admin;
+	JTextField txtid = new JTextField();
+	
+//	public AdminProzor(Biblioteka biblioteka, admin admin) {
+//		this.biblioteka = biblioteka;
+//		this.admin = admin;
+//		if(admin == null) {
+//			setTitle("Dodavanje prodavca");
+//		}else {
+//			setTitle("Izmena podataka - " + admin.getKorisnickoIme());
+//		}
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		setLocationRelativeTo(null);
+//		initGUI();
+//		initActions();
+//		setResizable(false);
+//		pack();
+//	}
 	/**
 	 * Launch the application.
 	 */
@@ -56,13 +89,14 @@ public class AdminProzor extends JFrame {
 			}
 		});
 	}
+	
 
 	/**
 	 * Create the frame.
 	 * @param biblioteka 
 	 */
 	public AdminProzor(Biblioteka biblioteka) {
-		setTitle("Administrator");
+		setTitle("admin");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 900, 584);
         contentPane = new JPanel();
@@ -76,28 +110,60 @@ public class AdminProzor extends JFrame {
         contentPane.add(panel);
         panel.setLayout(null);
 
-        table = new JTable();
-        table.setBounds(78, 42, 421, 420);
-        panel.add(table);
+		
+		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "Jmbg", "Adresa","Pol","Obrisan","Plata","Korisnicko ime","Lozinka"};
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+		
+		 
+		for(int i=0; i<biblioteka.sviNeobrisaniAdministratori().size(); i++) {
+			Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(i);
+            sadrzaj[i][0] = admin.getId();
+            sadrzaj[i][1] = admin.getIme();
+            sadrzaj[i][2] = admin.getPrezime();
+            sadrzaj[i][3] = admin.getJmbg();
+            sadrzaj[i][4] = admin.getAdresa(); 
+            sadrzaj[i][5] = admin.getPol();
+            sadrzaj[i][6] = admin.getPlata();
+            sadrzaj[i][7] = admin.getKorisnickoIme();
+            sadrzaj[i][8] = admin.getLozinka();
+            sadrzaj[i][9] = admin.isObrisan();
+		}
+		
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		adminiTabela = new JTable(tableModel);
+		
+		adminiTabela.setRowSelectionAllowed(true);
+		adminiTabela.setColumnSelectionAllowed(false);
+		adminiTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		adminiTabela.setDefaultEditor(Object.class, null);
+		adminiTabela.getTableHeader().setReorderingAllowed(false);
+		
+		//JScrollPane scrollPane = new JScrollPane(adminiTabela);
+		//add(scrollPane, BorderLayout.CENTER);
+		
+		
+	
+        adminiTabela.setBounds(39, 70, 565, 371);
+        panel.add(adminiTabela);
         
-        JButton btnNewButton = new JButton("Dodaj");
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        btnNewButton.setBounds(39, 489, 109, 38);
-        panel.add(btnNewButton);
         
-        JButton btnNewButton_1 = new JButton("Obrisi");
-        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        btnNewButton_1.setBounds(432, 489, 109, 38);
-        panel.add(btnNewButton_1);
+        dodaj.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        dodaj.setBounds(39, 489, 109, 38);
+        panel.add(dodaj);
         
-        JButton btnNewButton_2 = new JButton("Azuriraj");
-        btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        btnNewButton_2.addActionListener(new ActionListener() {
+        
+        obrisi.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        obrisi.setBounds(432, 489, 109, 38);
+        panel.add(obrisi);
+        
+        
+        azuriraj.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        azuriraj.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
-        btnNewButton_2.setBounds(193, 489, 96, 38);
-        panel.add(btnNewButton_2);
+        azuriraj.setBounds(193, 489, 96, 38);
+        panel.add(azuriraj);
         
         textField = new JTextField();
         textField.setBounds(656, 85, 96, 20);
@@ -139,10 +205,10 @@ public class AdminProzor extends JFrame {
         panel.add(textField_7);
         textField_7.setColumns(10);
         
-        textField_8 = new JTextField();
-        textField_8.setBounds(656, 39, 96, 20);
-        panel.add(textField_8);
-        textField_8.setColumns(10);
+        
+        txtid.setBounds(656, 39, 96, 20);
+        panel.add(txtid);
+        txtid.setColumns(10);
         
         JLabel lblNewLabel = new JLabel("ID:");
         lblNewLabel.setBounds(656, 26, 165, 14);
@@ -189,4 +255,93 @@ public class AdminProzor extends JFrame {
         lblNewLabel_9.setBounds(656, 436, 49, 14);
         panel.add(lblNewLabel_9);
 	}
+	
+	private void initGUI() {
+		
+
+		//add(mainToolbar, BorderLayout.NORTH);
+//		
+//		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "Jmbg", "Adresa","Pol","Obrisan","Plata","Korisnicko ime","Lozinka"};
+//		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+//		
+//		
+//		for(int i=0; i<biblioteka.sviNeobrisaniAdministratori().size(); i++) {
+//			Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(i);
+//            sadrzaj[i][0] = admin.getId();
+//            sadrzaj[i][1] = admin.getIme();
+//            sadrzaj[i][2] = admin.getPrezime();
+//            sadrzaj[i][3] = admin.getJmbg();
+//            sadrzaj[i][4] = admin.getAdresa();
+//            sadrzaj[i][5] = admin.getPol();
+//            sadrzaj[i][6] = admin.getPlata();
+//            sadrzaj[i][7] = admin.getKorisnickoIme();
+//            sadrzaj[i][8] = admin.getLozinka();
+//		}
+//		
+//		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+//		adminiTabela = new JTable(tableModel);
+//		
+//		adminiTabela.setRowSelectionAllowed(true);
+//		adminiTabela.setColumnSelectionAllowed(false);
+//		adminiTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		adminiTabela.setDefaultEditor(Object.class, null);
+//		adminiTabela.getTableHeader().setReorderingAllowed(false);
+//		
+//		JScrollPane scrollPane = new JScrollPane(adminiTabela);
+//		add(scrollPane, BorderLayout.CENTER);
+//		table.add(scrollPane);
+	}
+
+	private void initActions() {
+//		obrisi.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				int red = AdminProzor.getSelectedRow();
+//				if(red == -1) {
+//					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+//				}else {
+//					String adminID = tableModel.getValueAt(red, 0).toString();
+//					admin admin = biblioteka.nadjiZaposlenog();
+//					int izbor = JOptionPane.showConfirmDialog(null, 
+//							"Da li ste sigurni da zelite da obrisete admin?", 
+//							adminID + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
+//					if(izbor == JOptionPane.YES_OPTION) {
+//						admin.setObrisan(true);
+//						tableModel.removeRow(red);
+//						biblioteka.snimiadminove(bibliotekaMain.adminOVI_FAJL);
+//					}
+//				}
+//			}
+//		});
+		
+		dodaj.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AdminProzor df = new AdminProzor(biblioteka);
+				df.setVisible(true);
+			}
+		}); 
+//		
+//		azuriraj.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				int red = adminoviTabela.getSelectedRow();
+//				if(red == -1) {
+//					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+//				}else {
+//					String adminID = tableModel.getValueAt(red, 0).toString();
+//					admin admin = biblioteka.pronadjiadmin(adminID);
+//					adminoviForma df = new adminoviForma(biblioteka, admin);
+//					df.setVisible(true);
+//				}
+//			}
+//		});
+	}
+//	private void popuniPolja() {
+//		txtIme.setText(prodavac.getIme());
+//		txtPrezime.setText(prodavac.getPrezime());
+//		txtKorisnickoIme.setText(prodavac.getKorisnickoIme());
+//		pfSifra.setText(prodavac.getLozinka());
+//		cbPol.setSelectedItem(prodavac.getPol());
+//	}
 }

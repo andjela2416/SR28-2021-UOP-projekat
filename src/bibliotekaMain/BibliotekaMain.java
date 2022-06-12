@@ -41,9 +41,7 @@ public class BibliotekaMain {
 		
 		
 		
-		//Login lp = new Login(biblioteka);
 		
-		//lp.setVisible(true);
 		
 		biblioteka.ucitajTip(TIPOVICLANARINE_FAJL);
 		biblioteka.ucitajClanove(CLANOVI_FAJL);
@@ -155,6 +153,11 @@ public class BibliotekaMain {
 		listaAdministratora.add(testAdministrator);
 		biblioteka.setListaAdministratora(listaAdministratora);
 		biblioteka.snimiAdministratore(ADMINISTRATORI_FAJL);
+		
+
+//		Login lp = new Login(biblioteka);
+//		
+//		lp.setVisible(true);
 		
 		//System.out.println(biblioteka.getListaAdministratora().get(0));
 		GlavniProzor g=new GlavniProzor(biblioteka,testZaposleni);

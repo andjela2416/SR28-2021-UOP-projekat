@@ -8,10 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
+import projekat.Zanr;
+
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -22,6 +26,9 @@ public class ZanrProzor extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private DefaultTableModel tableModel;
+	private JTable zanroviTabela;
+	private Biblioteka biblioteka;
 
 	/**
 	 * Launch the application.
@@ -59,11 +66,38 @@ public class ZanrProzor extends JFrame {
         panel.setBounds(0, 0, 884, 545);
         contentPane.add(panel);
         panel.setLayout(null);
+    	String[] zaglavlja = new String[] {"oznaka","opis","obrisan"};
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniZanrovi().size()][zaglavlja.length];
+		
+		 
+		for(int i=0; i<biblioteka.sviNeobrisaniZanrovi().size(); i++) {
+			Zanr zanr = biblioteka.sviNeobrisaniZanrovi().get(i);
+            sadrzaj[i][0] = zanr.getOznaka();
+            sadrzaj[i][1] = zanr.getOpis();
+            sadrzaj[i][2] = zanr.isObrisan();
+		}
+		
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		zanroviTabela = new JTable(tableModel);
+		
+		zanroviTabela.setRowSelectionAllowed(true);
+		zanroviTabela.setColumnSelectionAllowed(false);
+		zanroviTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		zanroviTabela.setDefaultEditor(Object.class, null);
+		zanroviTabela.getTableHeader().setReorderingAllowed(false);
+		
+		//JScrollPane scrollPane = new JScrollPane(zanroviTabela);
+		//add(scrollPane, BorderLayout.CENTER);
+		
+		
+	
+        zanroviTabela.setBounds(39, 70, 565, 371);
+        panel.add(zanroviTabela);
 
-        JTable table = new JTable();
-        table.setBackground(Color.WHITE);
-        table.setBounds(91, 26, 406, 405);
-        panel.add(table);
+//        JTable table = new JTable();
+//        table.setBackground(Color.WHITE);
+//        table.setBounds(91, 26, 406, 405);
+//        panel.add(table);
         
         textField = new JTextField();
         textField.setBounds(637, 157, 96, 20);

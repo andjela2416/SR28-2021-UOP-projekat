@@ -14,6 +14,8 @@ import projekat.Zaposleni;
 import biblioteka.Biblioteka;
 import net.miginfocom.swing.MigLayout;
 
+
+
 public class Login extends JFrame {
 
 	private JLabel lblGreeting = new JLabel("Dobrodosli. Molimo da se prijavite.");
@@ -26,12 +28,13 @@ public class Login extends JFrame {
 	
 	private Biblioteka biblioteka;
 	
+	
 	public Login(Biblioteka biblioteka) {
 		this.biblioteka = biblioteka;
 		setTitle("Prijava");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		initGUI();
+		//initGUI();
 		initActions();
 		pack();
 	}

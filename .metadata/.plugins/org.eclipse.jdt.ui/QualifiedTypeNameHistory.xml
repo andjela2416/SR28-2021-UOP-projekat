@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="projekat.ClanBiblioteke"/>
+    <fullyQualifiedTypeName name="projekat.Tip"/>
+    <fullyQualifiedTypeName name="projekat.Zanr"/>
+    <fullyQualifiedTypeName name="projekat.Knjiga"/>
+    <fullyQualifiedTypeName name="projekat.PrimerakKnjige"/>
+    <fullyQualifiedTypeName name="projekat.IzdavanjeKnjige"/>
+    <fullyQualifiedTypeName name="guiProzori.GlavniProzor"/>
+    <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
+    <fullyQualifiedTypeName name="java.io.FileWriter"/>
+    <fullyQualifiedTypeName name="projekat.Pol"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="guiProzori.Login"/>
+    <fullyQualifiedTypeName name="gui.formeZaPrikaz.KnjigeProzor"/>
+    <fullyQualifiedTypeName name="projekat.Zaposleni"/>
+    <fullyQualifiedTypeName name="biblioteka.Biblioteka"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="javax.swing.JTable"/>
+    <fullyQualifiedTypeName name="net.miginfocom.swing.MigLayout"/>
+    <fullyQualifiedTypeName name="projekat.Bibliotekar"/>
+    <fullyQualifiedTypeName name="projekat.Administrator"/>
+</qualifiedTypeNameHistroy>

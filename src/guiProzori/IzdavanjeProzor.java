@@ -8,12 +8,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
+import projekat.ClanBiblioteke;
+import projekat.IzdavanjeKnjige;
+import projekat.PrimerakKnjige;
+import projekat.Zaposleni;
+
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.time.LocalDate;
+
 import javax.swing.JLabel;
 
 public class IzdavanjeProzor extends JFrame {
@@ -25,6 +34,9 @@ public class IzdavanjeProzor extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private DefaultTableModel tableModel;
+	private JTable izdavanjeTabela;
+	private Biblioteka biblioteka;
 
 	/**
 	 * Launch the application.
@@ -60,10 +72,44 @@ public class IzdavanjeProzor extends JFrame {
         panel.setBounds(0, 0, 884, 545);
         contentPane.add(panel);
         panel.setLayout(null);
+        
 
-        JTable table = new JTable();
-        table.setBounds(80, 26, 417, 418);
-        panel.add(table);
+		String[] zaglavlja = new String[] {"datumIznajmljivanja", " datumVracanja", "primerak",
+				" zaposleni", "clan", "obrisan"};
+		Object[][] sadrzaj = new Object[biblioteka.svaNeobrisanaIzdavanja().size()][zaglavlja.length];
+		
+		 
+		for(int i=0; i<biblioteka.svaNeobrisanaIzdavanja().size(); i++) {
+			IzdavanjeKnjige izdavanje = biblioteka.svaNeobrisanaIzdavanja().get(i);
+            sadrzaj[i][0] = izdavanje.getDatumIznajmljivanja();
+            sadrzaj[i][1] = izdavanje.getDatumVracanja();
+            sadrzaj[i][2] = izdavanje.getPrimerak();
+            sadrzaj[i][3] = izdavanje.getZaposleni();
+            sadrzaj[i][4] = izdavanje.getClan(); 
+            sadrzaj[i][5] = izdavanje.isObrisan();
+      
+		}
+		
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		izdavanjeTabela = new JTable(tableModel);
+		
+		izdavanjeTabela.setRowSelectionAllowed(true);
+		izdavanjeTabela.setColumnSelectionAllowed(false);
+		izdavanjeTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		izdavanjeTabela.setDefaultEditor(Object.class, null);
+		izdavanjeTabela.getTableHeader().setReorderingAllowed(false);
+		
+		//JScrollPane scrollPane = new JScrollPane(izdavanjeTabela);
+		//add(scrollPane, BorderLayout.CENTER);
+		
+		
+	
+        izdavanjeTabela.setBounds(39, 70, 565, 371);
+        panel.add(izdavanjeTabela);
+
+//        JTable table = new JTable();
+//        table.setBounds(80, 26, 417, 418);
+//        panel.add(table);
         
         textField = new JTextField();
         textField.setBounds(652, 70, 96, 20);

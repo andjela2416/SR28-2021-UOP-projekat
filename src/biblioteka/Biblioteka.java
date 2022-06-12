@@ -76,6 +76,13 @@ public class Biblioteka {
 	public void setListaIzdavanja(ArrayList<IzdavanjeKnjige> listaIzdavanja) {
 		this.listaIzdavanja = listaIzdavanja;
 	}
+	public void dodajIzdavanjeKnjige(IzdavanjeKnjige izdavanje) {
+		this.listaIzdavanja.add(izdavanje);
+	}
+
+	public void obrisiIzdavanjeKnjige(IzdavanjeKnjige izdavanje) {
+		this.listaIzdavanja.remove(izdavanje);
+	}
 
 	public ArrayList<PrimerakKnjige> getListaPrimeraka() {
 		return listaPrimeraka;
@@ -83,6 +90,13 @@ public class Biblioteka {
 
 	public void setListaPrimeraka(ArrayList<PrimerakKnjige> listaPrimeraka) {
 		this.listaPrimeraka = listaPrimeraka;
+	}
+	public void dodajPrimerakKnjige(PrimerakKnjige primerak) {
+		this.listaPrimeraka.add(primerak);
+	}
+
+	public void obrisiPrimerakKnjige(PrimerakKnjige primerak) {
+		this.listaPrimeraka.remove(primerak);
 	}
 
 	public ArrayList<Knjiga> getListaKnjiga() {
@@ -92,6 +106,13 @@ public class Biblioteka {
 	public void setListaKnjiga(ArrayList<Knjiga> listaKnjiga) {
 		this.listaKnjiga = listaKnjiga;
 	}
+	public void dodajKnjigu(Knjiga knjiga) {
+		this.listaKnjiga.add(knjiga);
+	}
+
+	public void obrisiKnjigu(Knjiga knjiga) {
+		this.listaKnjiga.remove(knjiga);
+	}
 
 	public ArrayList<Zanr> getListaZanrova() {
 		return listaZanrova;
@@ -99,6 +120,13 @@ public class Biblioteka {
 
 	public void setListaZanrova(ArrayList<Zanr> listaZanrova) {
 		this.listaZanrova = listaZanrova;
+	}
+	public void dodajZanr(Zanr zanr) {
+		this.listaZanrova.add(zanr);
+	}
+
+	public void obrisiZanr(Zanr zanr) {
+		this.listaZanrova.remove(zanr);
 	}
 
 	public ArrayList<ClanBiblioteke> getListaClanova() {
@@ -108,13 +136,27 @@ public class Biblioteka {
 	public void setListaClanova(ArrayList<ClanBiblioteke> listaClanova) {
 		this.listaClanova = listaClanova;
 	}
+	
+	public void dodajClana(ClanBiblioteke clan) {
+		this.listaClanova.add(clan);
+	}
 
+	public void obrisiClana(ClanBiblioteke clan) {
+		this.listaClanova.remove(clan);
+	}
 	public ArrayList<Tip> getListaTipova() {
 		return listaTipova;
 	}
 
 	public void setListaTipova(ArrayList<Tip> listaTipova) {
 		this.listaTipova = listaTipova;
+	}
+	public void dodajTip(Tip tip) {
+		this.listaTipova.add(tip);
+	}
+
+	public void obrisiTip(Tip tip) {
+		this.listaTipova.remove(tip);
 	}
 
 	public ArrayList<Administrator> getListaAdministratora() {
@@ -124,6 +166,13 @@ public class Biblioteka {
 	public void setListaAdministratora(ArrayList<Administrator> listaAdministratora) {
 		this.listaAdministratora = listaAdministratora;
 	}
+	public void dodajAdministratora(Administrator admin) {
+		this.listaAdministratora.add(admin);
+	}
+
+	public void obrisiAdministratora(Administrator admin) {
+		this.listaAdministratora.remove(admin);
+	}
 
 	public ArrayList<Bibliotekar> getListaBibliotekara() {
 		return listaBibliotekara;
@@ -132,6 +181,7 @@ public class Biblioteka {
 	public void setListaBibliotekara(ArrayList<Bibliotekar> listaBibliotekara) {
 		this.listaBibliotekara = listaBibliotekara;
 	}
+
 
 	public ArrayList<Zaposleni> getListaZaposlenih() {
 		return listaZaposlenih;
@@ -148,8 +198,150 @@ public class Biblioteka {
 	public void obrisiBibliotekara(Bibliotekar bibliotekar) {
 		this.listaBibliotekara.remove(bibliotekar);
 	}
+	public ArrayList<Knjiga> sveNeobrisaneKnjige() {
+		ArrayList<Knjiga> neobrisane = new ArrayList<Knjiga>();
+		for(Knjiga knjiga : this.listaKnjiga) {
+			if(!knjiga.isObrisan()) {
+				neobrisane.add(knjiga);
+			}
+		}
+		return neobrisane;
+		
+	}
+	public Knjiga pronadjiKnjigu(String id) {
+		for (Knjiga knjiga : sveNeobrisaneKnjige()) {
+			if(knjiga.getId().equals(id)) {
+				return knjiga;
+			}
+		}
+		return null;
+	}
+	public ArrayList<ClanBiblioteke> sviNeobrisaniClanovi() {
+		ArrayList<ClanBiblioteke> neobrisani = new ArrayList<ClanBiblioteke>();
+		for (ClanBiblioteke clan : this.listaClanova) {
+			if(!clan.isObrisan()) {
+				neobrisani.add(clan);
+			}
+		}
+		return neobrisani;
+	}
+	public ClanBiblioteke pronadjiClana(String id) {
+		for (ClanBiblioteke clan : sviNeobrisaniClanovi()) {
+			if(clan.getId().equals(id)) {
+				return clan;
+			}
+		}
+		return null;
+	}
+	public ArrayList<PrimerakKnjige> sviNeobrisaniPrimerciKnjiga() {
+		ArrayList<PrimerakKnjige> neobrisani = new ArrayList<PrimerakKnjige>();
+		for (PrimerakKnjige primerak : this.listaPrimeraka) {
+			if(!primerak.isObrisan()) {
+				neobrisani.add(primerak);
+			}
+		}
+		return neobrisani;
+	}
+	public PrimerakKnjige pronadjiPrimerak(String id) {
+		for (PrimerakKnjige primerak : sviNeobrisaniPrimerciKnjiga()) {
+			if(primerak.getId().equals(id)) {
+				return primerak;
+			}
+		}
+		return null;
+	}
 
-
+	public ArrayList<Bibliotekar> sviNeobrisaniBibliotekari() {
+		ArrayList<Bibliotekar> neobrisani = new ArrayList<Bibliotekar>();
+		for (Bibliotekar bibliotekar : this.listaBibliotekara) {
+			if(!bibliotekar.isObrisan()) {
+				neobrisani.add(bibliotekar);
+			}
+		}
+		return neobrisani;
+	}
+	public Bibliotekar pronadjiBibliotekara(String id) {
+		for (Bibliotekar bibliotekar : sviNeobrisaniBibliotekari() ){
+			if(bibliotekar.getId().equals(id)) {
+				return bibliotekar;
+			}
+		}
+		return null;
+	}
+	public ArrayList<Administrator> sviNeobrisaniAdministratori() {
+		ArrayList<Administrator> neobrisani = new ArrayList<Administrator>();
+		for (Administrator admin: this.listaAdministratora) {
+			if(!admin.isObrisan()) {
+				neobrisani.add(admin);
+			}
+		}
+		return neobrisani;
+	}
+	public Administrator pronadjiAdministratora(String id) {
+		for (Administrator administrator : sviNeobrisaniAdministratori()) {
+			if(administrator.getId().equals(id)) {
+				return administrator;
+			}
+		}
+		return null;
+	}
+	public ArrayList<IzdavanjeKnjige> svaNeobrisanaIzdavanja() {
+		ArrayList<IzdavanjeKnjige> neobrisani = new ArrayList<IzdavanjeKnjige>();
+		for (IzdavanjeKnjige izdavanje: this.listaIzdavanja) {
+			if(!izdavanje.isObrisan()) {
+				neobrisani.add(izdavanje);
+			}
+		}
+		return neobrisani;
+	}
+//	public IzdavanjeKnjige pronadjiIzdavanje(String id) {
+//		for (IzdavanjeKnjige izdavanje : svaNeobrisanaIzdavanja()) {
+//			if(izdavanje.getId().equals(id)) {
+//				return izdavanje;
+//			}																	
+//		}
+//		return null;
+//	}
+	public ArrayList<Tip> sviNeobrisaniTipovi() {
+		ArrayList<Tip> neobrisani = new ArrayList<Tip>();
+		for (Tip tipclanarine: this.listaTipova) {
+			if(!tipclanarine.isObrisan()) {
+				neobrisani.add(tipclanarine);
+			}
+		}
+		return neobrisani;
+	}
+	public Tip nadjiTip(String id) {
+        Tip trazeni = null;
+        //System.out.println(this.listaTipova);
+        for(Tip t:sviNeobrisaniTipovi()) {
+            if (t.getId().equals(id)) {
+                trazeni = t;
+            }
+        }
+        return trazeni;
+        }
+	public ArrayList<Zanr> sviNeobrisaniZanrovi() {
+		ArrayList<Zanr> neobrisani = new ArrayList<Zanr>();
+		for (Zanr zanrknjige: this.listaZanrova) {
+			if(!zanrknjige.isObrisan()) {
+				neobrisani.add(zanrknjige);
+			}
+		}
+		return neobrisani;
+		
+	}
+	public Zanr nadjiZanr(String id) {
+        Zanr trazeni = null;
+        for(int i = 0; i < sviNeobrisaniZanrovi().size(); i++) {
+            if (sviNeobrisaniZanrovi().get(i).getOznaka().equals(id)) {
+                trazeni =sviNeobrisaniZanrovi().get(i);
+            }
+        }
+        return trazeni;                          ////////vidi da li radi!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+        }
+	
+	
 	public Biblioteka(String naziv, String adresa, String telefon, String radnoVreme,
 			ArrayList<IzdavanjeKnjige> listaIzdavanja, ArrayList<PrimerakKnjige> listaPrimeraka,
 			ArrayList<Knjiga> listaKnjiga, ArrayList<Zanr> listaZanrova, ArrayList<ClanBiblioteke> listaClanova,
@@ -298,15 +490,15 @@ public class Biblioteka {
             System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
         }
     }
-	public Zanr nadjiZanr(String id) {
-        Zanr trazeni = null;
-        for(int i = 0; i < this.listaZanrova.size(); i++) {
-            if (this.listaZanrova.get(i).getOznaka().equals(id)) {
-                trazeni = this.listaZanrova.get(i);
-            }
-        }
-        return trazeni;
-        }
+//	public Zanr nadjiZanr(String id) {
+//        Zanr trazeni = null;
+//        for(int i = 0; i < this.listaZanrova.size(); i++) {
+//            if (this.listaZanrova.get(i).getOznaka().equals(id)) {
+//                trazeni = this.listaZanrova.get(i);
+//            }
+//        }
+//        return trazeni;
+//        }
 	public void ucitajClanove(String CLANOVI_FAJL) {
         try {
             File clanoviFile = new File("fajlovi/clanovi.txt");
@@ -335,16 +527,16 @@ public class Biblioteka {
             System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
         }
     }
-	public Tip nadjiTip(String id) {
-        Tip trazeni = null;
-        //System.out.println(this.listaTipova);
-        for(Tip t:this.listaTipova) {
-            if (t.getId().equals(id)) {
-                trazeni = t;
-            }
-        }
-        return trazeni;
-        }
+//	public Tip nadjiTip(String id) {
+//        Tip trazeni = null;
+//        //System.out.println(this.listaTipova);
+//        for(Tip t:this.listaTipova) {
+//            if (t.getId().equals(id)) {
+//                trazeni = t;
+//            }
+//        }
+//        return trazeni;
+//        }
 	public void ucitajPrimerkeKnjiga(String pRIMERCIKNJIGA_FAJL) {
         try {
             File primerciKnjigaFile = new File("fajlovi/primerciKnjiga.txt");
@@ -477,14 +669,14 @@ public class Biblioteka {
 		}
 		return null;
 	}
-	public PrimerakKnjige pronadjiPrimerak(String id) {
-		for (PrimerakKnjige primerak : this.listaPrimeraka) {
-			if(primerak.getId().equals(id)) {
-				return primerak;
-			}
-		}
-		return null;
-	}
+//	public PrimerakKnjige pronadjiPrimerak(String id) {
+//		for (PrimerakKnjige primerak : this.listaPrimeraka) {
+//			if(primerak.getId().equals(id)) {
+//				return primerak;
+//			}
+//		}
+//		return null;
+//	}
 
 	
 	public void ucitajZanrove(String imeFajla) {
@@ -673,14 +865,39 @@ public class Biblioteka {
 			System.out.println(e);
 		}
 	}
+//	public Zaposleni login(String korisnickoIme, String lozinka) {
+//		for(Zaposleni zaposleni : listaZaposlenih) {
+//			if(zaposleni.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) &&
+//					zaposleni.getLozinka().equals(lozinka) && !zaposleni.isObrisan()) {
+//				return zaposleni;
+//			}
+//		}
+//		return null;
+//	}
 	public Zaposleni login(String korisnickoIme, String lozinka) {
-		for(Zaposleni zaposleni : listaZaposlenih) {
-			if(zaposleni.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) &&
-					zaposleni.getLozinka().equals(lozinka) && !zaposleni.isObrisan()) {
-				return zaposleni;
+		Zaposleni zaposleni = null;
+		this.ucitajAdministratore("administratori.txt");
+		this.ucitajBibliotekare("bibliotekari.txt");
+		for (Administrator a:this.listaAdministratora) {
+			
+			if (a.getKorisnickoIme().equals(korisnickoIme) && zaposleni.getLozinka().equals(lozinka) && !zaposleni.isObrisan()) {
+				zaposleni = a;
+				//System.out.println(zaposleni);
+				
 			}
 		}
-		return null;
+		if (zaposleni==null) {
+			for (Bibliotekar a:this.listaBibliotekara) {
+				
+				if (a.getKorisnickoIme().equals(korisnickoIme) && zaposleni.getLozinka().equals(lozinka) && !zaposleni.isObrisan()) {
+					
+					zaposleni = a;
+				}
+			}
+			
+		}
+		//System.out.println(zaposleni);
+		return zaposleni;
 	}
 
 

@@ -1,0 +1,55 @@
+package guiProzori;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+
+public class ClanProzor extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ClanProzor frame = new ClanProzor();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 * @param table 
+	 */
+	public ClanProzor(JTable table) {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 900, 584);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(0, 100, 0));
+        panel.setBounds(0, 0, 884, 545);
+        contentPane.add(panel);
+        panel.setLayout(null);
+
+        table = new JTable();
+        table.setBounds(22, 26, 475, 473);
+        panel.add(table);
+	}
+
+}

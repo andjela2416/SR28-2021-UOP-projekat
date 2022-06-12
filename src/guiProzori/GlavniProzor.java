@@ -261,7 +261,7 @@ public class GlavniProzor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ClanProzor dp = new ClanProzor(biblioteka);
-				dp.setVisible(true);
+				dp.setVisible(true); 
 			}
 		});
 		

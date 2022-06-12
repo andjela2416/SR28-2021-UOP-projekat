@@ -8,11 +8,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
+import projekat.Knjiga;
+import projekat.PrimerakKnjige;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
 import java.awt.Font;
 import javax.swing.JLabel;
 
@@ -27,6 +32,10 @@ public class PrimerakProzor extends JFrame {
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
+	private DefaultTableModel tableModel;
+	private JTable primerciTabela;
+	private Biblioteka biblioteka;
+
 
 	/**
 	 * Launch the application.
@@ -63,9 +72,44 @@ public class PrimerakProzor extends JFrame {
         contentPane.add(panel);
         panel.setLayout(null);
 
-        JTable table = new JTable();
-        table.setBounds(108, 50, 367, 376);
-        panel.add(table);
+		String[] zaglavlja = new String[] {"id", "brojStrana", "mekPovez","godinaStampanja","jezikStampanja",
+				"iznajmljena", " knjiga","obrisan"};
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimerciKnjiga().size()][zaglavlja.length];
+		
+		 
+		for(int i=0; i<biblioteka.sviNeobrisaniPrimerciKnjiga().size(); i++) {
+			PrimerakKnjige primerak = biblioteka.sviNeobrisaniPrimerciKnjiga().get(i);
+            sadrzaj[i][0] = primerak.getId();
+            sadrzaj[i][1] = primerak.getBrojStrana();
+            sadrzaj[i][2] = primerak.isMekPovez();
+            sadrzaj[i][3] = primerak.getGodinaStampanja();
+            sadrzaj[i][4] = primerak.getJezikStampanja(); 
+            sadrzaj[i][5] = primerak.isIznajmljena();
+            sadrzaj[i][6] = primerak.getKnjiga();
+            sadrzaj[i][7] = primerak.isObrisan();
+         
+		}
+		
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		primerciTabela = new JTable(tableModel);
+		
+		primerciTabela.setRowSelectionAllowed(true);
+		primerciTabela.setColumnSelectionAllowed(false);
+		primerciTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		primerciTabela.setDefaultEditor(Object.class, null);
+		primerciTabela.getTableHeader().setReorderingAllowed(false);
+		
+		//JScrollPane scrollPane = new JScrollPane(primerciTabela);
+		//add(scrollPane, BorderLayout.CENTER);
+		
+		
+	
+        primerciTabela.setBounds(39, 70, 565, 371);
+        panel.add(primerciTabela);
+
+//        JTable table = new JTable();
+//        table.setBounds(108, 50, 367, 376);
+//        panel.add(table);
         
         JButton btnNewButton = new JButton("Dodaj");
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));

@@ -8,12 +8,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
+import projekat.ClanBiblioteke;
+
 
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 
 public class ClanProzor extends JFrame {
@@ -31,11 +35,15 @@ public class ClanProzor extends JFrame {
 	private JTextField textField_9;
 	private JTextField textField_10;
 	private JTextField textField_11;
+	private DefaultTableModel tableModel;
+	private JTable clanoviTabela;
+	private Biblioteka biblioteka;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -67,10 +75,43 @@ public class ClanProzor extends JFrame {
         panel.setBounds(0, 0, 884, 545);
         contentPane.add(panel);
         panel.setLayout(null);
-
-        JTable table = new JTable();
-        table.setBounds(67, 26, 430, 440);
-        panel.add(table);
+        
+    	String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "Jmbg", "Adresa","Pol","Obrisan","Plata","Korisnicko ime","Lozinka","aktivan","tip"};
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniClanovi().size()][zaglavlja.length];
+		
+		 
+		for(int i=0; i<biblioteka.sviNeobrisaniClanovi().size(); i++) {
+			ClanBiblioteke clan = biblioteka.sviNeobrisaniClanovi().get(i);
+            sadrzaj[i][0] = clan.getId();
+            sadrzaj[i][1] = clan.getIme();
+            sadrzaj[i][2] = clan.getPrezime();
+            sadrzaj[i][3] = clan.getJmbg();
+            sadrzaj[i][4] = clan.getAdresa(); 
+            sadrzaj[i][5] = clan.getPol();
+            sadrzaj[i][6] = clan.isObrisan();
+            sadrzaj[i][7] = clan.getBrojClanskeKarte();
+            sadrzaj[i][8] = clan.getDatumPoslUplate();
+            sadrzaj[i][9] = clan.getBrojMeseciClan();
+            sadrzaj[i][10] = clan.isAktivan();
+            sadrzaj[i][11] = clan.getTip();
+		}
+		
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		clanoviTabela = new JTable(tableModel);
+		
+		clanoviTabela.setRowSelectionAllowed(true);
+		clanoviTabela.setColumnSelectionAllowed(false);
+		clanoviTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		clanoviTabela.setDefaultEditor(Object.class, null);
+		clanoviTabela.getTableHeader().setReorderingAllowed(false);
+		
+		//JScrollPane scrollPane = new JScrollPane(clanoviTabela);
+		//add(scrollPane, BorderLayout.CENTER);
+		
+		
+	
+        clanoviTabela.setBounds(39, 70, 565, 371);
+        panel.add(clanoviTabela);
         
         JButton btnNewButton = new JButton("Dodaj");
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));

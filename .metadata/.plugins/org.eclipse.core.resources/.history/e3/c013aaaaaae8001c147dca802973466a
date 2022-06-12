@@ -1,0 +1,106 @@
+package guiProzori;
+
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import biblioteka.Biblioteka;
+import guiProzori.GlavniProzor;
+import guiProzori.Login;
+//import net.miginfocom.swing.MigLayout;
+import projekat.Zaposleni;
+
+public class Login extends JFrame {
+Image icon = Toolkit.getDefaultToolkit().getImage("src/slike/61457.png");    
+	
+	private JLabel lbPoruka = new JLabel("MOLIMO DA SE PRIJAVITE:");
+	private JLabel lbKorisnickoIme = new JLabel("KorisniÄ�ko ime");
+	private JTextField txtKorisnickoIme = new JTextField(20);
+	private JLabel lbLozinka = new JLabel("Lozinka");
+	private JPasswordField pfLozinka = new JPasswordField(20);
+	private JButton btnOk = new JButton("OK");
+	private JButton btnCancel = new JButton("Cancel");
+	
+	private Biblioteka biblioteka;
+	
+	
+	public Login(Biblioteka biblioteka) {
+		setResizable(false);
+		getContentPane().setBackground(new Color(240, 248, 255));
+		this.biblioteka = biblioteka;
+		setTitle("PRIJAVA");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setIconImage(icon);
+		initGUI();
+		initActions();
+		pack();
+		
+	}
+
+//	private void initGUI() {
+//		
+//		MigLayout mig = new MigLayout("wrap 1", "[]", "15[]20[]10[]10[]");
+//		getContentPane().setLayout(mig);
+//		
+//		getContentPane().add(lbPoruka);
+//		getContentPane().add(lbKorisnickoIme);
+//		getContentPane().add(txtKorisnickoIme);
+//		getContentPane().add(lbLozinka);
+//		getContentPane().add(pfLozinka);
+//		getContentPane().add(new JLabel());
+//		getContentPane().add(btnOk, "split 2");
+//		getContentPane().add(btnCancel);
+//		
+//		txtKorisnickoIme.setText("petarp");
+//		pfLozinka.setText("12345");
+//		getRootPane().setDefaultButton(btnOk);
+//		
+//	}
+
+	private void initActions() {
+		
+		btnCancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Login.this.dispose();
+				Login.this.setVisible(false);
+			}
+		});
+		
+		btnOk.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String korisnikoIme = txtKorisnickoIme.getText().trim();
+				String lozinka = new String(pfLozinka.getPassword()).trim();
+				
+				if(korisnikoIme.equals("") || lozinka.equals("")) {
+					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za prijavu!", "GreÅ¡ka", JOptionPane.WARNING_MESSAGE);
+				}else {
+					Zaposleni prijavljeni = biblioteka.login(korisnikoIme, lozinka);
+					if(prijavljeni == null) {
+						JOptionPane.showMessageDialog(null, "PogreÅ¡ni login podaci!", "GreÅ¡ka", JOptionPane.WARNING_MESSAGE);
+					}else {
+						Login.this.dispose();
+						Login.this.setVisible(false);
+						GlavniProzor gp = new GlavniProzor(biblioteka, prijavljeni);
+						gp.setVisible(true);
+					}
+				}
+			}
+		});
+		
+		
+	}
+
+
+}

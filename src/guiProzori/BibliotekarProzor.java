@@ -8,11 +8,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
+import projekat.Bibliotekar;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
 import java.awt.Font;
 import javax.swing.JLabel;
 
@@ -39,6 +43,9 @@ public class BibliotekarProzor extends JFrame {
 	private JLabel lblNewLabel_7;
 	private JLabel lblNewLabel_8;
 	private JLabel lblNewLabel_9;
+	private DefaultTableModel tableModel;
+	private JTable bibliotekariTabela;
+	private Biblioteka biblioteka;
 
 	/**
 	 * Launch the application.
@@ -75,10 +82,46 @@ public class BibliotekarProzor extends JFrame {
         panel.setBounds(0, 0, 884, 545);
         contentPane.add(panel);
         panel.setLayout(null);
+        
 
-        JTable table = new JTable();
-        table.setBounds(70, 26, 427, 425);
-        panel.add(table);
+		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "Jmbg", "Adresa","Pol","Obrisan","Plata","Korisnicko ime","Lozinka"};
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniBibliotekari().size()][zaglavlja.length];
+		
+		 
+		for(int i=0; i<biblioteka.sviNeobrisaniBibliotekari().size(); i++) {
+			Bibliotekar bibliotekar = biblioteka.sviNeobrisaniBibliotekari().get(i);
+            sadrzaj[i][0] = bibliotekar.getId();
+            sadrzaj[i][1] = bibliotekar.getIme();
+            sadrzaj[i][2] = bibliotekar.getPrezime();
+            sadrzaj[i][3] = bibliotekar.getJmbg();
+            sadrzaj[i][4] = bibliotekar.getAdresa(); 
+            sadrzaj[i][5] = bibliotekar.getPol();
+            sadrzaj[i][6] = bibliotekar.getPlata();
+            sadrzaj[i][7] = bibliotekar.getKorisnickoIme();
+            sadrzaj[i][8] = bibliotekar.getLozinka();
+            sadrzaj[i][9] = bibliotekar.isObrisan();
+		}
+		
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		bibliotekariTabela = new JTable(tableModel);
+		
+		bibliotekariTabela.setRowSelectionAllowed(true);
+		bibliotekariTabela.setColumnSelectionAllowed(false);
+		bibliotekariTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		bibliotekariTabela.setDefaultEditor(Object.class, null);
+		bibliotekariTabela.getTableHeader().setReorderingAllowed(false);
+		
+		//JScrollPane scrollPane = new JScrollPane(bibliotekariTabela);
+		//add(scrollPane, BorderLayout.CENTER);
+		
+		
+	
+        bibliotekariTabela.setBounds(39, 70, 565, 371);
+        panel.add(bibliotekariTabela);
+
+//        JTable table = new JTable();
+//        table.setBounds(70, 26, 427, 425);
+//        panel.add(table);
         
         JButton btnNewButton = new JButton("Dodaj");
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 17));

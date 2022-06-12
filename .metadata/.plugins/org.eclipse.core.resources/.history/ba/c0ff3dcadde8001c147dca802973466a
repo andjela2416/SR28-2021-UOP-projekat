@@ -1,0 +1,213 @@
+//package guiProzori;
+//import biblioteka.Biblioteka;
+//import guiProzori.GlavniProzor;
+////import net.miginfocom.swing.MigLayout;
+//import projekat.Zaposleni;
+//
+//import java.awt.BorderLayout;
+//import java.awt.EventQueue;
+//
+//import javax.swing.JFrame;
+//import javax.swing.JPanel;
+//import javax.swing.border.EmptyBorder;
+//import javax.swing.JButton;
+//import java.awt.Color;
+//import java.awt.FlowLayout;
+//import javax.swing.JLabel;
+//import javax.swing.GroupLayout;
+//import javax.swing.GroupLayout.Alignment;
+//import javax.swing.ImageIcon;
+//import javax.swing.LayoutStyle.ComponentPlacement;
+//import javax.swing.JMenuBar;
+//import javax.swing.JMenuItem;
+//import javax.swing.JMenu;
+//import javax.swing.JToolBar;
+//import javax.swing.SwingConstants;
+//
+//public class GlavniProzor extends JFrame {
+//	
+//	private Zaposleni prijavljeniKorisnik;
+//	
+//	private Biblioteka biblioteka;
+//	
+//	public GlavniProzor(Biblioteka biblioteka) {
+//		getContentPane().setBackground(Color.WHITE);
+//		
+//		JButton lblNewLabel = new JButton("New label");
+//		lblNewLabel.setIcon(new ImageIcon(GlavniProzor.class.getResource("/slike/biblioteks.jpeg")));
+//		
+//		JButton btnNewButton = new JButton("New button");
+//		btnNewButton.setBackground(Color.WHITE);
+//		
+//		JButton btnNewButton_1 = new JButton("Clanovi");
+//		
+//		JButton btnNewButton_2 = new JButton("Zaposleni");
+//		
+//		JButton btnNewButton_3 = new JButton("Knjige");
+//		
+//		JButton btnNewButton_4 = new JButton("Izdavanje Knjiga");
+//		
+//		JButton btnNewButton_5 = new JButton("Primerci Knjiga");
+//		GroupLayout groupLayout = new GroupLayout(getContentPane());
+//		groupLayout.setHorizontalGroup(
+//			groupLayout.createParallelGroup(Alignment.LEADING)
+//				.addGroup(groupLayout.createSequentialGroup()
+//					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+//						.addGroup(groupLayout.createSequentialGroup()
+//							.addContainerGap()
+//							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+//							.addGap(57)
+//							.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+//							.addGap(70)
+//							.addComponent(btnNewButton_3, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+//							.addGap(61)
+//							.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+//							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+//							.addComponent(btnNewButton_5)
+//							.addGap(135))
+//						.addGroup(groupLayout.createSequentialGroup()
+//							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 748, GroupLayout.PREFERRED_SIZE)
+//							.addPreferredGap(ComponentPlacement.RELATED)))
+//					.addComponent(btnNewButton)
+//					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+//		);
+//		groupLayout.setVerticalGroup(
+//			groupLayout.createParallelGroup(Alignment.LEADING)
+//				.addGroup(groupLayout.createSequentialGroup()
+//					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+//						.addGroup(groupLayout.createSequentialGroup()
+//							.addGap(185)
+//							.addComponent(btnNewButton))
+//						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 276, GroupLayout.PREFERRED_SIZE))
+//					.addGap(18)
+//					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+//						.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+//						.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+//						.addComponent(btnNewButton_3, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+//						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+//							.addComponent(btnNewButton_4, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+//							.addComponent(btnNewButton_5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
+//					.addContainerGap(41, Short.MAX_VALUE))
+//		);
+//		getContentPane().setLayout(groupLayout);
+//        this.biblioteka = biblioteka;
+//        setTitle("Biblioteka");
+//        setSize(762, 433);
+//        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        setLocationRelativeTo(null);
+//        
+//        JMenuBar menuBar = new JMenuBar();
+//        setJMenuBar(menuBar);
+//        
+//        JMenuItem mntmNewMenuItem_2 = new JMenuItem("Biblioteka");
+//        menuBar.add(mntmNewMenuItem_2);
+//        
+//        JMenu mnNewMenu = new JMenu("Drugo");
+//        menuBar.add(mnNewMenu);
+//        
+//        JMenuItem mntmNewMenuItem = new JMenuItem("Tipovi ");
+//        mnNewMenu.add(mntmNewMenuItem);
+//        
+//        JMenuItem mntmNewMenuItem_1 = new JMenuItem("Zanrovi");
+//        mnNewMenu.add(mntmNewMenuItem_1);
+//        //initGUI();
+//        //initActions();
+//    }
+//	
+////	private void gui () {
+////		MigLayout mig = new MigLayout("wrap 1", "[250px:n,grow][360px:n,grow][250px:n]", "[200px:n,grow][50px:n][80px:n][80px:n][]");
+////		getContentPane().setLayout(mig);
+////		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+////		lblNewLabel.setIcon(new ImageIcon(GlavniProzor.class.getResource("/slike/library.jpg")));
+////	}
+//}
+
+package guiProzori;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+import biblioteka.Biblioteka;
+import gui.formeZaPrikaz.DiskoviProzor;
+import gui.formeZaPrikaz.KnjigeProzor;
+import gui.formeZaPrikaz.KompozicijeProzor;
+import gui.formeZaPrikaz.ProdavciProzor;
+import osobe.Prodavac;
+import prodavnica.Prodavnica;
+import projekat.Zaposleni;
+
+public class GlavniProzor extends JFrame {
+
+	private JMenuBar mainMenu = new JMenuBar();
+	private JMenu artikliMenu = new JMenu("Artikli");
+	private JMenuItem diskoviItem = new JMenuItem("Diskovi");
+	private JMenuItem knjigeItem = new JMenuItem("Knjige");
+	private JMenuItem kompozicijeItem = new JMenuItem("Kompozicije");
+	private JMenu prodavciMenu = new JMenu("Prodavci");
+	private JMenuItem prodavciItem = new JMenuItem("Prodavci");
+	
+	private Biblioteka biblioteka;
+	private Zaposleni prijavljeniKorisnik;
+	
+	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik) {
+		this.biblioteka = biblioteka;
+		this.prijavljeniKorisnik = prijavljeniKorisnik;
+		setTitle("Prodavac: " + prijavljeniKorisnik.getKorisnickoIme());
+		setSize(500, 500);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
+		initMenu();
+		initActions();
+	}
+	
+	private void initMenu() {
+		setJMenuBar(mainMenu);
+		mainMenu.add(artikliMenu);
+		artikliMenu.add(diskoviItem);
+		artikliMenu.add(knjigeItem);
+		artikliMenu.add(kompozicijeItem);
+		mainMenu.add(prodavciMenu);
+		prodavciMenu.add(prodavciItem);
+	}
+	
+	private void initActions() {
+		prodavciItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ProdavciProzor pp = new ProdavciProzor(prodavnica);
+				pp.setVisible(true);
+			}
+		});
+		
+		kompozicijeItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				KompozicijeProzor kp = new KompozicijeProzor(prodavnica);
+				kp.setVisible(true);
+			}
+		});
+		
+		diskoviItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DiskoviProzor dp = new DiskoviProzor(prodavnica);
+				dp.setVisible(true);
+			}
+		});
+		
+		knjigeItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				KnjigeProzor kp = new KnjigeProzor(prodavnica);
+				kp.setVisible(true);
+			}
+		});
+	}
+}
+

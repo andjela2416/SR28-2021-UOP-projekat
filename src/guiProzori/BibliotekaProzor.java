@@ -6,12 +6,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
+import projekat.Administrator;
+import projekat.Bibliotekar;
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -24,14 +29,17 @@ public class BibliotekaProzor extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private DefaultTableModel tableModel;
+	private JTable bibliotekariTabela;
+	private Biblioteka biblioteka;
 
 	/**
-	 * Launch the application.
+	 * Launch the application. 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+				try { 
 					BibliotekaProzor frame = new BibliotekaProzor(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -59,6 +67,10 @@ public class BibliotekaProzor extends JFrame {
         panel.setBounds(0, 0, 884, 545);
         contentPane.add(panel);
         panel.setLayout(null);
+        
+        
+		
+	
 
         JTable table = new JTable();
         table.setBounds(72, 26, 425, 419);

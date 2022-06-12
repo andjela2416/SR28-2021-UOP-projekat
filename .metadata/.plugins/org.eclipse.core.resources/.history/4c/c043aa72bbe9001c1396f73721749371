@@ -1,0 +1,284 @@
+package guiProzori;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+
+//import artikli.Disk;
+import biblioteka.Biblioteka;
+import bibliotekaMain.BibliotekaMain;
+
+import java.awt.Color;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+
+public class AdminProzor extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
+	private JLabel lblNewLabel_5;
+	private JLabel lblNewLabel_6;
+	private JLabel lblNewLabel_7;
+	private JTextField textField_9;
+	private DefaultTableModel tableModel;
+	private JTable adminiTabela;
+	JButton dodaj = new JButton("Dodaj");
+	private Biblioteka biblioteka;
+	JButton obrisi = new JButton("Obrisi");
+	JButton azuriraj = new JButton("Azuriraj");
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AdminProzor frame = new AdminProzor(null);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 * @param biblioteka 
+	 */
+	public AdminProzor(Biblioteka biblioteka) {
+		setTitle("Administrator");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 900, 584);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(219, 112, 147));
+        panel.setBounds(0, 0, 884, 545);
+        contentPane.add(panel);
+        panel.setLayout(null);
+
+        table = new JTable();
+        table.setBounds(78, 42, 421, 420);
+        panel.add(table);
+        
+        
+        dodaj.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        dodaj.setBounds(39, 489, 109, 38);
+        panel.add(dodaj);
+        
+        
+        obrisi.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        obrisi.setBounds(432, 489, 109, 38);
+        panel.add(obrisi);
+        
+        
+        azuriraj.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        azuriraj.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        azuriraj.setBounds(193, 489, 96, 38);
+        panel.add(azuriraj);
+        
+        textField = new JTextField();
+        textField.setBounds(656, 85, 96, 20);
+        panel.add(textField);
+        textField.setColumns(10);
+        
+        textField_1 = new JTextField();
+        textField_1.setBounds(656, 129, 96, 20);
+        panel.add(textField_1);
+        textField_1.setColumns(10);
+        
+        textField_2 = new JTextField();
+        textField_2.setBounds(656, 174, 96, 20);
+        panel.add(textField_2);
+        textField_2.setColumns(10);
+        
+        textField_3 = new JTextField();
+        textField_3.setBounds(656, 219, 96, 20);
+        panel.add(textField_3);
+        textField_3.setColumns(10);
+        
+        textField_4 = new JTextField();
+        textField_4.setBounds(656, 262, 96, 20);
+        panel.add(textField_4);
+        textField_4.setColumns(10);
+        
+        textField_5 = new JTextField();
+        textField_5.setBounds(656, 309, 96, 20);
+        panel.add(textField_5);
+        textField_5.setColumns(10);
+        
+        textField_6 = new JTextField();
+        textField_6.setBounds(656, 355, 96, 20);
+        panel.add(textField_6);
+        textField_6.setColumns(10);
+        
+        textField_7 = new JTextField();
+        textField_7.setBounds(656, 402, 96, 20);
+        panel.add(textField_7);
+        textField_7.setColumns(10);
+        
+        textField_8 = new JTextField();
+        textField_8.setBounds(656, 39, 96, 20);
+        panel.add(textField_8);
+        textField_8.setColumns(10);
+        
+        JLabel lblNewLabel = new JLabel("ID:");
+        lblNewLabel.setBounds(656, 26, 165, 14);
+        panel.add(lblNewLabel);
+        
+        lblNewLabel_1 = new JLabel("Ime:");
+        lblNewLabel_1.setBounds(656, 70, 96, 14);
+        panel.add(lblNewLabel_1);
+        
+        lblNewLabel_2 = new JLabel("Prezime:");
+        lblNewLabel_2.setBounds(656, 115, 109, 14);
+        panel.add(lblNewLabel_2);
+        
+        lblNewLabel_3 = new JLabel("Adresa:");
+        lblNewLabel_3.setBounds(656, 205, 96, 14);
+        panel.add(lblNewLabel_3);
+        
+        JLabel lblNewLabel_4 = new JLabel("Jmbg:");
+        lblNewLabel_4.setBounds(656, 160, 96, 14);
+        panel.add(lblNewLabel_4);
+        
+        lblNewLabel_5 = new JLabel("Pol:");
+        lblNewLabel_5.setBounds(656, 250, 79, 14);
+        panel.add(lblNewLabel_5);
+        
+        lblNewLabel_6 = new JLabel("Obrisan:");
+        lblNewLabel_6.setBounds(656, 293, 96, 14);
+        panel.add(lblNewLabel_6);
+        
+        lblNewLabel_7 = new JLabel("Plata:");
+        lblNewLabel_7.setBounds(656, 340, 49, 14);
+        panel.add(lblNewLabel_7);
+        
+        textField_9 = new JTextField();
+        textField_9.setBounds(656, 451, 96, 20);
+        panel.add(textField_9);
+        textField_9.setColumns(10);
+        
+        JLabel lblNewLabel_8 = new JLabel("Korisnicko ime:");
+        lblNewLabel_8.setBounds(656, 390, 96, 14);
+        panel.add(lblNewLabel_8);
+        
+        JLabel lblNewLabel_9 = new JLabel("Lozinka:");
+        lblNewLabel_9.setBounds(656, 436, 49, 14);
+        panel.add(lblNewLabel_9);
+	}
+	
+	private void initGUI() {
+		
+
+		//add(mainToolbar, BorderLayout.NORTH);
+		
+		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "Jmbg", "Adresa","Pol","Obrisan","Plata","Korisnicko ime","Lozinka"};
+		//Object[][] sadrzaj = new Object[prodavnica.sviNeobrisaniDiskovi().size()][zaglavlja.length];
+		
+		
+//		for(int i=0; i<prodavnica.sviNeobrisaniDiskovi().size(); i++) {
+//			Disk disk = prodavnica.sviNeobrisaniDiskovi().get(i);
+//			sadrzaj[i][0] = disk.getIdentifikacioniKod();
+//			sadrzaj[i][1] = disk.getNaziv();
+//			sadrzaj[i][2] = disk.getCena();
+//			sadrzaj[i][3] = disk.getIzvodjac();
+//			sadrzaj[i][4] = disk.getZanr();
+//		}
+		
+		tableModel = new DefaultTableModel(null, zaglavlja);
+		adminiTabela = new JTable(tableModel);
+		
+		adminiTabela.setRowSelectionAllowed(true);
+		adminiTabela.setColumnSelectionAllowed(false);
+		adminiTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		adminiTabela.setDefaultEditor(Object.class, null);
+		adminiTabela.getTableHeader().setReorderingAllowed(false);
+		
+		JScrollPane scrollPane = new JScrollPane(adminiTabela);
+		add(scrollPane, BorderLayout.CENTER);
+		table.add(scrollPane);
+	}
+
+	private void initActions() {
+//		btnNewButton_1.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				int red = AdminProzor.getSelectedRow();
+//				if(red == -1) {
+//					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+//				}else {
+//					String diskID = tableModel.getValueAt(red, 0).toString();
+//					Administrator admin = biblioteka.nadjiZaposlenog();
+//					int izbor = JOptionPane.showConfirmDialog(null, 
+//							"Da li ste sigurni da zelite da obrisete disk?", 
+//							diskID + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
+//					if(izbor == JOptionPane.YES_OPTION) {
+//						disk.setObrisan(true);
+//						tableModel.removeRow(red);
+//						prodavnica.snimiDiskove(ProdavnicaMain.DISKOVI_FAJL);
+//					}
+//				}
+//			}
+//		});
+		
+		dodaj.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AdminProzor df = new AdminProzor(biblioteka);
+				df.setVisible(true);
+			}
+		}); 
+//		
+//		btnEdit.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				int red = diskoviTabela.getSelectedRow();
+//				if(red == -1) {
+//					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+//				}else {
+//					String diskID = tableModel.getValueAt(red, 0).toString();
+//					Disk disk = prodavnica.pronadjiDisk(diskID);
+//					DiskoviForma df = new DiskoviForma(prodavnica, disk);
+//					df.setVisible(true);
+//				}
+//			}
+//		});
+	}
+}

@@ -8,10 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
-
+import projekat.Tip;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -23,6 +25,10 @@ public class TipProzor extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private DefaultTableModel tableModel;
+	private JTable tipoviTabela;
+	private Biblioteka biblioteka;
+
 
 	/**
 	 * Launch the application.
@@ -58,10 +64,35 @@ public class TipProzor extends JFrame {
         panel.setBounds(0, 0, 884, 545);
         contentPane.add(panel);
         panel.setLayout(null);
-
-        JTable table = new JTable();
-        table.setBounds(83, 59, 396, 386);
-        panel.add(table);
+        
+    	String[] zaglavlja = new String[] {"id","naziv", "cena", "obrisan"};
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniTipovi().size()][zaglavlja.length];
+		
+		 
+		for(int i=0; i<biblioteka.sviNeobrisaniTipovi().size(); i++) {
+			Tip tip = biblioteka.sviNeobrisaniTipovi().get(i);
+            sadrzaj[i][0] = tip.getId();
+            sadrzaj[i][1] = tip.getNaziv();
+            sadrzaj[i][2] = tip.getCena();
+            sadrzaj[i][3] = tip.isObrisan();
+		}
+		
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		tipoviTabela = new JTable(tableModel);
+		
+		tipoviTabela.setRowSelectionAllowed(true);
+		tipoviTabela.setColumnSelectionAllowed(false);
+		tipoviTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tipoviTabela.setDefaultEditor(Object.class, null);
+		tipoviTabela.getTableHeader().setReorderingAllowed(false);
+		
+		//JScrollPane scrollPane = new JScrollPane(tipoviTabela);
+		//add(scrollPane, BorderLayout.CENTER);
+		
+		
+	
+        tipoviTabela.setBounds(39, 70, 565, 371);
+        panel.add(tipoviTabela);
         
         textField = new JTextField();
         textField.setBounds(649, 108, 96, 20);

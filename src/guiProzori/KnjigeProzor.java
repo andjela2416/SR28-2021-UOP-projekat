@@ -8,10 +8,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
+import projekat.Knjiga;
+import projekat.Zanr;
+
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -37,6 +42,9 @@ public class KnjigeProzor extends JFrame {
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_7;
 	private JLabel lblNewLabel_8;
+	private DefaultTableModel tableModel;
+	private JTable knjigeTabela;
+	private Biblioteka biblioteka;
 
 	/**
 	 * Launch the application.
@@ -73,9 +81,44 @@ public class KnjigeProzor extends JFrame {
         contentPane.add(panel);
         panel.setLayout(null);
 
-        JTable table = new JTable();
-        table.setBounds(85, 26, 412, 423);
-        panel.add(table);
+		String[] zaglavlja = new String[] {" id", "naslovKnjige","originalNaslovKnjige", " pisac","godinaObjavljivanja",
+				"jezikOriginala","opis", "zanr"," obrisan"};
+		Object[][] sadrzaj = new Object[biblioteka.sveNeobrisaneKnjige().size()][zaglavlja.length];
+		
+		 
+		for(int i=0; i<biblioteka.sveNeobrisaneKnjige().size(); i++) {
+			Knjiga knjiga = biblioteka.sveNeobrisaneKnjige().get(i);
+            sadrzaj[i][0] = knjiga.getId();
+            sadrzaj[i][1] = knjiga.getNaslovKnjige();
+            sadrzaj[i][2] = knjiga.getOriginalNaslovKnjige();
+            sadrzaj[i][3] = knjiga.getPisac();
+            sadrzaj[i][4] = knjiga.getGodinaObjavljivanja(); 
+            sadrzaj[i][5] = knjiga.getJezikOriginala();
+            sadrzaj[i][6] = knjiga.getOpis();
+            sadrzaj[i][7] = knjiga.getZanr();
+            sadrzaj[i][8] = knjiga.isObrisan();
+		}
+		
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		knjigeTabela = new JTable(tableModel);
+		
+		knjigeTabela.setRowSelectionAllowed(true);
+		knjigeTabela.setColumnSelectionAllowed(false);
+		knjigeTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		knjigeTabela.setDefaultEditor(Object.class, null);
+		knjigeTabela.getTableHeader().setReorderingAllowed(false);
+		
+		//JScrollPane scrollPane = new JScrollPane(knjigeTabela);
+		//add(scrollPane, BorderLayout.CENTER);
+		
+		
+	
+        knjigeTabela.setBounds(39, 70, 565, 371);
+        panel.add(knjigeTabela);
+
+//        JTable table = new JTable();
+//        table.setBounds(85, 26, 412, 423);
+//        panel.add(table);
         
         textField = new JTextField();
         textField.setBounds(651, 50, 96, 20);

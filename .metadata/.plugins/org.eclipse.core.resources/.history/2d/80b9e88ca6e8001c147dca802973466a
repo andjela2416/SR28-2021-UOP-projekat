@@ -1,0 +1,3 @@
+2|Marko|Peric|6551546542|test adresa|MUSKI|false|006|2022-02-19|24|true|1
+//String id, String ime, String prezime, String jmbg, String adresa, Pol pol, boolean obrisan,
+			String brojClanskeKarte, LocalDate datumPoslUplate, int brojMeseciClan, boolean aktivan, Tip tip
