@@ -77,8 +77,7 @@ public class TipProzor extends JFrame {
 						textJmbg.getText(), textAdresa.getText(), pol, obrisan,textPlataDouble,textKorisnickoIme.getText(),
 						textKorisnickaSifra.getText());
 
-				String[] zaglavlja = new String[] { "ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
-						"Plata" };
+				String[] zaglavlja = new String[] { "id","naziv","cena" };
 				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
 				Object[] sadrzaj = new Object[zaglavlja.length];
 
@@ -133,8 +132,7 @@ public class TipProzor extends JFrame {
 	/* READ */
 
 	private void popuniTabelu() {
-		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
-				"Plata" };
+		String[] zaglavlja = new String[] {"id","naziv","cena" };
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
 
 		for (int i = 0; i < biblioteka.sviNeobrisaniAdministratori().size(); i++) {
@@ -162,8 +160,7 @@ public class TipProzor extends JFrame {
 	private void azuriraj() {
 		try {
 
-			String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
-					"Plata"  };
+			String[] zaglavlja = new String[] {"id","naziv","cena"   };
 			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
 			Object[] sadrzaj = new Object[zaglavlja.length];
 			String ID = textId.getText();

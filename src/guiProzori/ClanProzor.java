@@ -146,7 +146,7 @@ public class ClanProzor extends JFrame {
 	private void popuniTabelu() {
 		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Br. clanske karte", "Datum pos. uplate",
 				"Br. meseci clanarine","Aktivan","Tip"  };
-		System.out.println(biblioteka.sviNeobrisaniClanovi());
+		
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniClanovi().size()][zaglavlja.length];
 
 		for (int i = 0; i < biblioteka.sviNeobrisaniClanovi().size(); i++) {
