@@ -491,31 +491,7 @@ public class Biblioteka {
             System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
         }
     }
-//	public void ucitajZaposlene(String ZAPOSLENI_FAJL) {
-//        try {
-//            File zaposleniFile = new File("fajlovi/zaposleni.txt");
-//            BufferedReader reader = new BufferedReader(new FileReader(zaposleniFile));
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                String[] lineSplit = line.split("\\|");
-//                String id = lineSplit[0];
-//                String ime = lineSplit[1];
-//                String prezime = lineSplit[2];
-//                String jmbg = lineSplit[3];
-//                String adresa = lineSplit[4];
-//                Pol pol = Pol.valueOf(lineSplit[5]);
-//                double plata = Double.parseDouble(lineSplit[6]);
-//                String korisnickoime = lineSplit[7];
-//                String lozinka = lineSplit[8];
-//                
-//
-//                Zaposleni zaposleni = new Zaposleni (id,ime, prezime, jmbg,adresa,pol,plata,korisnickoime,lozinka );
-//                this.listaZaposlenih.add(zaposleni);
-//            }
-//        } catch (IOException e) {
-//            System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
-//        }
-//    }
+
 	
 	public void ucitajKnjige(String KNJIGE_FAJL) {
         try {
@@ -749,8 +725,7 @@ public class Biblioteka {
 						}
 					}
 				}
-				//PrimerakKnjige primerak = PrimerakKnjige.valueOf(Integer.parseInt(split[4]));
-				//PrimerakKnjige primerakKnjige = (PrimerakKnjige) pronadjiPrimerak(PrimerakKnjigeId);
+			
 
 				String ZaposleniId = split[4];
 				Zaposleni zaposleni = pronadjiZaposlenog(ZaposleniId);

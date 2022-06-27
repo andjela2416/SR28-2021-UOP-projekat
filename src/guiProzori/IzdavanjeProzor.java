@@ -93,7 +93,7 @@ public class IzdavanjeProzor extends JFrame {
 		contentPane.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("Primerci:");
-		lblNewLabel_4.setBounds(650, 256, 49, 14);
+		lblNewLabel_4.setBounds(650, 256, 131, 14);
 		contentPane.add(lblNewLabel_4);
 
 
@@ -131,7 +131,7 @@ public class IzdavanjeProzor extends JFrame {
 			checkBox.setName(i);
 			listaBox.add(checkBox);
 			
-			checkBox.setBounds(650, 280 + m, 99, 23);
+			checkBox.setBounds(650, 245 + m, 99, 23);
 			m = m + 30;
 			
 //			if(!p.isIznajmljena()) {

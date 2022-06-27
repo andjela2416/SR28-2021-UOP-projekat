@@ -46,7 +46,7 @@ public class Zanr {
 
 	@Override
 	public String toString() {
-		return "Zanr [oznaka=" + oznaka + ", opis=" + opis + ", obrisan=" + obrisan + "]";
+		return oznaka;
 	}
 
 
