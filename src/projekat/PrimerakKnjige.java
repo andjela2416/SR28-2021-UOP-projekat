@@ -102,9 +102,7 @@ public class PrimerakKnjige {
 
 	@Override
 	public String toString() {
-		return "PrimerakKnjige [id=" + id + ", brojStrana=" + brojStrana + ", mekPovez=" + mekPovez
-				+ ", godinaStampanja=" + godinaStampanja + ", jezikStampanja=" + jezikStampanja + ", iznajmljena="
-				+ iznajmljena + ", knjiga=" + knjiga + ", obrisan=" + obrisan + "]";
+		return id + ",";
 	}
     
 

@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import projekat.Administrator;
+import projekat.Knjiga;
 import projekat.Pol;
 import projekat.PrimerakKnjige;
 import biblioteka.Biblioteka;
@@ -29,23 +30,25 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class PrimerakProzor extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textId;
-	private JTextField textIme;
-	private JTextField textPrezime;
-	private JTextField textJmbg;
-	private JTextField textAdresa;
-	private JTextField textKorisnickoIme;
-	private JTextField textPlata;
+	private JTextField textBrojstrana;
+	private JTextField textMekpovez;
+	private JTextField textGodina;
+	private JTextField textJezik;
+	private JTextField textKnjiga;
+	private JTextField textIznajm;
 	private JComboBox comboBox;
 	private DefaultTableModel modelTabele;
 	private DefaultTableModel tableModelNovi;
 	private Biblioteka biblioteka;
 	private JTable table_1;
+	private ArrayList<PrimerakKnjige>listaNeobrisanih;
 	
 
 	/**
@@ -57,8 +60,13 @@ public class PrimerakProzor extends JFrame {
 	private void dodaj() {
 		try {
 			boolean greska = false;
-			String ajdi = textId.getText();
-			double textPlataDouble = Double.parseDouble(textPlata.getText());
+			String Id = textId.getText();
+			int brojstrana= Integer.parseInt(textBrojstrana.getText());
+			boolean mekpovez =Boolean.parseBoolean(textMekpovez.getText());
+			int godinastampanja= Integer.parseInt(textGodina.getText());
+			String jezikstampanja= textJezik.getText();			
+			boolean iznajmljena=Boolean.parseBoolean(textIznajm.getText());
+			Knjiga knjiga= biblioteka.nadjiKnjigu2(textKnjiga.getText());
 			boolean obrisan = false;
 //			int indeks = comboBox.getSelectedIndex();
 
@@ -72,15 +80,15 @@ public class PrimerakProzor extends JFrame {
 //			Pol pol = Pol.valueOf(polValue);
 			
 			if (isNum(textId.getText()) == true) {
-				PrimerakKnjige novi = new PrimerakKnjige();
+				PrimerakKnjige novi = new PrimerakKnjige(Id,brojstrana,mekpovez,godinastampanja,jezikstampanja,iznajmljena,knjiga,obrisan);
 
 				String[] zaglavlja = new String[] { "ID", "broj strana","mek povez","godina stampanja","jezik stampanja","iznamljena","knjiga" };
-				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+				Object[][] sadrzaj1 = new Object[this.listaNeobrisanih.size()][zaglavlja.length];
 				Object[] sadrzaj = new Object[zaglavlja.length];
 
-				for (int x = 0; x < biblioteka.sviNeobrisaniAdministratori().size(); x++) {
-					Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(x);
-					sadrzaj1[x][0] = admin.getId();
+				for (int x = 0; x <this.listaNeobrisanih.size(); x++) {
+					PrimerakKnjige primerak = this.listaNeobrisanih.get(x);
+					sadrzaj1[x][0] = primerak.getId();
 					if (sadrzaj1[x][0].equals(textId.getText())) {
 						JOptionPane.showMessageDialog(null, "Vec postoji entitet sa istim ID-em", "Greska",
 								JOptionPane.WARNING_MESSAGE);
@@ -91,7 +99,7 @@ public class PrimerakProzor extends JFrame {
 				}
 				if (greska != true) {
 					biblioteka.dodajPrimerakKnjige(novi);
-					biblioteka.snimiPrimerkeKnjiga("primerci.txt");
+					biblioteka.snimiPrimerkeKnjiga();
 
 					sadrzaj[0] = novi.getId();
 					sadrzaj[1] = novi.getBrojStrana();
@@ -102,7 +110,7 @@ public class PrimerakProzor extends JFrame {
 					sadrzaj[6] = novi.getKnjiga();
 				
 				
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiPrimerkeKnjiga();
 					modelTabele.addRow(sadrzaj);
 					table_1.setModel(modelTabele);
 
@@ -130,17 +138,18 @@ public class PrimerakProzor extends JFrame {
 
 	private void popuniTabelu() {
 		String[] zaglavlja = new String[] {"ID", "broj strana","mek povez","godina stampanja","jezik stampanja","iznamljena","knjiga"};
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimerciKnjiga().size()][zaglavlja.length];
 
-		for (int i = 0; i < biblioteka.sviNeobrisaniAdministratori().size(); i++) {
-			Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(i);
-			sadrzaj[i][0] = admin.getId();
-			sadrzaj[i][1] = admin.getIme();
-			sadrzaj[i][2] = admin.getPrezime();
-			sadrzaj[i][3] = admin.getJmbg();
-			sadrzaj[i][4] = admin.getAdresa();
-			sadrzaj[i][5] = admin.getPol();
-			sadrzaj[i][6] = admin.getKorisnickoIme();
+		for (int i = 0; i <this.listaNeobrisanih.size(); i++) {
+			PrimerakKnjige primerak= this.listaNeobrisanih.get(i);
+			sadrzaj[i][0] = primerak.getId();
+			sadrzaj[i][1] = primerak.getBrojStrana();
+			sadrzaj[i][2] = primerak.isMekPovez();
+			sadrzaj[i][3] = primerak.getGodinaStampanja();
+			sadrzaj[i][4] = primerak.getJezikStampanja();
+			sadrzaj[i][5] = primerak.isIznajmljena();
+			sadrzaj[i][6] = primerak.getKnjiga().getId();
+			
 
 		
 
@@ -158,16 +167,30 @@ public class PrimerakProzor extends JFrame {
 		try {
 
 			String[] zaglavlja = new String[] {"ID", "broj strana","mek povez","godina stampanja","jezik stampanja","iznamljena","knjiga"};
-			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+			Object[][] sadrzaj1 = new Object[this.listaNeobrisanih.size()][zaglavlja.length];
 			Object[] sadrzaj = new Object[zaglavlja.length];
 			String ID = textId.getText();
 
 			if (isNum(ID) == true) {
-				boolean greska = false;
-				String ajdi = textId.getText();
-				double textPlataDouble = Double.parseDouble(textPlata.getText());
-				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 				int rowIndex = table_1.getSelectedRow();
+				PrimerakKnjige primerak1 = biblioteka.sviNeobrisaniPrimerciKnjiga().get(rowIndex);
+				boolean greska = false;
+				String Id = textId.getText();
+				primerak1.setId(Id);
+				int brojstrana= Integer.parseInt(textBrojstrana.getText());
+				primerak1.setBrojStrana(brojstrana);
+				boolean mekpovez =Boolean.parseBoolean(textMekpovez.getText());
+				primerak1.setMekPovez(mekpovez);
+				int godinastampanja= Integer.parseInt(textGodina.getText());
+				primerak1.setGodinaStampanja(godinastampanja);
+				String jezikstampanja= textJezik.getText();
+				primerak1.setJezikStampanja(jezikstampanja);
+				boolean iznajmljena=Boolean.parseBoolean(textIznajm.getText());
+				primerak1.setIznajmljena(iznajmljena);
+				Knjiga knjiga= biblioteka.nadjiKnjigu2(textKnjiga.getText());
+				primerak1.setKnjiga(knjiga);
+				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+				
 				String izabraniID = model.getValueAt(rowIndex, 0).toString();
 				int izabraniIDint = Integer.parseInt(izabraniID);
 				//comboBox.getSelectedIndex();
@@ -184,8 +207,8 @@ public class PrimerakProzor extends JFrame {
 //				}
 //				Pol pol = Pol.valueOf(polValue);
 
-				PrimerakKnjige admin = biblioteka.sviNeobrisaniPrimerciKnjiga().get(rowIndex);
-				PrimerakKnjige novi = new PrimerakKnjige();
+				PrimerakKnjige primerak = biblioteka.sviNeobrisaniPrimerciKnjiga().get(rowIndex);
+				PrimerakKnjige novi = new PrimerakKnjige(Id,brojstrana,mekpovez,godinastampanja,jezikstampanja,iznajmljena,knjiga,obrisan);
 
 //				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
 //					Administrator uneti = biblioteka.getAdministratori().get(x);
@@ -203,25 +226,25 @@ public class PrimerakProzor extends JFrame {
 
 				if (greska != true) {
 
-					admin.setId(novi.getId());
-					admin.setBrojStrana(novi.getBrojStrana());
-					admin.setMekPovez(novi.isMekPovez());
-					admin.setGodinaStampanja(novi.getGodinaStampanja());
-					admin.setJezikStampanja(novi.getJezikStampanja());
-					admin.setIznajmljena(novi.isIznajmljena());
-					admin.setKnjiga(novi.getKnjiga());
+					primerak.setId(novi.getId());
+					primerak.setBrojStrana(novi.getBrojStrana());
+					primerak.setMekPovez(novi.isMekPovez());
+					primerak.setGodinaStampanja(novi.getGodinaStampanja());
+					primerak.setJezikStampanja(novi.getJezikStampanja());
+					primerak.setIznajmljena(novi.isIznajmljena());
+					primerak.setKnjiga(novi.getKnjiga());
 				
 
-					model.setValueAt(admin.getId(), rowIndex, 0);
-					model.setValueAt(admin.getBrojStrana(), rowIndex, 1);
-					model.setValueAt(admin.isMekPovez(), rowIndex, 2);
-					model.setValueAt(admin.getGodinaStampanja(), rowIndex, 3);
-					model.setValueAt(admin.getJezikStampanja(), rowIndex, 4);
-					model.setValueAt(admin.isIznajmljena(), rowIndex, 5);
-					model.setValueAt(admin.getKnjiga(), rowIndex, 6);
+					model.setValueAt(primerak.getId(), rowIndex, 0);
+					model.setValueAt(primerak.getBrojStrana(), rowIndex, 1);
+					model.setValueAt(primerak.isMekPovez(), rowIndex, 2);
+					model.setValueAt(primerak.getGodinaStampanja(), rowIndex, 3);
+					model.setValueAt(primerak.getJezikStampanja(), rowIndex, 4);
+					model.setValueAt(primerak.isIznajmljena(), rowIndex, 5);
+					model.setValueAt(primerak.getKnjiga().getId(), rowIndex, 6);
 				
 
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiPrimerkeKnjiga();
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
 					table_1.setModel(model);
 					model.fireTableDataChanged();
@@ -244,21 +267,20 @@ public class PrimerakProzor extends JFrame {
 			int indexReda = table_1.getSelectedRow();
 			String izabraniID = model.getValueAt(indexReda, 0).toString();
 			int izabraniIDint = Integer.parseInt(izabraniID);
-			Administrator admin = biblioteka.getListaAdministratora().get(indexReda);
-			admin.setObrisan(true);
-			admin.setId("0");
-			biblioteka.snimiAdministratore(izabraniID);
+			PrimerakKnjige primerak = biblioteka.getListaPrimeraka().get(indexReda);
+			primerak.setObrisan(true);
+			biblioteka.snimiPrimerkeKnjiga();
 			
 			textId.setText("");
-			textIme.setText("");
-			textPlata.setText("");
-			textPrezime.setText("");
-			textJmbg.setText("");
-			textAdresa.setText("");
-			textKorisnickoIme.setText("");
+			textBrojstrana.setText("");
+			textIznajm.setText("");
+			textMekpovez.setText("");
+			textGodina.setText("");
+			textJezik.setText("");
+			textKnjiga.setText("");
 	
 			
-			model.removeRow(izabraniIDint);
+			model.removeRow(indexReda);
 			table_1.setModel(model);
 			model.fireTableDataChanged();
 
@@ -278,6 +300,7 @@ public class PrimerakProzor extends JFrame {
 	 */
 	public PrimerakProzor(Biblioteka biblioteka, boolean admin) {
 		this.biblioteka = biblioteka;
+		this.listaNeobrisanih=biblioteka.sviNeobrisaniPrimerciKnjiga();
 		popuniTabelu();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 770, 550);
@@ -326,35 +349,35 @@ public class PrimerakProzor extends JFrame {
 		contentPane.add(textId);
 		textId.setColumns(10);
 
-		textIme = new JTextField();
-		textIme.setBounds(650, 90, 96, 20);
-		contentPane.add(textIme);
-		textIme.setColumns(10);
+		textBrojstrana = new JTextField();
+		textBrojstrana.setBounds(650, 90, 96, 20);
+		contentPane.add(textBrojstrana);
+		textBrojstrana.setColumns(10);
 
-		textPrezime = new JTextField();
-		textPrezime.setBounds(650, 143, 96, 20);
-		contentPane.add(textPrezime);
-		textPrezime.setColumns(10);
+		textMekpovez = new JTextField();
+		textMekpovez.setBounds(650, 143, 96, 20);
+		contentPane.add(textMekpovez);
+		textMekpovez.setColumns(10);
 
-		textJmbg = new JTextField();
-		textJmbg.setBounds(650, 193, 96, 20);
-		contentPane.add(textJmbg);
-		textJmbg.setColumns(10);
+		textGodina = new JTextField();
+		textGodina.setBounds(650, 193, 96, 20);
+		contentPane.add(textGodina);
+		textGodina.setColumns(10);
 
-		textAdresa = new JTextField();
-		textAdresa.setBounds(650, 245, 96, 20);
-		contentPane.add(textAdresa);
-		textAdresa.setColumns(10);
+		textJezik = new JTextField();
+		textJezik.setBounds(650, 245, 96, 20);
+		contentPane.add(textJezik);
+		textJezik.setColumns(10);
 
-		textKorisnickoIme = new JTextField();
-		textKorisnickoIme.setBounds(650, 347, 96, 20);
-		contentPane.add(textKorisnickoIme);
-		textKorisnickoIme.setColumns(10);
+		textKnjiga = new JTextField();
+		textKnjiga.setBounds(650, 347, 96, 20);
+		contentPane.add(textKnjiga);
+		textKnjiga.setColumns(10);
 
-		textPlata = new JTextField();
-		textPlata.setBounds(650, 296, 96, 20);
-		contentPane.add(textPlata);
-		textPlata.setColumns(10);
+		textIznajm = new JTextField();
+		textIznajm.setBounds(650, 296, 96, 20);
+		contentPane.add(textIznajm);
+		textIznajm.setColumns(10);
 
 		JButton btnNewButton = new JButton("Dodaj");
 		btnNewButton.addActionListener(new ActionListener() {

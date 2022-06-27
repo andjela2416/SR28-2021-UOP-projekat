@@ -76,13 +76,13 @@ public class ClanProzor extends JFrame {
 			datumposluplate = LocalDate.parse(textDatum.getText());
 			brojmeseciclan = Integer.parseInt(textBrojMeseci.getText());
 			Tip tipClanarine = biblioteka.nadjiTip(textField_1.getText());
-			
+			boolean aktivan = Boolean.parseBoolean(textField.getText());
 
 			Pol pol = Pol.valueOf(textPol.getText());
 			if (isNum(textId.getText()) == true) {
 			
 				ClanBiblioteke novi = new ClanBiblioteke(Id, textIme.getText(), textPrezime.getText(),
-						textJmbg.getText(), textAdresa.getText(), pol, obrisan,brojclankarte,datumposluplate,brojmeseciclan,aktivan,tip);
+						textJmbg.getText(), textAdresa.getText(), pol, obrisan,brojclankarte,datumposluplate,brojmeseciclan,aktivan,tipClanarine);
 
 				String[] zaglavlja = new String[] { "ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Br. clanske karte", "Datum pos. uplate",
 						"Br. meseci clanarine","Aktivan","Tip"  };
@@ -102,7 +102,7 @@ public class ClanProzor extends JFrame {
 				}
 				if (greska != true) {
 					biblioteka.dodajClana(novi);
-					biblioteka.snimiClanove("clanovi.txt");
+					biblioteka.snimiClanove();
 
 					sadrzaj[0] = novi.getId();
 					sadrzaj[1] = novi.getIme();
@@ -114,10 +114,10 @@ public class ClanProzor extends JFrame {
 					sadrzaj[7] = novi.getDatumPoslUplate();
 					sadrzaj[8] = novi.getBrojMeseciClan();
 					sadrzaj[9] = novi.isAktivan();
-					sadrzaj[10] = novi.getTip();
+					sadrzaj[10] = novi.getTip().getId();
 					
 					
-					biblioteka.snimiClanove("clanovi.txt");
+					biblioteka.snimiClanove();
 					modelTabele.addRow(sadrzaj);
 					table_1.setModel(modelTabele);
 
@@ -241,7 +241,7 @@ public class ClanProzor extends JFrame {
 //
 //				}
 				//biblioteka.getListaClanova().add(novi);
-				biblioteka.snimiClanove("clanovi.txt");
+				biblioteka.snimiClanove();
 
 				if (greska != true) {
 
@@ -266,10 +266,10 @@ public class ClanProzor extends JFrame {
 					model.setValueAt(clan.getBrojClanskeKarte(), rowIndex, 6);
 					model.setValueAt(clan.getDatumPoslUplate(), rowIndex, 7);
 					model.setValueAt(clan.getBrojMeseciClan(), rowIndex, 8);
-					model.setValueAt(clan.isAktivan(), rowIndex, 8);
-					model.setValueAt(clan.getTip(), rowIndex, 8);
+					model.setValueAt(clan.isAktivan(), rowIndex, 9);
+					model.setValueAt(clan.getTip(), rowIndex, 10);
 
-					biblioteka.snimiClanove("clanovi.txt");
+					biblioteka.snimiClanove();
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
 					table_1.setModel(model);
 					model.fireTableDataChanged();
@@ -295,8 +295,7 @@ public class ClanProzor extends JFrame {
 			int izabraniIDint = Integer.parseInt(izabraniID);
 			ClanBiblioteke clan = biblioteka.getListaClanova().get(indexReda);
 			clan.setObrisan(true);
-			clan.setId("0");
-			biblioteka.snimiClanove(izabraniID);
+			biblioteka.snimiClanove();
 			
 			textId.setText("");
 			textIme.setText("");
@@ -307,8 +306,11 @@ public class ClanProzor extends JFrame {
 			textDatum.setText("");
 			textBrojMeseci.setText("");
 			textPol.setText("");
+			textField.setText("");
+			textField_1.setText("");
 			
-			model.removeRow(izabraniIDint);
+			
+			model.removeRow(indexReda);
 			table_1.setModel(model);
 			model.fireTableDataChanged();
 
@@ -338,6 +340,7 @@ public class ClanProzor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Clanovi");
+		setSize(1000, 600);
 		ImageIcon image = new ImageIcon("src/fajlovi/archive.png");
 		setIconImage(image.getImage());
 		getContentPane().setBackground(new Color(204, 61, 158));
@@ -345,78 +348,78 @@ public class ClanProzor extends JFrame {
 		
 
 		JLabel lblNewLabel = new JLabel("ID");
-		lblNewLabel.setBounds(650, 18, 49, 14);
+		lblNewLabel.setBounds(812, 24, 49, 14);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Ime");
-		lblNewLabel_1.setBounds(650, 66, 49, 14);
+		lblNewLabel_1.setBounds(812, 71, 49, 14);
 		contentPane.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Prezime");
-		lblNewLabel_2.setBounds(650, 117, 49, 14);
+		lblNewLabel_2.setBounds(812, 116, 49, 14);
 		contentPane.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("JMBG");
-		lblNewLabel_3.setBounds(650, 170, 49, 14);
+		lblNewLabel_3.setBounds(812, 161, 49, 14);
 		contentPane.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("Adresa");
-		lblNewLabel_4.setBounds(650, 221, 49, 14);
+		lblNewLabel_4.setBounds(812, 206, 49, 14);
 		contentPane.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("Pol");
-		lblNewLabel_5.setBounds(650, 398, 49, 14);
+		lblNewLabel_5.setBounds(812, 382, 49, 14);
 		contentPane.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("Datum posl uplate:");
-		lblNewLabel_6.setBounds(650, 310, 106, 14);
+		lblNewLabel_6.setBounds(812, 296, 106, 14);
 		contentPane.add(lblNewLabel_6);
 
 		JLabel lblNewLabel_7 = new JLabel("Broj meseci clan:");
-		lblNewLabel_7.setBounds(650, 354, 125, 14);
+		lblNewLabel_7.setBounds(812, 339, 125, 14);
 		contentPane.add(lblNewLabel_7);
 
 		JLabel lblNewLabel_8 = new JLabel("Broj clanske karte:");
-		lblNewLabel_8.setBounds(650, 266, 145, 14);
+		lblNewLabel_8.setBounds(812, 251, 145, 14);
 		contentPane.add(lblNewLabel_8);
 
 		textId = new JTextField();
-		textId.setBounds(650, 35, 96, 20);
+		textId.setBounds(812, 40, 96, 20);
 		contentPane.add(textId);
 		textId.setColumns(10);
 
 		textIme = new JTextField();
-		textIme.setBounds(650, 85, 96, 20);
+		textIme.setBounds(812, 85, 96, 20);
 		contentPane.add(textIme);
 		textIme.setColumns(10);
 
 		textPrezime = new JTextField();
-		textPrezime.setBounds(650, 136, 96, 20);
+		textPrezime.setBounds(812, 130, 96, 20);
 		contentPane.add(textPrezime);
 		textPrezime.setColumns(10);
 
 		textJmbg = new JTextField();
-		textJmbg.setBounds(650, 189, 96, 20);
+		textJmbg.setBounds(812, 175, 96, 20);
 		contentPane.add(textJmbg);
 		textJmbg.setColumns(10);
 
 		textAdresa = new JTextField();
-		textAdresa.setBounds(650, 235, 96, 20);
+		textAdresa.setBounds(812, 220, 96, 20);
 		contentPane.add(textAdresa);
 		textAdresa.setColumns(10);
 
 		textDatum = new JTextField();
-		textDatum.setBounds(650, 323, 96, 20);
+		textDatum.setBounds(812, 308, 96, 20);
 		contentPane.add(textDatum);
 		textDatum.setColumns(10);
 
 		textBrojMeseci = new JTextField();
-		textBrojMeseci.setBounds(650, 367, 96, 20);
+		textBrojMeseci.setBounds(812, 351, 96, 20);
 		contentPane.add(textBrojMeseci);
 		textBrojMeseci.setColumns(10);
 
 		textBrCK = new JTextField();
-		textBrCK.setBounds(650, 279, 96, 20);
+		textBrCK.setBounds(812, 265, 96, 20);
 		contentPane.add(textBrCK);
 		textBrCK.setColumns(10);
 
@@ -426,7 +429,7 @@ public class ClanProzor extends JFrame {
 				dodaj();
 			}
 		});
-		btnNewButton.setBounds(44, 445, 89, 42);
+		btnNewButton.setBounds(109, 486, 89, 42);
 		contentPane.add(btnNewButton);
 
 		JButton btnNewButton_2 = new JButton("Azuriraj");
@@ -435,7 +438,7 @@ public class ClanProzor extends JFrame {
 				azuriraj();
 			}
 		});
-		btnNewButton_2.setBounds(190, 445, 96, 42);
+		btnNewButton_2.setBounds(279, 486, 96, 42);
 		contentPane.add(btnNewButton_2);
 
 		JButton btnNewButton_3 = new JButton("Obrisi");
@@ -445,11 +448,11 @@ public class ClanProzor extends JFrame {
 			}
 		});
 		
-		btnNewButton_3.setBounds(475, 445, 96, 42);
+		btnNewButton_3.setBounds(577, 486, 96, 42);
 		contentPane.add(btnNewButton_3);
 
 		JScrollPane scrollPane = new JScrollPane(table_1);
-		scrollPane.setBounds(30, 64, 561, 342);
+		scrollPane.setBounds(22, 110, 736, 320);
 		contentPane.add(scrollPane);
 		
 
@@ -459,26 +462,26 @@ public class ClanProzor extends JFrame {
 		table_1.setBackground(Color.WHITE);
 		
 		textPol = new JTextField();
-		textPol.setBounds(650, 413, 96, 19);
+		textPol.setBounds(812, 393, 96, 19);
 		contentPane.add(textPol);
 		textPol.setColumns(10);
 		
 		textField = new JTextField();
-		textField.setBounds(650, 448, 96, 20);
+		textField.setBounds(812, 437, 96, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(650, 482, 96, 20);
+		textField_1.setBounds(812, 486, 96, 20);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		
 		JLabel lblNewLabel_9 = new JLabel("Aktivan:");
-		lblNewLabel_9.setBounds(650, 433, 49, 14);
+		lblNewLabel_9.setBounds(812, 423, 49, 14);
 		contentPane.add(lblNewLabel_9);
 		
 		JLabel lblNewLabel_10 = new JLabel("Tip:");
-		lblNewLabel_10.setBounds(650, 467, 49, 14);
+		lblNewLabel_10.setBounds(812, 468, 49, 14);
 		contentPane.add(lblNewLabel_10);
 
 	

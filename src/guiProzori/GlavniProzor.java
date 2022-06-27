@@ -145,6 +145,7 @@ import guiProzori.TipProzor;
 import guiProzori.ZanrProzor;
 import projekat.Zaposleni;
 import projekat.Bibliotekar;
+import projekat.IzdavanjeKnjige;
 import projekat.Administrator;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -152,6 +153,7 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.GroupLayout;
@@ -170,6 +172,7 @@ public class GlavniProzor extends JFrame {
 	
 	private Biblioteka biblioteka;
 	private Zaposleni prijavljeniKorisnik;
+	private IzdavanjeKnjige izdavanje;
 	private final JLabel lblNewLabel = new JLabel("New label");
 	private final JButton btnNewButton = new JButton("Primerci Knjiga");
 	private final JButton btnNewButton_1 = new JButton("Knjige");
@@ -178,6 +181,8 @@ public class GlavniProzor extends JFrame {
 	private final JMenuItem mntmNewMenuItem_1 = new JMenuItem("Tipovi");
 	private final JMenu mnNewMenu = new JMenu("Biblioteka");
 	private final JMenuItem mntmNewMenuItem_2 = new JMenuItem("Biblioteka");
+	private final JButton btnNewButton_3 = new JButton("Placanje");
+	
 	//private final JMenuItem mntmNewMenuItem_2 = new JMenuItem("Liste");
 	
 	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik) {
@@ -221,23 +226,30 @@ public class GlavniProzor extends JFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(33)
 					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-					.addGap(41)
-					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-					.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-					.addGap(49))
+					.addGap(42)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnNewButton_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnNewButton_2, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+					.addGap(34))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
-					.addGap(32)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(32)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(11)
 							.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(25, Short.MAX_VALUE))
+							.addGap(14)
+							.addComponent(btnNewButton_3, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
+					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
 	}
@@ -283,9 +295,11 @@ public class GlavniProzor extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+		
 				IzdavanjeProzor kp = new IzdavanjeProzor(biblioteka, rootPaneCheckingEnabled); //???????
 				kp.setVisible(true);
 			}
+			
 		});
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			@Override
@@ -315,8 +329,31 @@ public class GlavniProzor extends JFrame {
 				kp.setVisible(true);
 			}
 		}); 
+		btnNewButton_3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Placanje kp = new Placanje(biblioteka);
+				kp.setVisible(true);
+			}
+		}); 
 		
 		
+	}
+
+	public JMenuItem getAdminiItem() {
+		return adminiItem;
+	}
+
+	public void setAdminiItem(JMenuItem adminiItem) {
+		this.adminiItem = adminiItem;
+	}
+
+	public JMenuItem getBibliotekariItem() {
+		return bibliotekariItem;
+	}
+
+	public void setBibliotekariItem(JMenuItem bibliotekariItem) {
+		this.bibliotekariItem = bibliotekariItem;
 	}
 }
 

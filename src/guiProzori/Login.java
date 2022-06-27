@@ -11,6 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
+import projekat.Bibliotekar;
 import projekat.Zaposleni;
 import biblioteka.Biblioteka;
 
@@ -37,21 +38,21 @@ public class Login extends JFrame {
 	}
 	
 	public void initGUI() {
-		MigLayout mig = new MigLayout("wrap 2", "[][]", "[]10[][]10[]");
-		setLayout(mig);
+		MigLayout mig = new MigLayout("wrap 2", "[][]", "[]10[][]10[][]");
+		getContentPane().setLayout(mig);
 		
-		add(lblGreeting, "span 2");
-		add(lblUsername);
-		add(txtKorisnickoIme);
-		add(lblPassword);
-		add(pfPassword);
-		add(new JLabel());
-		add(btnOk, "split 2");
-		add(btnCancel);
+		getContentPane().add(lblGreeting, "cell 0 0 2 1");
+		getContentPane().add(lblUsername, "cell 0 1");
+		getContentPane().add(txtKorisnickoIme, "cell 1 1");
+		getContentPane().add(lblPassword, "cell 0 2");
+		getContentPane().add(pfPassword, "cell 1 2");
+		getContentPane().add(new JLabel(), "flowx,cell 0 3");
+		getContentPane().add(btnOk, "flowx,cell 1 3");
+		getContentPane().add(btnCancel, "cell 1 3");
 		
 		
-		txtKorisnickoIme.setText("petarp");
-		pfPassword.setText("12345");
+		txtKorisnickoIme.setText("andjela24");
+		pfPassword.setText("lozinka");
 		getRootPane().setDefaultButton(btnOk);
 	}
 	
@@ -81,6 +82,10 @@ public class Login extends JFrame {
 						Login.this.setVisible(false);
 						GlavniProzor gp = new GlavniProzor(biblioteka, prijavljeni);
 						gp.setVisible(true);
+						if (prijavljeni instanceof Bibliotekar) {
+							gp.getAdminiItem().setEnabled(false);
+							gp.getBibliotekariItem().setEnabled(false);
+						}
 					}
 				} 
 			}

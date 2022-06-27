@@ -1,1 +1,1 @@
-3|Andjela|Lozanov|2408070975|adresa|ZENSKI|false|10000.0|andjela2416|lozinka
+1|Andjela|Lozanov|2407002098765|adresa|ZENSKI|false|200000.0|andjela24|lozinka

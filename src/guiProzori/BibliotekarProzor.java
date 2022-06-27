@@ -1,15 +1,13 @@
 
 package guiProzori;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import projekat.Administrator;
+
 import projekat.Bibliotekar;
 import projekat.Pol;
 import biblioteka.Biblioteka;
@@ -74,18 +72,18 @@ public class BibliotekarProzor extends JFrame {
 //			Pol pol = Pol.valueOf(polValue);
 			Pol pol = Pol.valueOf(textPol.getText());
 			if (isNum(textId.getText()) == true) {
-				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
+				Bibliotekar novi = new Bibliotekar(Id, textIme.getText(), textPrezime.getText(),
 						textJmbg.getText(), textAdresa.getText(), pol, obrisan,textPlataDouble,textKorisnickoIme.getText(),
 						textKorisnickaSifra.getText());
 
 				String[] zaglavlja = new String[] { "ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
 						"Plata" };
-				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniBibliotekari().size()][zaglavlja.length];
 				Object[] sadrzaj = new Object[zaglavlja.length];
 
-				for (int x = 0; x < biblioteka.sviNeobrisaniAdministratori().size(); x++) {
-					Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(x);
-					sadrzaj1[x][0] = admin.getId();
+				for (int x = 0; x < biblioteka.sviNeobrisaniBibliotekari().size(); x++) {
+					Bibliotekar bibliotekar = biblioteka.sviNeobrisaniBibliotekari().get(x);
+					sadrzaj1[x][0] =bibliotekar.getId();
 					if (sadrzaj1[x][0].equals(textId.getText())) {
 						JOptionPane.showMessageDialog(null, "Vec postoji entitet sa istim ID-em", "Greska",
 								JOptionPane.WARNING_MESSAGE);
@@ -95,8 +93,8 @@ public class BibliotekarProzor extends JFrame {
 
 				}
 				if (greska != true) {
-					biblioteka.dodajAdministratora(novi);
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.dodajBibliotekara(novi);
+					biblioteka.snimiBibliotekare();;
 
 					sadrzaj[0] = novi.getId();
 					sadrzaj[1] = novi.getIme();
@@ -107,7 +105,7 @@ public class BibliotekarProzor extends JFrame {
 					sadrzaj[6] = novi.getPlata();
 					sadrzaj[7] = novi.getKorisnickoIme();
 					sadrzaj[8] = novi.getLozinka();
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiBibliotekare();;
 					modelTabele.addRow(sadrzaj);
 					table_1.setModel(modelTabele);
 
@@ -136,19 +134,19 @@ public class BibliotekarProzor extends JFrame {
 	private void popuniTabelu() {
 		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
 				"Plata" };
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniBibliotekari().size()][zaglavlja.length];
 
-		for (int i = 0; i < biblioteka.sviNeobrisaniAdministratori().size(); i++) {
-			Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(i);
-			sadrzaj[i][0] = admin.getId();
-			sadrzaj[i][1] = admin.getIme();
-			sadrzaj[i][2] = admin.getPrezime();
-			sadrzaj[i][3] = admin.getJmbg();
-			sadrzaj[i][4] = admin.getAdresa();
-			sadrzaj[i][5] = admin.getPol();
-			sadrzaj[i][6] = admin.getKorisnickoIme();
-			sadrzaj[i][7] = admin.getLozinka();
-			sadrzaj[i][8] = admin.getPlata();
+		for (int i = 0; i < biblioteka.sviNeobrisaniBibliotekari().size(); i++) {
+			Bibliotekar bibliotekar = biblioteka.sviNeobrisaniBibliotekari().get(i);
+			sadrzaj[i][0] = bibliotekar.getId();
+			sadrzaj[i][1] = bibliotekar.getIme();
+			sadrzaj[i][2] = bibliotekar.getPrezime();
+			sadrzaj[i][3] = bibliotekar.getJmbg();
+			sadrzaj[i][4] = bibliotekar.getAdresa();
+			sadrzaj[i][5] = bibliotekar.getPol();
+			sadrzaj[i][6] = bibliotekar.getKorisnickoIme();
+			sadrzaj[i][7] = bibliotekar.getLozinka();
+			sadrzaj[i][8] = bibliotekar.getPlata();
 
 		}
 		modelTabele = new DefaultTableModel(sadrzaj, zaglavlja);
@@ -171,26 +169,26 @@ public class BibliotekarProzor extends JFrame {
 
 			if (isNum(ID) == true) {
 				int rowIndex = table_1.getSelectedRow();
-				Bibliotekar admin1 = biblioteka.sviNeobrisaniBibliotekari().get(rowIndex);
+				Bibliotekar bibliotekar1 = biblioteka.sviNeobrisaniBibliotekari().get(rowIndex);
 				boolean greska = false;
 				String Id = textId.getText();
-				admin1.setId(Id);
+				bibliotekar1.setId(Id);
 				String ime = textIme.getText();
-				admin1.setIme(ime);
+				bibliotekar1.setIme(ime);
 				String Prezime =  textPrezime.getText();
-				admin1.setPrezime(Prezime);
+				bibliotekar1.setPrezime(Prezime);
 				String jmbg = textJmbg.getText();
-				admin1.setJmbg(jmbg);
+				bibliotekar1.setJmbg(jmbg);
 				String adresa = textAdresa.getText();
-				admin1.setAdresa(adresa);
+				bibliotekar1.setAdresa(adresa);
 				double textPlataDouble = Double.parseDouble(textPlata.getText());
-				admin1.setPlata(textPlataDouble);
+				bibliotekar1.setPlata(textPlataDouble);
 				String korime = textKorisnickoIme.getText();
-				admin1.setKorisnickoIme(korime);
+				bibliotekar1.setKorisnickoIme(korime);
 				String korsifra =textKorisnickaSifra.getText();
-				admin1.setLozinka(korsifra);
+				bibliotekar1.setLozinka(korsifra);
 				Pol pol = Pol.valueOf(textPol.getText());
-				admin1.setPol(pol);
+				bibliotekar1.setPol(pol);
 				
 				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 				
@@ -210,8 +208,8 @@ public class BibliotekarProzor extends JFrame {
 //				}
 //				Pol pol = Pol.valueOf(polValue);
 
-				Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(rowIndex);
-				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
+				Bibliotekar bibliotekar = biblioteka.sviNeobrisaniBibliotekari().get(rowIndex);
+				Bibliotekar novi = new Bibliotekar(Id, textIme.getText(), textPrezime.getText(),
 						textJmbg.getText(), textAdresa.getText(), pol,obrisan,textPlataDouble, textKorisnickoIme.getText(),
 						textKorisnickaSifra.getText());
 
@@ -231,27 +229,27 @@ public class BibliotekarProzor extends JFrame {
 
 				if (greska != true) {
 
-					admin.setId(novi.getId());
-					admin.setIme(novi.getIme());
-					admin.setPrezime(novi.getPrezime());
-					admin.setJmbg(novi.getJmbg());
-					admin.setAdresa(novi.getAdresa());
-					admin.setPol(novi.getPol());
-					admin.setPlata(novi.getPlata());
-					admin.setKorisnickoIme(novi.getKorisnickoIme());
-					admin.setLozinka(novi.getLozinka());
+					bibliotekar.setId(novi.getId());
+					bibliotekar.setIme(novi.getIme());
+					bibliotekar.setPrezime(novi.getPrezime());
+					bibliotekar.setJmbg(novi.getJmbg());
+					bibliotekar.setAdresa(novi.getAdresa());
+					bibliotekar.setPol(novi.getPol());
+					bibliotekar.setPlata(novi.getPlata());
+					bibliotekar.setKorisnickoIme(novi.getKorisnickoIme());
+					bibliotekar.setLozinka(novi.getLozinka());
 
-					model.setValueAt(admin.getId(), rowIndex, 0);
-					model.setValueAt(admin.getIme(), rowIndex, 1);
-					model.setValueAt(admin.getPrezime(), rowIndex, 2);
-					model.setValueAt(admin.getJmbg(), rowIndex, 3);
-					model.setValueAt(admin.getAdresa(), rowIndex, 4);
-					model.setValueAt(admin.getPol(), rowIndex, 5);
-					model.setValueAt(admin.getPlata(), rowIndex, 6);
-					model.setValueAt(admin.getKorisnickoIme(), rowIndex, 7);
-					model.setValueAt(admin.getLozinka(), rowIndex, 8);
+					model.setValueAt(bibliotekar.getId(), rowIndex, 0);
+					model.setValueAt(bibliotekar.getIme(), rowIndex, 1);
+					model.setValueAt(bibliotekar.getPrezime(), rowIndex, 2);
+					model.setValueAt(bibliotekar.getJmbg(), rowIndex, 3);
+					model.setValueAt(bibliotekar.getAdresa(), rowIndex, 4);
+					model.setValueAt(bibliotekar.getPol(), rowIndex, 5);
+					model.setValueAt(bibliotekar.getPlata(), rowIndex, 6);
+					model.setValueAt(bibliotekar.getKorisnickoIme(), rowIndex, 7);
+					model.setValueAt(bibliotekar.getLozinka(), rowIndex, 8);
 
-					biblioteka.snimiAdministratore("bibliotekari.txt");
+					biblioteka.snimiBibliotekare();
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
 					table_1.setModel(model);
 					model.fireTableDataChanged();
@@ -274,10 +272,9 @@ public class BibliotekarProzor extends JFrame {
 			int indexReda = table_1.getSelectedRow();
 			String izabraniID = model.getValueAt(indexReda, 0).toString();
 			int izabraniIDint = Integer.parseInt(izabraniID);
-			Administrator admin = biblioteka.getListaAdministratora().get(indexReda);
-			admin.setObrisan(true);
-			admin.setId("0");
-			biblioteka.snimiAdministratore(izabraniID);
+			Bibliotekar bibliotekar = biblioteka.sviNeobrisaniBibliotekari().get(indexReda);
+			bibliotekar.setObrisan(true);
+			biblioteka.snimiBibliotekare();
 			
 			textId.setText("");
 			textIme.setText("");
@@ -289,7 +286,7 @@ public class BibliotekarProzor extends JFrame {
 			textKorisnickaSifra.setText("");
 			textPol.setText("");
 			
-			model.removeRow(izabraniIDint);
+			model.removeRow(indexReda);
 			table_1.setModel(model);
 			model.fireTableDataChanged();
 
@@ -307,7 +304,7 @@ public class BibliotekarProzor extends JFrame {
 	 * @param admin
 	 * @param biblioteka2
 	 */
-	public BibliotekarProzor(Biblioteka biblioteka, boolean admin) {
+	public BibliotekarProzor(Biblioteka biblioteka, boolean bibliotekar) {
 		this.biblioteka = biblioteka;
 		popuniTabelu();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

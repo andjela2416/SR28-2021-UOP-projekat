@@ -1,18 +1,13 @@
 package bibliotekaMain;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 import biblioteka.Biblioteka;
 import guiProzori.Login;
-import guiProzori.GlavniProzor;
-import guiProzori.Login;
+import guiProzori.Registracija;
 import projekat.Administrator;
 import projekat.Bibliotekar;
 import projekat.ClanBiblioteke;
 import projekat.IzdavanjeKnjige;
 import projekat.Knjiga;
-import projekat.Pol;
 import projekat.PrimerakKnjige;
 import projekat.Tip;
 import projekat.Zanr;
@@ -22,15 +17,17 @@ import projekat.Zaposleni;
 
 public class BibliotekaMain {
 
-	private static String CLANOVI_FAJL = "clanovi.txt";
-	private static String IZNAJMLJIVANJE_FAJL = "izdavanje.txt";
-	private static String KNJIGE_FAJL = "Knjiga.txt";
-	private static String PRIMERCIKNJIGA_FAJL = "primerciKnjiga.txt";
-	private static String TIPOVICLANARINE_FAJL = "tipoviClanarine.txt";
-	private static String ZANROVI_FAJL = "zanrovi.txt";
-	private static String BIBLIOTEKARI_FAJL= "bibliotekari.txt";
-	private static String ADMINISTRATORI_FAJL= "administratori.txt";
-	private static String ZAPOSLENI_FAJL= "zaposleni.txt";
+
+	public static String CLANOVI_FAJL = "clanovi.txt";
+	public static String IZNAJMLJIVANJE_FAJL = "izdavanje.txt";
+	public static String KNJIGE_FAJL = "Knjiga.txt";
+	public static String PRIMERCIKNJIGA_FAJL = "primerciKnjiga.txt";
+	public static String TIPOVICLANARINE_FAJL = "tipoviClanarine.txt";
+	public static String ZANROVI_FAJL = "zanrovi.txt";
+	public static String BIBLIOTEKARI_FAJL= "bibliotekari.txt";
+	public static String ADMINISTRATORI_FAJL= "administratori.txt";
+	public static String ZAPOSLENI_FAJL= "zaposleni.txt";
+	public static String BIBLIOTEKA_FAJL= "biblioteka.txt";
 	
 
 	public static void main(String[] args) {
@@ -42,22 +39,21 @@ public class BibliotekaMain {
 		
 		
 		
-		
-//		biblioteka.ucitajTip(TIPOVICLANARINE_FAJL);
-//		biblioteka.ucitajClanove(CLANOVI_FAJL);
-//		//biblioteka.ucitajZaposlene(ZAPOSLENI_FAJL);
-//		biblioteka.ucitajZanrove(ZANROVI_FAJL);
-//		biblioteka.ucitajKnjige(KNJIGE_FAJL);
-//		biblioteka.ucitajPrimerkeKnjiga(PRIMERCIKNJIGA_FAJL);
-//		biblioteka.ucitajIznajmljivanje(IZNAJMLJIVANJE_FAJL);
-//		biblioteka.ucitajBibliotekare(BIBLIOTEKARI_FAJL);
-		//biblioteka.ucitajAdministratore(ADMINISTRATORI_FAJL);
+		biblioteka.ucitajTip(TIPOVICLANARINE_FAJL);
+		biblioteka.ucitajClanove(CLANOVI_FAJL);
+		//biblioteka.ucitajZaposlene(ZAPOSLENI_FAJL);
+		biblioteka.ucitajZanrove(ZANROVI_FAJL);
+		biblioteka.ucitajKnjige(KNJIGE_FAJL);
+		biblioteka.ucitajPrimerkeKnjiga(PRIMERCIKNJIGA_FAJL);
+		biblioteka.ucitajIznajmljivanje(IZNAJMLJIVANJE_FAJL);
+		biblioteka.ucitajBibliotekare(BIBLIOTEKARI_FAJL);
+		biblioteka.ucitajAdministratore(ADMINISTRATORI_FAJL);
 	
 		
-//		System.out.println("PODACI UCITANI IZ DATOTEKA:");
-//		System.out.println("----------------------------------------------");
-//		ispisiSvePodatke(biblioteka);
-//		System.out.println("----------------------------------------------");
+		System.out.println("PODACI UCITANI IZ DATOTEKA:");
+		System.out.println("----------------------------------------------");
+		ispisiSvePodatke(biblioteka);
+		System.out.println("----------------------------------------------");
 		
 		
 		
@@ -73,7 +69,7 @@ public class BibliotekaMain {
 		//System.out.println(biblioteka.getListaClanova().get(0));
 		
 //		//LocalDate datumIznajmljivanja, LocalDate datumVracanja,Zaposleni zaposleni,PrimerakKnjige primerak, ClanBiblioteke clan
-//		IzdavanjeKnjige testIzdavanje = new IzdavanjeKnjige(LocalDate.of(2025, 02, 19),LocalDate.of(2022, 03, 20),biblioteka.pronadjiPrimerak("2"),biblioteka.pronadjiZaposlenog("3"),biblioteka.nadjiClana("2"),false);
+//		IzdavanjeKnjige testIzdavanje = new IzdavanjeKnjige("1",LocalDate.of(2025, 02, 19),LocalDate.of(2022, 03, 20),biblioteka.pronadjiPrimerak("2"),biblioteka.pronadjiZaposlenog("3"),biblioteka.nadjiClana("2"),false);
 //		//System.out.println(biblioteka.pronadjiZaposlenog("3"));
 //		ArrayList<IzdavanjeKnjige> listaIzdavanja = new ArrayList <IzdavanjeKnjige> ();
 //		listaIzdavanja.add(testIzdavanje);
@@ -154,10 +150,15 @@ public class BibliotekaMain {
 //		biblioteka.setListaAdministratora(listaAdministratora);
 //		biblioteka.snimiAdministratore(ADMINISTRATORI_FAJL);
 		
-
+		if (biblioteka.sviNeobrisaniAdministratori().isEmpty()) {
+			Registracija regist = new Registracija(biblioteka);
+			regist.setVisible(true);
+		}
+		else {		
 		Login lp = new Login(biblioteka);
-		
 		lp.setVisible(true);
+		}
+	
 		
 		//System.out.println(biblioteka.getListaAdministratora().get(0));
 //		GlavniProzor g=new GlavniProzor(biblioteka,testAdministrator);

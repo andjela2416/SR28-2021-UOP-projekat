@@ -29,13 +29,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class ZanrProzor extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textId;
-	private JTextField textIme;
+	private JTextField textOznaka;
+	private JTextField textOpis;
 	private JTextField textPrezime;
 	private JTextField textJmbg;
 	private JTextField textAdresa;
@@ -47,6 +48,7 @@ public class ZanrProzor extends JFrame {
 	private DefaultTableModel tableModelNovi;
 	private Biblioteka biblioteka;
 	private JTable table_1;
+	private ArrayList<Zanr>listaNeobrisanih;
 	
 
 	/**
@@ -58,8 +60,8 @@ public class ZanrProzor extends JFrame {
 	private void dodaj() {
 		try {
 			boolean greska = false;
-			String Id = textId.getText();
-			double textPlataDouble = Double.parseDouble(textPlata.getText());
+			String oznaka=textOznaka.getText();
+			String opis=textOpis.getText();
 			boolean obrisan = false;
 //			int indeks = comboBox.getSelectedIndex();
 
@@ -72,17 +74,17 @@ public class ZanrProzor extends JFrame {
 //			}
 //			Pol pol = Pol.valueOf(polValue);
 		
-			if (isNum(textId.getText()) == true) {
-				Zanr novi = new Zanr();
+			if (isNum(textOznaka.getText()) == true) {
+				Zanr novi = new Zanr(oznaka,opis,obrisan);
 
 				String[] zaglavlja = new String[] { "oznaka","opis"};
-				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+				Object[][] sadrzaj1 = new Object[this.listaNeobrisanih.size()][zaglavlja.length];
 				Object[] sadrzaj = new Object[zaglavlja.length];
 
-				for (int x = 0; x < biblioteka.sviNeobrisaniAdministratori().size(); x++) {
-					Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(x);
-					sadrzaj1[x][0] = admin.getId();
-					if (sadrzaj1[x][0].equals(textId.getText())) {
+				for (int x = 0; x < this.listaNeobrisanih.size(); x++) {
+					Zanr zanr = this.listaNeobrisanih.get(x);
+					sadrzaj1[x][0] = zanr.getOznaka();
+					if (sadrzaj1[x][0].equals(textOznaka.getText())) {
 						JOptionPane.showMessageDialog(null, "Vec postoji entitet sa istim ID-em", "Greska",
 								JOptionPane.WARNING_MESSAGE);
 						greska = true;
@@ -92,12 +94,12 @@ public class ZanrProzor extends JFrame {
 				}
 				if (greska != true) {
 					biblioteka.dodajZanr(novi);
-					biblioteka.snimiZanrove("zanrovi.txt");
+					biblioteka.snimiZanrove();
 
 					sadrzaj[0] = novi.getOznaka();
 					sadrzaj[1] = novi.getOpis();
 				
-					biblioteka.snimiZanrove("zanrovi.txt");
+					biblioteka.snimiZanrove();
 					modelTabele.addRow(sadrzaj);
 					table_1.setModel(modelTabele);
 
@@ -125,16 +127,16 @@ public class ZanrProzor extends JFrame {
 
 	private void popuniTabelu() {
 		String[] zaglavlja = new String[] {"oznaka","opis" };
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+		Object[][] sadrzaj = new Object[this.listaNeobrisanih.size()][zaglavlja.length];
 
-		for (int i = 0; i < biblioteka.sviNeobrisaniAdministratori().size(); i++) {
-			Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(i);
-			sadrzaj[i][0] = admin.getId();
-			sadrzaj[i][1] = admin.getIme();
+		for (int i = 0; i < this.listaNeobrisanih.size(); i++) {
+			Zanr zanr = this.listaNeobrisanih.get(i);
+			sadrzaj[i][0] = zanr.getOznaka();
+			sadrzaj[i][1] = zanr.getOpis();
 		
 
 		}
-		modelTabele = new DefaultTableModel(sadrzaj, zaglavlja);
+		modelTabele = new DefaultTableModel(sadrzaj, zaglavlja);   //DefaulListModel
 		table_1 = new JTable(modelTabele);
 		//System.out.println(modelTabele.getValueAt(0, 1)); sto neceeeeeeeeeeeeeeeeeeeeeee
 		
@@ -147,16 +149,19 @@ public class ZanrProzor extends JFrame {
 		try {
 
 			String[] zaglavlja = new String[] {"oznaka","opis" };
-			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+			Object[][] sadrzaj1 = new Object[this.listaNeobrisanih.size()][zaglavlja.length];
 			Object[] sadrzaj = new Object[zaglavlja.length];
-			String ID = textId.getText();
+			String ID = textOznaka.getText();
 
 			if (isNum(ID) == true) {
-				boolean greska = false;
-				String Id = textId.getText();
-				double textPlataDouble = Double.parseDouble(textPlata.getText());
-				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 				int rowIndex = table_1.getSelectedRow();
+				Zanr zanr1 = biblioteka.sviNeobrisaniZanrovi().get(rowIndex);
+				boolean greska = false;
+				String oznaka =textOznaka.getText();
+				zanr1.setOznaka(oznaka);
+				String opis = textOpis.getText();
+				zanr1.setOpis(opis);
+				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 				String izabraniID = model.getValueAt(rowIndex, 0).toString();
 				int izabraniIDint = Integer.parseInt(izabraniID);
 				//comboBox.getSelectedIndex();
@@ -174,7 +179,7 @@ public class ZanrProzor extends JFrame {
 //				Pol pol = Pol.valueOf(polValue);
 
 				Zanr admin = biblioteka.sviNeobrisaniZanrovi().get(rowIndex);
-				Zanr novi = new Zanr();
+				Zanr novi = new Zanr(oznaka,opis,obrisan);
 
 //				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
 //					Administrator uneti = biblioteka.getAdministratori().get(x);
@@ -200,7 +205,7 @@ public class ZanrProzor extends JFrame {
 					model.setValueAt(admin.getOpis(), rowIndex, 1);
 			
 
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiZanrove();
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
 					table_1.setModel(model);
 					model.fireTableDataChanged();
@@ -223,22 +228,16 @@ public class ZanrProzor extends JFrame {
 			int indexReda = table_1.getSelectedRow();
 			String izabraniID = model.getValueAt(indexReda, 0).toString();
 			int izabraniIDint = Integer.parseInt(izabraniID);
-			Administrator admin = biblioteka.getListaAdministratora().get(indexReda);
-			admin.setObrisan(true);
-			admin.setId("0");
-			biblioteka.snimiAdministratore(izabraniID);
+			Zanr zanr = biblioteka.getListaZanrova().get(indexReda);
+			zanr.setObrisan(true);
+			biblioteka.snimiZanrove();
 			
-			textId.setText("");
-			textIme.setText("");
-			textPlata.setText("");
-			textPrezime.setText("");
-			textJmbg.setText("");
-			textAdresa.setText("");
-			textKorisnickoIme.setText("");
-			textKorisnickaSifra.setText("");
+			textOznaka.setText("");
+			textOpis.setText("");
+		
 		
 			
-			model.removeRow(izabraniIDint);
+			model.removeRow(indexReda);
 			table_1.setModel(model);
 			model.fireTableDataChanged();
 
@@ -258,6 +257,7 @@ public class ZanrProzor extends JFrame {
 	 */
 	public ZanrProzor(Biblioteka biblioteka, boolean admin) {
 		this.biblioteka = biblioteka;
+		this.listaNeobrisanih=biblioteka.sviNeobrisaniZanrovi();
 		popuniTabelu();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 770, 550);
@@ -277,20 +277,20 @@ public class ZanrProzor extends JFrame {
 		lblNewLabel.setBounds(650, 18, 49, 14);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("IOpis");
+		JLabel lblNewLabel_1 = new JLabel("Opis");
 		lblNewLabel_1.setBounds(650, 71, 49, 14);
 		contentPane.add(lblNewLabel_1);
 
 
-		textId = new JTextField();
-		textId.setBounds(650, 43, 96, 20);
-		contentPane.add(textId);
-		textId.setColumns(10);
+		textOznaka = new JTextField();
+		textOznaka.setBounds(650, 43, 96, 20);
+		contentPane.add(textOznaka);
+		textOznaka.setColumns(10);
 
-		textIme = new JTextField();
-		textIme.setBounds(650, 90, 96, 20);
-		contentPane.add(textIme);
-		textIme.setColumns(10);
+		textOpis = new JTextField();
+		textOpis.setBounds(650, 90, 96, 20);
+		contentPane.add(textOpis);
+		textOpis.setColumns(10);
 
 		textPrezime = new JTextField();
 		textPrezime.setBounds(650, 143, 96, 20);

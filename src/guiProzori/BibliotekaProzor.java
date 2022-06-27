@@ -33,28 +33,23 @@ import java.awt.event.ActionEvent;
 public class BibliotekaProzor extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textId;
-	private JTextField textIme;
-	private JTextField textPrezime;
-	private JTextField textJmbg;
-	private JTextField textAdresa;
-	private JTextField textKorisnickoIme;
-	private JTextField textKorisnickaSifra;
-	private JTextField textPlata;
 	private JComboBox comboBox;
 	private DefaultTableModel modelTabele;
 	private DefaultTableModel tableModelNovi;
 	private Biblioteka biblioteka;
 	private JTable table_1;
-	private JTextField textPol;
+	private JTextField textRadnoVreme;
+	private JTextField textNaziv;
+	private JTextField textAdresa;
+	private JTextField textTelefon;
 	
 
 	/**
 	 * Launch the application.
 	 */
 
-//	/* CREATE */
-//
+	/* CREATE */
+
 //	private void dodaj() {
 //		try {
 //			boolean greska = false;
@@ -71,7 +66,7 @@ public class BibliotekaProzor extends JFrame {
 ////				polValue = "ZENSKI";
 ////			}
 ////			Pol pol = Pol.valueOf(polValue);
-//			Pol pol = Pol.valueOf(textPol.getText());
+//			Pol pol = Pol.valueOf(textRadnoVreme.getText());
 //			if (isNum(textId.getText()) == true) {
 //				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
 //						textJmbg.getText(), textAdresa.getText(), pol, obrisan,textPlataDouble,textKorisnickoIme.getText(),
@@ -118,133 +113,127 @@ public class BibliotekaProzor extends JFrame {
 //		}
 //	}
 
-	/* Validacija broja */
-
-	public static boolean isNum(String str) {
-		try {
-			Integer.parseInt(str);
-			return true;
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Unesite dobre podatke", "Greska", JOptionPane.WARNING_MESSAGE);
-			return false;
-		}
-	}
+//	/* Validacija broja */
+//
+//	public static boolean isNum(String str) {
+//		try {
+//			Integer.parseInt(str);
+//			return true;
+//		} catch (NumberFormatException e) {
+//			JOptionPane.showMessageDialog(null, "Unesite dobre podatke", "Greska", JOptionPane.WARNING_MESSAGE);
+//			return false;
+//		}
+//	}
 
 	/* READ */
 
-	private void popuniTabelu() {
-		String[] zaglavlja = new String[] {"Naziv","Adresa","telefon","Radno vreme","Izdavanja","Primerci","Knjige","Zanrovi","Clanovi","Tipov","Administratori","Bibliotekari","Zaposleni"
-				 };
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
-
-		for (int i = 0; i < biblioteka.sviNeobrisaniAdministratori().size(); i++) {
-			Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(i);
-			sadrzaj[i][0] = admin.getId();
-			sadrzaj[i][1] = admin.getIme();
-			sadrzaj[i][2] = admin.getPrezime();
-			sadrzaj[i][3] = admin.getJmbg();
-			sadrzaj[i][4] = admin.getAdresa();
-			sadrzaj[i][5] = admin.getPol();
-			sadrzaj[i][6] = admin.getKorisnickoIme();
-			sadrzaj[i][7] = admin.getLozinka();
-			sadrzaj[i][8] = admin.getPlata();
-
-		}
-		modelTabele = new DefaultTableModel(sadrzaj, zaglavlja);
-		table_1 = new JTable(modelTabele);
-		//System.out.println(modelTabele.getValueAt(0, 1)); sto neceeeeeeeeeeeeeeeeeeeeeee
-		
-
-	}
-
-	/* UPDATE */
-
-	private void azuriraj() {
-		try {
-
-			String[] zaglavlja = new String[] {"Naziv","Adresa","telefon","Radno vreme","Izdavanja","Primerci","Knjige","Zanrovi","Clanovi","Tipov","Administratori","Bibliotekari","Zaposleni"
-			 };
-			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
-			Object[] sadrzaj = new Object[zaglavlja.length];
-			String ID = textId.getText();
-
-			if (isNum(ID) == true) {
-				boolean greska = false;
-				String Id = textId.getText();
-				double textPlataDouble = Double.parseDouble(textPlata.getText());
-				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
-				int rowIndex = table_1.getSelectedRow();
-				String izabraniID = model.getValueAt(rowIndex, 0).toString();
-				int izabraniIDint = Integer.parseInt(izabraniID);
-				//comboBox.getSelectedIndex();
-				//int indeks = comboBox.getSelectedIndex();
-				Pol pol = Pol.valueOf(textPol.getText());
-				boolean obrisan = false;
-
-//				String polValue = "";
-//				if (indeks == 0) {
-//					polValue = "MUSKI";
+//	private void popuniTabelu() {
+//		String[] zaglavlja = new String[] {"Naziv","Adresa","telefon","Radno vreme" };
+//		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
 //
-//				} else {
-//					polValue = "ZENSKI";
-//				}
-//				Pol pol = Pol.valueOf(polValue);
-
-				Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(rowIndex);
-				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
-						textJmbg.getText(), textAdresa.getText(), pol,obrisan,textPlataDouble, textKorisnickoIme.getText(),
-						textKorisnickaSifra.getText());
-
-//				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
-//					Administrator uneti = biblioteka.getAdministratori().get(x);
-//					sadrzaj1[x][0] = uneti.getId();
-//					if (sadrzaj1[x][0] == admin.getId()) {
-//						break;
-//					} else if (sadrzaj1[x][0].equals(textId.getText())) {
-//						JOptionPane.showMessageDialog(null, "Postoji entitet sa istim id-om", "Greska",
-//							JOptionPane.WARNING_MESSAGE);
-//						greska = true;
-//						break;
-//					}
+////		for (int i = 0; i < biblioteka.sviNeobrisaniAdministratori().size(); i++) {
+//			Biblioteka biblioteka = biblioteka.sviNeobrisaniAdministratori();
+//			sadrzaj[0] = biblioteka.getNaziv();
+//			sadrzaj[1] = biblioteka.getAdresa();
+//			sadrzaj[2] = biblioteka.getTelefon();
+//			sadrzaj[3] = biblioteka.getRadnoVreme();
 //
+//
+////		}
+//		modelTabele = new DefaultTableModel(sadrzaj, zaglavlja);
+//		table_1 = new JTable(modelTabele);
+//		//System.out.println(modelTabele.getValueAt(0, 1)); sto neceeeeeeeeeeeeeeeeeeeeeee
+//		
+//
+//	}
+//
+//	/* UPDATE */
+//
+//	private void azuriraj() {
+//		try {
+//
+//			String[] zaglavlja = new String[] {"Naziv","Adresa","telefon","Radno vreme" };
+//			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+//			Object[] sadrzaj = new Object[zaglavlja.length];
+//			String ID = textId.getText();
+//
+//			if (isNum(ID) == true) {
+//				boolean greska = false;
+//				String Id = textId.getText();
+//				double textPlataDouble = Double.parseDouble(textPlata.getText());
+//				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+//				int rowIndex = table_1.getSelectedRow();
+//				String izabraniID = model.getValueAt(rowIndex, 0).toString();
+//				int izabraniIDint = Integer.parseInt(izabraniID);
+//				//comboBox.getSelectedIndex();
+//				//int indeks = comboBox.getSelectedIndex();
+//				Pol pol = Pol.valueOf(textPol.getText());
+//				boolean obrisan = false;
+//
+////				String polValue = "";
+////				if (indeks == 0) {
+////					polValue = "MUSKI";
+////
+////				} else {
+////					polValue = "ZENSKI";
+////				}
+////				Pol pol = Pol.valueOf(polValue);
+//
+//				Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(rowIndex);
+//				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
+//						textJmbg.getText(), textAdresa.getText(), pol,obrisan,textPlataDouble, textKorisnickoIme.getText(),
+//						textKorisnickaSifra.getText());
+//
+////				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
+////					Administrator uneti = biblioteka.getAdministratori().get(x);
+////					sadrzaj1[x][0] = uneti.getId();
+////					if (sadrzaj1[x][0] == admin.getId()) {
+////						break;
+////					} else if (sadrzaj1[x][0].equals(textId.getText())) {
+////						JOptionPane.showMessageDialog(null, "Postoji entitet sa istim id-om", "Greska",
+////							JOptionPane.WARNING_MESSAGE);
+////						greska = true;
+////						break;
+////					}
+////
+////				}
+//
+//				if (greska != true) {
+//
+//					admin.setId(novi.getId());
+//					admin.setIme(novi.getIme());
+//					admin.setPrezime(novi.getPrezime());
+//					admin.setJmbg(novi.getJmbg());
+//					admin.setAdresa(novi.getAdresa());
+//					admin.setPol(novi.getPol());
+//					admin.setPlata(novi.getPlata());
+//					admin.setKorisnickoIme(novi.getKorisnickoIme());
+//					admin.setLozinka(novi.getLozinka());
+//
+//					model.setValueAt(admin.getId(), rowIndex, 0);
+//					model.setValueAt(admin.getIme(), rowIndex, 1);
+//					model.setValueAt(admin.getPrezime(), rowIndex, 2);
+//					model.setValueAt(admin.getJmbg(), rowIndex, 3);
+//					model.setValueAt(admin.getAdresa(), rowIndex, 4);
+//					model.setValueAt(admin.getPol(), rowIndex, 5);
+//					model.setValueAt(admin.getPlata(), rowIndex, 6);
+//					model.setValueAt(admin.getKorisnickoIme(), rowIndex, 7);
+//					model.setValueAt(admin.getLozinka(), rowIndex, 8);
+//
+//					biblioteka.snimiAdministratore("administratori.txt");
+//					model.fireTableRowsInserted(rowIndex, izabraniIDint);
+//					table_1.setModel(model);
+//					model.fireTableDataChanged();
 //				}
-
-				if (greska != true) {
-
-					admin.setId(novi.getId());
-					admin.setIme(novi.getIme());
-					admin.setPrezime(novi.getPrezime());
-					admin.setJmbg(novi.getJmbg());
-					admin.setAdresa(novi.getAdresa());
-					admin.setPol(novi.getPol());
-					admin.setPlata(novi.getPlata());
-					admin.setKorisnickoIme(novi.getKorisnickoIme());
-					admin.setLozinka(novi.getLozinka());
-
-					model.setValueAt(admin.getId(), rowIndex, 0);
-					model.setValueAt(admin.getIme(), rowIndex, 1);
-					model.setValueAt(admin.getPrezime(), rowIndex, 2);
-					model.setValueAt(admin.getJmbg(), rowIndex, 3);
-					model.setValueAt(admin.getAdresa(), rowIndex, 4);
-					model.setValueAt(admin.getPol(), rowIndex, 5);
-					model.setValueAt(admin.getPlata(), rowIndex, 6);
-					model.setValueAt(admin.getKorisnickoIme(), rowIndex, 7);
-					model.setValueAt(admin.getLozinka(), rowIndex, 8);
-
-					biblioteka.snimiAdministratore("administratori.txt");
-					model.fireTableRowsInserted(rowIndex, izabraniIDint);
-					table_1.setModel(model);
-					model.fireTableDataChanged();
-				}
-			}
-
-		} catch (ArrayIndexOutOfBoundsException e) {
-			JOptionPane.showMessageDialog(null, "Izaberite red", "Greska", JOptionPane.WARNING_MESSAGE);
-		} catch (NumberFormatException x) {
-			JOptionPane.showMessageDialog(null, "Niste uneli dobre podatke", "Greska",
-					JOptionPane.WARNING_MESSAGE);
-		}
-	}
+//			}
+//
+//		} catch (ArrayIndexOutOfBoundsException e) {
+//			JOptionPane.showMessageDialog(null, "Izaberite red", "Greska", JOptionPane.WARNING_MESSAGE);
+//		} catch (NumberFormatException x) {
+//			JOptionPane.showMessageDialog(null, "Niste uneli dobre podatke", "Greska",
+//					JOptionPane.WARNING_MESSAGE);
+//		}
+//	}
 	
 //	/* DELETE */
 //	
@@ -289,9 +278,9 @@ public class BibliotekaProzor extends JFrame {
 //	 */
 	public BibliotekaProzor(Biblioteka biblioteka, boolean admin) {
 		this.biblioteka = biblioteka;
-		popuniTabelu();
+//		popuniTabelu();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 770, 550);
+		setBounds(100, 100, 463, 625);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.MAGENTA);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -305,62 +294,82 @@ public class BibliotekaProzor extends JFrame {
 		
 
 		JLabel lblNewLabel = new JLabel("Naziv:");
-		lblNewLabel.setBounds(650, 18, 49, 14);
+		lblNewLabel.setBounds(176, 101, 49, 14);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Adresa:");
-		lblNewLabel_1.setBounds(650, 71, 49, 14);
+		lblNewLabel_1.setBounds(176, 157, 49, 14);
 		contentPane.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Telefon:");
-		lblNewLabel_2.setBounds(650, 121, 49, 14);
+		lblNewLabel_2.setBounds(176, 220, 49, 14);
 		contentPane.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Radno vreme:");
-		lblNewLabel_3.setBounds(650, 174, 96, 14);
+		lblNewLabel_3.setBounds(176, 279, 96, 14);
 		contentPane.add(lblNewLabel_3);
 
 
-		textId = new JTextField();
-		textId.setBounds(650, 43, 96, 20);
-		contentPane.add(textId);
-		textId.setColumns(10);
-
-		textIme = new JTextField();
-		textIme.setBounds(650, 90, 96, 20);
-		contentPane.add(textIme);
-		textIme.setColumns(10);
-
-		textPrezime = new JTextField();
-		textPrezime.setBounds(650, 143, 96, 20);
-		contentPane.add(textPrezime);
-		textPrezime.setColumns(10);
+	
 
 	
 
-		JButton btnNewButton_2 = new JButton("Azuriraj");
+		JButton btnNewButton_2 = new JButton("Dodaj");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				azuriraj();
+				Biblioteka b = biblioteka.ucitajBiblioteku("biblioteka.txt");
+				if(!textNaziv.getText().trim().equals("")) {
+                    String naziv = textNaziv.getText().trim();
+                    b.setNaziv(naziv);
+                }
+                if(!textAdresa.getText().trim().equals("")) {
+                    String adresa = textAdresa.getText().trim();
+                    b.setAdresa(adresa);
+                }
+                if(!textTelefon.getText().trim().equals("")) {
+                    String broj = textTelefon.getText().trim();
+                    b.setTelefon(broj);
+                }
+                if(!textRadnoVreme.getText().trim().equals("")) {
+                    String radnovr = textRadnoVreme.getText().trim();
+                    b.setRadnoVreme(radnovr);
+                }
+
+
+
+                b.snimiBiblioteku(BibliotekaMain.BIBLIOTEKA_FAJL);
+                BibliotekaProzor.this.dispose();
+                BibliotekaProzor.this.setVisible(false);
 			}
 		});
-		btnNewButton_2.setBounds(278, 424, 134, 42);
+		btnNewButton_2.setBounds(154, 445, 134, 42);
 		contentPane.add(btnNewButton_2);
-
-		JScrollPane scrollPane = new JScrollPane(table_1);
-		scrollPane.setBounds(10, 85, 619, 256);
-		contentPane.add(scrollPane);
 		
 
-		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table_1.setRowSelectionAllowed(true);
-		table_1.setColumnSelectionAllowed(false);
-		table_1.setBackground(Color.WHITE);
+//		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		table_1.setRowSelectionAllowed(true);
+//		table_1.setColumnSelectionAllowed(false);
+//		table_1.setBackground(Color.WHITE);
 		
-		textPol = new JTextField();
-		textPol.setBounds(650, 199, 96, 19);
-		contentPane.add(textPol);
-		textPol.setColumns(10);
+		textRadnoVreme = new JTextField();
+		textRadnoVreme.setBounds(176, 304, 96, 19);
+		contentPane.add(textRadnoVreme);
+		textRadnoVreme.setColumns(10);
+		
+		textNaziv = new JTextField();
+		textNaziv.setBounds(176, 126, 96, 20);
+		contentPane.add(textNaziv);
+		textNaziv.setColumns(10);
+		
+		textAdresa = new JTextField();
+		textAdresa.setBounds(176, 182, 96, 20);
+		contentPane.add(textAdresa);
+		textAdresa.setColumns(10);
+		
+		textTelefon = new JTextField();
+		textTelefon.setBounds(176, 245, 96, 20);
+		contentPane.add(textTelefon);
+		textTelefon.setColumns(10);
 
 	
 }

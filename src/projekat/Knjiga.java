@@ -35,7 +35,15 @@ public class Knjiga {
 	}
 
 	public Knjiga() {
-		super();
+		this.id = "";
+		this.naslovKnjige = "";
+		this.originalNaslovKnjige = "";
+		this.pisac = "";
+		this.godinaObjavljivanja = 0;
+		this.jezikOriginala = "";
+		this.opis = "";
+		this.zanr = new Zanr();
+		this.obrisan = false;
 	}
 
 	@Override

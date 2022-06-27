@@ -29,14 +29,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class TipProzor extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textId;
-	private JTextField textIme;
-	private JTextField textPrezime;
+	private JTextField textNaziv;
+	private JTextField textCena;
 	private JTextField textJmbg;
 	private JTextField textAdresa;
 	private JTextField textKorisnickoIme;
@@ -47,6 +48,7 @@ public class TipProzor extends JFrame {
 	private DefaultTableModel tableModelNovi;
 	private Biblioteka biblioteka;
 	private JTable table_1;
+	private ArrayList<Tip>listaNeobrisanih;
 	
 
 	/**
@@ -59,7 +61,8 @@ public class TipProzor extends JFrame {
 		try {
 			boolean greska = false;
 			String Id = textId.getText();
-			double textPlataDouble = Double.parseDouble(textPlata.getText());
+			String naziv = textNaziv.getText();
+			double cena = Double.parseDouble(textCena.getText());
 			boolean obrisan = false;
 //			int indeks = comboBox.getSelectedIndex();
 
@@ -73,15 +76,15 @@ public class TipProzor extends JFrame {
 //			Pol pol = Pol.valueOf(polValue);
 			
 			if (isNum(textId.getText()) == true) {
-				Tip novi = new Tip();
+				Tip novi = new Tip(Id,naziv,cena,obrisan);
 
 				String[] zaglavlja = new String[] { "id","naziv","cena" };
-				Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+				Object[][] sadrzaj1 = new Object[this.listaNeobrisanih.size()][zaglavlja.length];
 				Object[] sadrzaj = new Object[zaglavlja.length];
 
-				for (int x = 0; x < biblioteka.sviNeobrisaniAdministratori().size(); x++) {
-					Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(x);
-					sadrzaj1[x][0] = admin.getId();
+				for (int x = 0; x < this.listaNeobrisanih.size(); x++) {
+					Tip tip =this.listaNeobrisanih.get(x);
+					sadrzaj1[x][0] = tip.getId();
 					if (sadrzaj1[x][0].equals(textId.getText())) {
 						JOptionPane.showMessageDialog(null, "Vec postoji entitet sa istim ID-em", "Greska",
 								JOptionPane.WARNING_MESSAGE);
@@ -92,13 +95,13 @@ public class TipProzor extends JFrame {
 				}
 				if (greska != true) {
 					biblioteka.dodajTip(novi);
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiTipClanarine();
 
 					sadrzaj[0] = novi.getId();
 					sadrzaj[1] = novi.getNaziv();
 					sadrzaj[2] = novi.getCena();
 		
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiTipClanarine();
 					modelTabele.addRow(sadrzaj);
 					table_1.setModel(modelTabele);
 
@@ -126,13 +129,13 @@ public class TipProzor extends JFrame {
 
 	private void popuniTabelu() {
 		String[] zaglavlja = new String[] {"id","naziv","cena" };
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+		Object[][] sadrzaj = new Object[this.listaNeobrisanih.size()][zaglavlja.length];
 
-		for (int i = 0; i < biblioteka.sviNeobrisaniAdministratori().size(); i++) {
-			Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(i);
-			sadrzaj[i][0] = admin.getId();
-			sadrzaj[i][1] = admin.getIme();
-			sadrzaj[i][2] = admin.getPrezime();
+		for (int i = 0; i < this.listaNeobrisanih.size(); i++) {
+			Tip tip = this.listaNeobrisanih.get(i);
+			sadrzaj[i][0] = tip.getId();
+			sadrzaj[i][1] = tip.getNaziv();
+			sadrzaj[i][2] = tip.getCena();
 	
 
 		}
@@ -149,16 +152,22 @@ public class TipProzor extends JFrame {
 		try {
 
 			String[] zaglavlja = new String[] {"id","naziv","cena"   };
-			Object[][] sadrzaj1 = new Object[biblioteka.sviNeobrisaniAdministratori().size()][zaglavlja.length];
+			Object[][] sadrzaj1 = new Object[this.listaNeobrisanih.size()][zaglavlja.length];
 			Object[] sadrzaj = new Object[zaglavlja.length];
 			String ID = textId.getText();
 
 			if (isNum(ID) == true) {
+				int rowIndex = table_1.getSelectedRow();
 				boolean greska = false;
 				String Id = textId.getText();
-				double textPlataDouble = Double.parseDouble(textPlata.getText());
+				Tip tip1 = biblioteka.sviNeobrisaniTipovi().get(rowIndex);
+				tip1.setId(Id);
+				String Naziv = textNaziv.getText();
+				tip1.setNaziv(Naziv);
+				Double Cena= Double.parseDouble(textCena.getText());
+				tip1.setCena(Cena);
 				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
-				int rowIndex = table_1.getSelectedRow();
+				
 				String izabraniID = model.getValueAt(rowIndex, 0).toString();
 				int izabraniIDint = Integer.parseInt(izabraniID);
 				//comboBox.getSelectedIndex();
@@ -176,7 +185,7 @@ public class TipProzor extends JFrame {
 //				Pol pol = Pol.valueOf(polValue);
 
 				Tip admin = biblioteka.sviNeobrisaniTipovi().get(rowIndex);
-				Tip novi = new Tip();
+				Tip novi = new Tip(Id,Naziv,Cena,obrisan);
 
 //				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
 //					Administrator uneti = biblioteka.getAdministratori().get(x);
@@ -204,7 +213,7 @@ public class TipProzor extends JFrame {
 					model.setValueAt(admin.getCena(), rowIndex, 2);
 				
 
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiTipClanarine();
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
 					table_1.setModel(model);
 					model.fireTableDataChanged();
@@ -227,22 +236,17 @@ public class TipProzor extends JFrame {
 			int indexReda = table_1.getSelectedRow();
 			String izabraniID = model.getValueAt(indexReda, 0).toString();
 			int izabraniIDint = Integer.parseInt(izabraniID);
-			Administrator admin = biblioteka.getListaAdministratora().get(indexReda);
-			admin.setObrisan(true);
-			admin.setId("0");
-			biblioteka.snimiAdministratore(izabraniID);
+			Tip tip = biblioteka.getListaTipova().get(indexReda);
+			tip.setObrisan(true);
+			biblioteka.snimiTipClanarine();
 			
 			textId.setText("");
-			textIme.setText("");
-			textPlata.setText("");
-			textPrezime.setText("");
-			textJmbg.setText("");
-			textAdresa.setText("");
-			textKorisnickoIme.setText("");
-			textKorisnickaSifra.setText("");
+			textNaziv.setText("");
+			textCena.setText("");
+		
 		
 			
-			model.removeRow(izabraniIDint);
+			model.removeRow(indexReda);
 			table_1.setModel(model);
 			model.fireTableDataChanged();
 
@@ -262,6 +266,7 @@ public class TipProzor extends JFrame {
 	 */
 	public TipProzor(Biblioteka biblioteka, boolean admin) {
 		this.biblioteka = biblioteka;
+		this.listaNeobrisanih=biblioteka.sviNeobrisaniTipovi();
 		popuniTabelu();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 770, 550);
@@ -281,11 +286,11 @@ public class TipProzor extends JFrame {
 		lblNewLabel.setBounds(650, 18, 49, 14);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Ime");
+		JLabel lblNewLabel_1 = new JLabel("Naziv:");
 		lblNewLabel_1.setBounds(650, 71, 49, 14);
 		contentPane.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("Prezime");
+		JLabel lblNewLabel_2 = new JLabel("Cena:");
 		lblNewLabel_2.setBounds(650, 121, 49, 14);
 		contentPane.add(lblNewLabel_2);
 
@@ -296,15 +301,15 @@ public class TipProzor extends JFrame {
 		contentPane.add(textId);
 		textId.setColumns(10);
 
-		textIme = new JTextField();
-		textIme.setBounds(650, 90, 96, 20);
-		contentPane.add(textIme);
-		textIme.setColumns(10);
+		textNaziv = new JTextField();
+		textNaziv.setBounds(650, 90, 96, 20);
+		contentPane.add(textNaziv);
+		textNaziv.setColumns(10);
 
-		textPrezime = new JTextField();
-		textPrezime.setBounds(650, 143, 96, 20);
-		contentPane.add(textPrezime);
-		textPrezime.setColumns(10);
+		textCena = new JTextField();
+		textCena.setBounds(650, 143, 96, 20);
+		contentPane.add(textCena);
+		textCena.setColumns(10);
 
 		
 		JButton btnNewButton = new JButton("Dodaj");

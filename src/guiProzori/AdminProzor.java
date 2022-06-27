@@ -59,6 +59,7 @@ public class AdminProzor extends JFrame {
 
 	private void dodaj() {
 		try {
+			
 			boolean greska = false;
 			String Id = textId.getText();
 			double textPlataDouble = Double.parseDouble(textPlata.getText());
@@ -97,8 +98,7 @@ public class AdminProzor extends JFrame {
 				}
 				if (greska != true) {
 					biblioteka.dodajAdministratora(novi);
-					biblioteka.snimiAdministratore("administratori.txt");
-
+					biblioteka.snimiAdministratore();
 					sadrzaj[0] = novi.getId();
 					sadrzaj[1] = novi.getIme();
 					sadrzaj[2] = novi.getPrezime();
@@ -108,7 +108,7 @@ public class AdminProzor extends JFrame {
 					sadrzaj[6] = novi.getPlata();
 					sadrzaj[7] = novi.getKorisnickoIme();
 					sadrzaj[8] = novi.getLozinka();
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiAdministratore();
 					modelTabele.addRow(sadrzaj);
 					table_1.setModel(modelTabele);
 
@@ -135,6 +135,7 @@ public class AdminProzor extends JFrame {
 	/* READ */
 
 	private void popuniTabelu() {
+		
 		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
 				"Plata" };
 		//System.out.println(this.listaNeobrisanih);
@@ -211,7 +212,7 @@ public class AdminProzor extends JFrame {
 //				}
 //				Pol pol = Pol.valueOf(polValue);
 
-				Administrator admin =this.listaNeobrisanih.get(rowIndex);
+				Administrator admin =biblioteka.sviNeobrisaniAdministratori().get(rowIndex);
 				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
 						textJmbg.getText(), textAdresa.getText(), pol,obrisan,textPlataDouble, textKorisnickoIme.getText(),
 						textKorisnickaSifra.getText());
@@ -252,7 +253,7 @@ public class AdminProzor extends JFrame {
 					model.setValueAt(admin.getKorisnickoIme(), rowIndex, 7);
 					model.setValueAt(admin.getLozinka(), rowIndex, 8);
 
-					biblioteka.snimiAdministratore("administratori.txt");
+					biblioteka.snimiAdministratore();
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
 					table_1.setModel(model);
 					model.fireTableDataChanged();
@@ -275,10 +276,9 @@ public class AdminProzor extends JFrame {
 			int indexReda = table_1.getSelectedRow();
 			String izabraniID = model.getValueAt(indexReda, 0).toString();
 			int izabraniIDint = Integer.parseInt(izabraniID);
-			Administrator admin = biblioteka.getListaAdministratora().get(indexReda);
+			Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(indexReda);
 			admin.setObrisan(true);
-			admin.setId("0");
-			biblioteka.snimiAdministratore(izabraniID);
+			biblioteka.snimiAdministratore();
 			
 			textId.setText("");
 			textIme.setText("");
@@ -290,7 +290,7 @@ public class AdminProzor extends JFrame {
 			textKorisnickaSifra.setText("");
 			textPol.setText("");
 			
-			model.removeRow(izabraniIDint);
+			model.removeRow(indexReda); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			table_1.setModel(model);
 			model.fireTableDataChanged();
 
@@ -408,7 +408,7 @@ public class AdminProzor extends JFrame {
 				dodaj();
 			}
 		});
-		btnNewButton.setBounds(44, 445, 89, 42);
+		btnNewButton.setBounds(50, 445, 89, 42);
 		contentPane.add(btnNewButton);
 
 		JButton btnNewButton_2 = new JButton("Azuriraj");
