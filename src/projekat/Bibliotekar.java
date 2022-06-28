@@ -2,11 +2,6 @@ package projekat;
 
 public class Bibliotekar extends Zaposleni {
 
-
-
-	
-
-
 	public Bibliotekar(String id, String ime, String prezime, String jmbg, String adresa, Pol pol, boolean obrisan,
 			double plata, String korisnickoIme, String lozinka) {
 		super(id, ime, prezime, jmbg, adresa, pol, obrisan, plata, korisnickoIme, lozinka);
@@ -24,13 +19,6 @@ public class Bibliotekar extends Zaposleni {
 				+ id + ", ime=" + ime + ", prezime=" + prezime + ", jmbg=" + jmbg + ", adresa=" + adresa + ", pol="
 				+ pol + ", obrisan=" + obrisan + "]";
 	}
-
-
-
-
-
-
-
 
 
 }

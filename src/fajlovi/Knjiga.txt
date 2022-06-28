@@ -1,4 +1,2 @@
 2|Sumnjivo lice|Sumnjivo lice|Branislav Nusic|1888|Srpski|U jednoj srpskoj varoÅ¡i za vreme dinastije ObrenoviÄ‡a vlast su obavljali korumpirani, polupismeni i nesposobni drÅ¾avni Ä�inovnici...|1|false
 3|ed|ew|dew|2020|s|s|2|false
-4|frvvr|tgr|gtr5|2022|s|s|1|false
-5|frv|tgr|gtr5|2022|s|s|1|true
