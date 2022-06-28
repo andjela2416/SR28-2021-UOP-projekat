@@ -35,13 +35,9 @@ public class BibliotekaMain {
 		
 		Biblioteka biblioteka = new Biblioteka();
 
-		
-		
-		
-		
+
 		biblioteka.ucitajTip(TIPOVICLANARINE_FAJL);
 		biblioteka.ucitajClanove(CLANOVI_FAJL);
-		//biblioteka.ucitajZaposlene(ZAPOSLENI_FAJL);
 		biblioteka.ucitajZanrove(ZANROVI_FAJL);
 		biblioteka.ucitajKnjige(KNJIGE_FAJL);
 		biblioteka.ucitajPrimerkeKnjiga(PRIMERCIKNJIGA_FAJL);

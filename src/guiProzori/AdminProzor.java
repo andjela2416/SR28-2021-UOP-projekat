@@ -42,7 +42,6 @@ public class AdminProzor extends JFrame {
 	private JTextField textKorisnickoIme;
 	private JTextField textKorisnickaSifra;
 	private JTextField textPlata;
-	private JComboBox comboBox;
 	private DefaultTableModel modelTabele;
 	private DefaultTableModel tableModelNovi;
 	private Biblioteka biblioteka;
@@ -138,7 +137,6 @@ public class AdminProzor extends JFrame {
 		
 		String[] zaglavlja = new String[] {"ID", "Ime", "Prezime", "JMBG", "Adresa", "Pol", "Korisnicko Ime", "Korisnicka Sifra",
 				"Plata" };
-		//System.out.println(this.listaNeobrisanih);
 		Object[][] sadrzaj = new Object[this.listaNeobrisanih.size()][zaglavlja.length];
 
 		for (int i = 0; i <this.listaNeobrisanih.size(); i++) {
@@ -156,7 +154,7 @@ public class AdminProzor extends JFrame {
 		}
 		modelTabele = new DefaultTableModel(sadrzaj, zaglavlja);
 		table_1 = new JTable(modelTabele);
-		//System.out.println(modelTabele.getValueAt(0, 1)); sto neceeeeeeeeeeeeeeeeeeeeeee
+		
 		
 
 	}
@@ -198,38 +196,15 @@ public class AdminProzor extends JFrame {
 				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 				String izabraniID = model.getValueAt(rowIndex, 0).toString();
 				int izabraniIDint = Integer.parseInt(izabraniID);
-				//comboBox.getSelectedIndex();
-				//int indeks = comboBox.getSelectedIndex();
 				
 				boolean obrisan = false;
 
-//				String polValue = "";
-//				if (indeks == 0) {
-//					polValue = "MUSKI";
-//
-//				} else {
-//					polValue = "ZENSKI";
-//				}
-//				Pol pol = Pol.valueOf(polValue);
 
 				Administrator admin =biblioteka.sviNeobrisaniAdministratori().get(rowIndex);
 				Administrator novi = new Administrator(Id, textIme.getText(), textPrezime.getText(),
 						textJmbg.getText(), textAdresa.getText(), pol,obrisan,textPlataDouble, textKorisnickoIme.getText(),
 						textKorisnickaSifra.getText());
 
-//				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
-//					Administrator uneti = biblioteka.getAdministratori().get(x);
-//					sadrzaj1[x][0] = uneti.getId();
-//					if (sadrzaj1[x][0] == admin.getId()) {
-//						break;
-//					} else if (sadrzaj1[x][0].equals(textId.getText())) {
-//						JOptionPane.showMessageDialog(null, "Postoji entitet sa istim id-om", "Greska",
-//							JOptionPane.WARNING_MESSAGE);
-//						greska = true;
-//						break;
-//					}
-//
-//				}
 
 				if (greska != true) {
 
@@ -274,8 +249,6 @@ public class AdminProzor extends JFrame {
 		try {
 			DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 			int indexReda = table_1.getSelectedRow();
-			String izabraniID = model.getValueAt(indexReda, 0).toString();
-			int izabraniIDint = Integer.parseInt(izabraniID);
 			Administrator admin = biblioteka.sviNeobrisaniAdministratori().get(indexReda);
 			admin.setObrisan(true);
 			biblioteka.snimiAdministratore();
@@ -290,7 +263,7 @@ public class AdminProzor extends JFrame {
 			textKorisnickaSifra.setText("");
 			textPol.setText("");
 			
-			model.removeRow(indexReda); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			model.removeRow(indexReda); 
 			table_1.setModel(model);
 			model.fireTableDataChanged();
 
@@ -302,26 +275,18 @@ public class AdminProzor extends JFrame {
 		}
 		}
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @param admin
-	 * @param biblioteka2
-	 */
 	public AdminProzor(Biblioteka biblioteka, boolean admin) {
 		this.biblioteka = biblioteka;
 		this.listaNeobrisanih=biblioteka.sviNeobrisaniAdministratori();
 		popuniTabelu();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 770, 550);
+		setBounds(200, 100, 770, 550);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.MAGENTA);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Administratori");
-		ImageIcon image = new ImageIcon("src/fajlovi/archive.png");
-		setIconImage(image.getImage());
 		getContentPane().setBackground(new Color(204, 61, 158));
 		
 		

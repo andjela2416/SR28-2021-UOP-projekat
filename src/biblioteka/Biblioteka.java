@@ -263,6 +263,7 @@ public class Biblioteka {
 			if(!clan.isObrisan()) {
 				neobrisani.add(clan);
 				clan.setAktivan(clan.getDatumPoslUplate().plusDays(clan.getBrojMeseciClan()*30).isAfter(LocalDate.now()));
+				this.snimiClanove();
 			}
 		}
 		return neobrisani;
@@ -281,7 +282,6 @@ public class Biblioteka {
 		for (PrimerakKnjige primerak : this.listaPrimeraka) {
 			if(!primerak.isObrisan()) {
 				neobrisani.add(primerak);
-				//System.out.println(this.listaPrimeraka);
 			}
 		}
 		
@@ -293,7 +293,6 @@ public class Biblioteka {
 		for (PrimerakKnjige primerak : this.sviNeobrisaniPrimerciKnjiga()) {
 			if(!primerak.isIznajmljena()) {
 				neiznajm.add(primerak);
-				//System.out.println(this.listaPrimeraka);
 			}
 		}
 		
@@ -301,15 +300,6 @@ public class Biblioteka {
 		
 	}
 	
-//	public PrimerakKnjige pronadjiPrimerak(String id) {
-//		System.out.println(sviNeobrisaniPrimerciKnjiga());
-//		for (PrimerakKnjige primerak : sviNeobrisaniPrimerciKnjiga()) {
-//			if(primerak.getId().equals(id)) {
-//				return primerak;
-//			}
-//		}
-//		return null;
-//	}
 
 	public ArrayList<Bibliotekar> sviNeobrisaniBibliotekari() {
 		ArrayList<Bibliotekar> neobrisani = new ArrayList<Bibliotekar>();
@@ -405,12 +395,8 @@ public class Biblioteka {
                 trazeni =sviNeobrisaniZanrovi().get(i);
             }
         }
-        return trazeni;                          ////////vidi da li radi!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+        return trazeni;                       
         }
-	
-	
-
-
 
 	@Override
 	public String toString() {
@@ -554,15 +540,7 @@ public class Biblioteka {
 		return null;
 	}
 
-//	public Zanr nadjiZanr(String id) {
-//        Zanr trazeni = null;
-//        for(int i = 0; i < this.listaZanrova.size(); i++) {
-//            if (this.listaZanrova.get(i).getOznaka().equals(id)) {
-//                trazeni = this.listaZanrova.get(i);
-//            }
-//        }
-//        return trazeni;
-//        }
+
 	public void ucitajClanove(String CLANOVI_FAJL) {
         try {
             File clanoviFile = new File("fajlovi/clanovi.txt");
@@ -600,20 +578,10 @@ public class Biblioteka {
             System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
         }
     }
-//	public Tip nadjiTip(String id) {
-//        Tip trazeni = null;
-//        //System.out.println(this.listaTipova);
-//        for(Tip t:this.listaTipova) {
-//            if (t.getId().equals(id)) {
-//                trazeni = t;
-//            }
-//        }
-//        return trazeni;
-//        }
+
 	public Tip nadjiTip2(String id) {
 		this.ucitajTip("tipoviClanarine.txt");
 		for (Tip tip : this.listaTipova) {
-			//System.out.println(clan);
 			if(tip.getId().equals(id)) {
 				return tip;
 			
@@ -654,18 +622,6 @@ public class Biblioteka {
             System.out.println("Greska prilikom ucitavanja datoteke: " + e.getMessage());
         }
     }
-	public Knjiga nadjiKnjigu(String id) {
-        Knjiga trazeni = null;
-//        System.out.println(this.getListaKnjiga());
-        for(int i = 0; i < this.getListaKnjiga().size(); i++) {
-        	
-            if (this.getListaKnjiga().get(i).getId().equals(id)) {
-                trazeni = this.listaKnjiga.get(i);
-                
-            }
-        }
-        return trazeni;
-        }
 	public void ucitajTip(String TIPOVI_FAJL) {
 		try {
 			File file = new File("fajlovi/" + TIPOVI_FAJL);
@@ -717,11 +673,11 @@ public class Biblioteka {
 				
 				String x = split[3];
 				String[]str =  x.split(",");
-				ArrayList<PrimerakKnjige> PrimerakId = new ArrayList<PrimerakKnjige>();
+				ArrayList<PrimerakKnjige> primerci = new ArrayList<PrimerakKnjige>();
 				for (String s: str) {
 					for(PrimerakKnjige p : this.listaPrimeraka) {
 						if (p.getId().equals(s)) {
-							PrimerakId.add(p);
+							primerci.add(p);
 						}
 					}
 				}
@@ -744,7 +700,7 @@ public class Biblioteka {
 	                	}
 	                }
 	                if (provera) {
-	                	IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(id,datumIzdavanja, datumVracanja, PrimerakId,zaposleni, clan,obrisan);
+	                	IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(id,datumIzdavanja, datumVracanja, primerci,zaposleni, clan,obrisan);
 	    				listaIzdavanja.add(izdavanje);
 	                }
 				
@@ -768,12 +724,12 @@ public class Biblioteka {
 
                 String naziv = (split[0]);
                 String adresa = (split[1]);
-                String brojT = (split[2]);
+                String telefon = (split[2]);
                 String radnoV = (split[3]);
                 
                 
 
-                Biblioteka biblioteka = new Biblioteka(naziv, adresa, brojT, radnoV, null,null,null, null, null,null,null,null,null);
+                Biblioteka biblioteka = new Biblioteka(naziv, adresa, telefon, radnoV, null,null,null, null, null,null,null,null,null);
                 return biblioteka;
 
             }
@@ -842,7 +798,6 @@ public class Biblioteka {
 	public Knjiga nadjiKnjigu2(String id) {
 		this.ucitajKnjige("Knjiga.txt");
 		for (Knjiga knjiga : this.listaKnjiga) {
-			//System.out.println(clan);
 			if(knjiga.getId().equals(id)) {
 				return knjiga;
 			
@@ -936,7 +891,7 @@ public class Biblioteka {
 		try {
 			File file = new File("fajlovi/clanovi.txt");
 			String content = "";
-			for (ClanBiblioteke clan : this.listaClanova) {    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			for (ClanBiblioteke clan : this.listaClanova) {  
 				content += clan.getId() + "|" + clan.getIme() + "|" 
 						+ clan.getPrezime() + "|" + clan.getJmbg() + "|"
 						+ clan.getAdresa() + "|" + clan.getPol() + "|" + clan.isObrisan()+ "|"+ clan.getBrojClanskeKarte()
@@ -1075,15 +1030,6 @@ public class Biblioteka {
 			System.out.println(e);
 		}
 	}
-//	public Zaposleni login(String korisnickoIme, String lozinka) {
-//		for(Zaposleni zaposleni : listaZaposlenih) {
-//			if(zaposleni.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) &&
-//					zaposleni.getLozinka().equals(lozinka) && !zaposleni.isObrisan()) {
-//				return zaposleni;
-//			}
-//		}
-//		return null;
-//	}
 	public Zaposleni login(String korisnickoIme, String lozinka, Biblioteka biblioteka) {
 		Zaposleni zaposleni = null;
 		
@@ -1093,9 +1039,7 @@ public class Biblioteka {
 			
 			if (a.getKorisnickoIme().equals(korisnickoIme) && a.getLozinka().equals(lozinka) && !a.isObrisan()) {
 				zaposleni = a;
-				//System.out.println(zaposleni);
-				//GlavniProzor g=new GlavniProzor(biblioteka, a);
-				//g.setVisible(true);
+
 				
 			}
 		}
@@ -1105,13 +1049,12 @@ public class Biblioteka {
 				if (a.getKorisnickoIme().equals(korisnickoIme) && a.getLozinka().equals(lozinka) && !a.isObrisan()) {
 
 					zaposleni = a;
-//					GlavniProzor g=new GlavniProzor(biblioteka,a);
-//					g.setVisible(true);
+
 				}
 			}
 			
 		}
-		//System.out.println(zaposleni);
+
 		return zaposleni;
 	}
 

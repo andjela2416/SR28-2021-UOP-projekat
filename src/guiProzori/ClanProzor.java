@@ -267,7 +267,7 @@ public class ClanProzor extends JFrame {
 					model.setValueAt(clan.getDatumPoslUplate(), rowIndex, 7);
 					model.setValueAt(clan.getBrojMeseciClan(), rowIndex, 8);
 					model.setValueAt(clan.isAktivan(), rowIndex, 9);
-					model.setValueAt(clan.getTip(), rowIndex, 10);
+					model.setValueAt(clan.getTip().getId(), rowIndex, 10);
 
 					biblioteka.snimiClanove();
 					model.fireTableRowsInserted(rowIndex, izabraniIDint);
