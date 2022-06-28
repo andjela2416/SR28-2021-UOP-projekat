@@ -193,36 +193,15 @@ public class PrimerakProzor extends JFrame {
 				
 				String izabraniID = model.getValueAt(rowIndex, 0).toString();
 				int izabraniIDint = Integer.parseInt(izabraniID);
-				//comboBox.getSelectedIndex();
-				//int indeks = comboBox.getSelectedIndex();
+
 		
 				boolean obrisan = false;
 
-//				String polValue = "";
-//				if (indeks == 0) {
-//					polValue = "MUSKI";
-//
-//				} else {
-//					polValue = "ZENSKI";
-//				}
-//				Pol pol = Pol.valueOf(polValue);
+
 
 				PrimerakKnjige primerak = biblioteka.sviNeobrisaniPrimerciKnjiga().get(rowIndex);
 				PrimerakKnjige novi = new PrimerakKnjige(Id,brojstrana,mekpovez,godinastampanja,jezikstampanja,iznajmljena,knjiga,obrisan);
 
-//				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
-//					Administrator uneti = biblioteka.getAdministratori().get(x);
-//					sadrzaj1[x][0] = uneti.getId();
-//					if (sadrzaj1[x][0] == admin.getId()) {
-//						break;
-//					} else if (sadrzaj1[x][0].equals(textId.getText())) {
-//						JOptionPane.showMessageDialog(null, "Postoji entitet sa istim id-om", "Greska",
-//							JOptionPane.WARNING_MESSAGE);
-//						greska = true;
-//						break;
-//					}
-//
-//				}
 
 				if (greska != true) {
 
@@ -265,8 +244,6 @@ public class PrimerakProzor extends JFrame {
 		try {
 			DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 			int indexReda = table_1.getSelectedRow();
-			String izabraniID = model.getValueAt(indexReda, 0).toString();
-			int izabraniIDint = Integer.parseInt(izabraniID);
 			PrimerakKnjige primerak = biblioteka.getListaPrimeraka().get(indexReda);
 			primerak.setObrisan(true);
 			biblioteka.snimiPrimerkeKnjiga();

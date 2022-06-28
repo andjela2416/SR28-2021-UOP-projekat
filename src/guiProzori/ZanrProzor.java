@@ -63,16 +63,7 @@ public class ZanrProzor extends JFrame {
 			String oznaka=textOznaka.getText();
 			String opis=textOpis.getText();
 			boolean obrisan = false;
-//			int indeks = comboBox.getSelectedIndex();
 
-//			String polValue = "";
-//			if (indeks == 0) {
-//				polValue = "MUSKI";
-//
-//			} else {
-//				polValue = "ZENSKI";
-//			}
-//			Pol pol = Pol.valueOf(polValue);
 		
 			if (isNum(textOznaka.getText()) == true) {
 				Zanr novi = new Zanr(oznaka,opis,obrisan);
@@ -138,7 +129,7 @@ public class ZanrProzor extends JFrame {
 		}
 		modelTabele = new DefaultTableModel(sadrzaj, zaglavlja);   //DefaulListModel
 		table_1 = new JTable(modelTabele);
-		//System.out.println(modelTabele.getValueAt(0, 1)); sto neceeeeeeeeeeeeeeeeeeeeeee
+
 		
 
 	}
@@ -164,36 +155,17 @@ public class ZanrProzor extends JFrame {
 				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 				String izabraniID = model.getValueAt(rowIndex, 0).toString();
 				int izabraniIDint = Integer.parseInt(izabraniID);
-				//comboBox.getSelectedIndex();
-				//int indeks = comboBox.getSelectedIndex();
+
 				
 				boolean obrisan = false;
 
-//				String polValue = "";
-//				if (indeks == 0) {
-//					polValue = "MUSKI";
-//
-//				} else {
-//					polValue = "ZENSKI";
-//				}
-//				Pol pol = Pol.valueOf(polValue);
+
 
 				Zanr admin = biblioteka.sviNeobrisaniZanrovi().get(rowIndex);
 				Zanr novi = new Zanr(oznaka,opis,obrisan);
 
-//				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
-//					Administrator uneti = biblioteka.getAdministratori().get(x);
-//					sadrzaj1[x][0] = uneti.getId();
-//					if (sadrzaj1[x][0] == admin.getId()) {
-//						break;
-//					} else if (sadrzaj1[x][0].equals(textId.getText())) {
-//						JOptionPane.showMessageDialog(null, "Postoji entitet sa istim id-om", "Greska",
-//							JOptionPane.WARNING_MESSAGE);
-//						greska = true;
-//						break;
-//					}
-//
-//				}
+
+
 
 				if (greska != true) {
 
@@ -226,8 +198,6 @@ public class ZanrProzor extends JFrame {
 		try {
 			DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 			int indexReda = table_1.getSelectedRow();
-			String izabraniID = model.getValueAt(indexReda, 0).toString();
-			int izabraniIDint = Integer.parseInt(izabraniID);
 			Zanr zanr = biblioteka.getListaZanrova().get(indexReda);
 			zanr.setObrisan(true);
 			biblioteka.snimiZanrove();
@@ -249,12 +219,6 @@ public class ZanrProzor extends JFrame {
 		}
 		}
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @param admin
-	 * @param biblioteka2
-	 */
 	public ZanrProzor(Biblioteka biblioteka, boolean admin) {
 		this.biblioteka = biblioteka;
 		this.listaNeobrisanih=biblioteka.sviNeobrisaniZanrovi();
@@ -267,8 +231,6 @@ public class ZanrProzor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Zanrovi");
-		ImageIcon image = new ImageIcon("src/fajlovi/archive.png");
-		setIconImage(image.getImage());
 		getContentPane().setBackground(new Color(204, 61, 158));
 		
 		

@@ -44,7 +44,7 @@ public class ListaSvihPrimerakaProzor extends JFrame {
 	
 		this.biblioteka = biblioteka;
 		setTitle("Svi iznajmljeni primerci");
-		setSize(1300, 400);
+		setSize(1000, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
@@ -98,17 +98,17 @@ public class ListaSvihPrimerakaProzor extends JFrame {
 			groupLayout.setHorizontalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
 					.addGroup(groupLayout.createSequentialGroup()
-						.addGap(432)
+						.addGap(321)
 						.addComponent(btnAdd, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-						.addGap(221)
+						.addGap(195)
 						.addComponent(btnRemove, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(473, Short.MAX_VALUE))
-					.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1303, Short.MAX_VALUE)
+						.addContainerGap(313, Short.MAX_VALUE))
+					.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 986, Short.MAX_VALUE)
 			);
 			groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-					.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addGroup(groupLayout.createSequentialGroup()
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
 						.addGap(18)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(btnAdd, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
@@ -162,11 +162,15 @@ public class ListaSvihPrimerakaProzor extends JFrame {
 							p.setIznajmljena(false);
 							tableModel.removeRow(red);
 							
+
+							
 							//Element koji se uklonio iz liste iznajmljenih primeraka treba i iz iznajmljivanja
 							for(IzdavanjeKnjige i : biblioteka.svaNeobrisanaIzdavanja()) {
 								
-								String el = String.valueOf(p.getId()) ;
+								Object el =p.getId() ;
+								System.out.println(el);
 								int index = i.getPrimerci().indexOf(el);
+								System.out.println(index);
 								i.getPrimerci().remove(index);
 								
 								//Ako u nekom iznajmljivanju vise ne postoji primeraka
@@ -175,6 +179,7 @@ public class ListaSvihPrimerakaProzor extends JFrame {
 									i.setObrisan(true);
 									
 								}
+								biblioteka.snimiIznajmljivanje();
 							}
 							
 							biblioteka.snimiPrimerkeKnjiga();

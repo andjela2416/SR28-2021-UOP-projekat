@@ -291,8 +291,6 @@ public class ClanProzor extends JFrame {
 		try {
 			DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 			int indexReda = table_1.getSelectedRow();
-			String izabraniID = model.getValueAt(indexReda, 0).toString();
-			int izabraniIDint = Integer.parseInt(izabraniID);
 			ClanBiblioteke clan = biblioteka.getListaClanova().get(indexReda);
 			clan.setObrisan(true);
 			biblioteka.snimiClanove();

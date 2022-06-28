@@ -70,8 +70,6 @@ public class IzdavanjeProzor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Izdavanje knjige");
-		ImageIcon image = new ImageIcon("src/fajlovi/archive.png");
-		setIconImage(image.getImage());
 		getContentPane().setBackground(new Color(204, 61, 158));
 		
 		
@@ -133,22 +131,13 @@ public class IzdavanjeProzor extends JFrame {
 			
 			checkBox.setBounds(650, 245 + m, 99, 23);
 			m = m + 30;
-			
-//			if(!p.isIznajmljena()) {
-//				
+						
 			contentPane.add(checkBox);
-//			}
+
 			
 			
 		}
 		
-		/*if(izdavanje != null) {
-			for(String x  :izdavanje.getPrimerci()) {
-				JCheckBox b = pronadjiCheckBox(x);
-				add(b);
-			}
-		}*/
-		/***********************************************************************************************/
 
 
 		JButton btnNewButton = new JButton("Dodaj");
@@ -299,7 +288,6 @@ public class IzdavanjeProzor extends JFrame {
 					
 				}
 			}
-//			int indeks = comboBox.getSelectedIndex();
 			boolean obrisan = false;
 
 
@@ -416,6 +404,7 @@ public class IzdavanjeProzor extends JFrame {
 						PrimerakKnjige p  = biblioteka.pronadjiPrimerak(idPrimerak);
 						izdavanje.getPrimerci().add(p);
 						p.setIznajmljena(true);
+						biblioteka.snimiIznajmljivanje();
 					}
 					 
 		         
@@ -423,51 +412,15 @@ public class IzdavanjeProzor extends JFrame {
 		             
 				biblioteka.snimiIznajmljivanje();
 				
-				
-//				String Id = textDatumI.getText();
-//				double textPlataDouble = Double.parseDouble(textPlata.getText());
+
 				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 				
 				String izabraniID = model.getValueAt(rowIndex, 0).toString();
 				int izabraniIDint = Integer.parseInt(izabraniID);
-				//comboBox.getSelectedIndex();
-				//int indeks = comboBox.getSelectedIndex();
-//				Pol pol = Pol.valueOf(textPrimerak.getText());
+
 				boolean obrisan = false;
 
-//				String polValue = "";
-//				if (indeks == 0) {
-//					polValue = "MUSKI";
-//
-//				} else {
-//					polValue = "ZENSKI";
-//				}
-
-//
-//				IzdavanjeKnjige knjiga1 = biblioteka.svaNeobrisanaIzdavanja().get(rowIndex);
-//				IzdavanjeKnjige nova = new IzdavanjeKnjige(id,datum,datum2,izdavanje.getPrimerci(),zaposleni,clan,obrisan);
-
-//				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
-//					Administrator uneti = biblioteka.getAdministratori().get(x);
-//					sadrzaj1[x][0] = uneti.getId();
-//					if (sadrzaj1[x][0] == admin.getId()) {
-//						break;
-//					} else if (sadrzaj1[x][0].equals(textId.getText())) {
-//						JOptionPane.showMessageDialog(null, "Postoji entitet sa istim id-om", "Greska",
-//							JOptionPane.WARNING_MESSAGE);
-//						greska = true;
-//						break;
-//					}
-//
-//				}
-
 				if (greska != true) {
-//					knjiga1.setId(nova.getId());
-//					knjiga1.setDatumIznajmljivanja(nova.getDatumIznajmljivanja());
-//					knjiga1.setDatumVracanja(nova.getDatumVracanja());
-//					knjiga1.setZaposleni(nova.getZaposleni());
-//					knjiga1.setClan(nova.getClan());
-//					knjiga1.setPrimerci(nova.getPrimerci());
 				
 					model.setValueAt(izdavanje.getId(), rowIndex, 0);
 					model.setValueAt(izdavanje.getDatumIznajmljivanja(), rowIndex, 1);
@@ -506,7 +459,7 @@ public class IzdavanjeProzor extends JFrame {
 			textDatumV.setText("");
 			textZapos.setText("");
 			textClan.setText("");
-			//textPrimerci.setText("");
+
 			
 			model.removeRow(indexReda);
 			table_1.setModel(model);
@@ -517,7 +470,7 @@ public class IzdavanjeProzor extends JFrame {
 				biblioteka.snimiPrimerkeKnjiga();
 			}
 			
-			
+			biblioteka.snimiPrimerkeKnjiga();
 		}catch(ArrayIndexOutOfBoundsException x) {
 			JOptionPane.showMessageDialog(null, "Izaberite red.", "Greska", JOptionPane.WARNING_MESSAGE);
 		}
@@ -526,21 +479,6 @@ public class IzdavanjeProzor extends JFrame {
 		}
 		}
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @param admin
-	 * @param biblioteka2
-	 */
 	
-	
-	private JCheckBox pronadjiCheckBox(String id) {
-		for(JCheckBox i : listaBox) {
-			
-			if(i.getName().equals(id)) {
-				return i;
-			}
-		}
-		return checkBox;
-	}
+
 }

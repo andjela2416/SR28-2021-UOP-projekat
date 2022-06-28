@@ -53,7 +53,7 @@ public class Placanje extends JFrame {
 		setTitle("Placanje:");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(500, 300);
+		setSize(500, 200);
 		setLocationRelativeTo(null);
 		gui();
 		initAction();
@@ -145,9 +145,7 @@ public class Placanje extends JFrame {
 					}
 				}
 				
-				JOptionPane.showMessageDialog(null, "Vas racun iznosi:  " + cena + " din " + " (" + poruka + ")", "Racun :", JOptionPane.INFORMATION_MESSAGE);
-//				Placanje.this.dispose();
-//				Placanje.this.setVisible(false);	
+				JOptionPane.showMessageDialog(null, "Vas racun iznosi:  " + cena + " din " + " (" + poruka + ")", "Racun :", JOptionPane.INFORMATION_MESSAGE);	
 				
 				}
 			});

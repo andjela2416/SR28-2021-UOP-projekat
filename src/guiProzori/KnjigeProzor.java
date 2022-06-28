@@ -201,31 +201,10 @@ public class KnjigeProzor extends JFrame {
 				
 				boolean obrisan = false;
 
-//				String polValue = "";
-//				if (indeks == 0) {
-//					polValue = "MUSKI";
-//
-//				} else {
-//					polValue = "ZENSKI";
-//				}
-//				Pol pol = Pol.valueOf(polValue);
 
 				Knjiga knjiga =biblioteka.sveNeobrisaneKnjige().get(rowIndex);
 				Knjiga novi = new Knjiga(Id,naslov,orgnaslov,pisac,godinaobjave,jezik,opis,zanr,obrisan);
 
-//				for (int x = 0; x < biblioteka.getAdministratori().size(); x++) {
-//					Administrator uneti = biblioteka.getAdministratori().get(x);
-//					sadrzaj1[x][0] = uneti.getId();
-//					if (sadrzaj1[x][0] == admin.getId()) {
-//						break;
-//					} else if (sadrzaj1[x][0].equals(textId.getText())) {
-//						JOptionPane.showMessageDialog(null, "Postoji entitet sa istim id-om", "Greska",
-//							JOptionPane.WARNING_MESSAGE);
-//						greska = true;
-//						break;
-//					}
-//
-//				}
 
 				if (greska != true) {
 
@@ -270,8 +249,6 @@ public class KnjigeProzor extends JFrame {
 		try {
 			DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 			int indexReda = table_1.getSelectedRow();
-			String izabraniID = model.getValueAt(indexReda, 0).toString();
-			int izabraniIDint = Integer.parseInt(izabraniID);
 			Knjiga knjiga = this.listaNeobrisanih.get(indexReda);
 			knjiga.setObrisan(true);
 			biblioteka.snimiKnjige();
@@ -298,12 +275,6 @@ public class KnjigeProzor extends JFrame {
 		}
 		}
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @param admin
-	 * @param biblioteka2
-	 */
 	public KnjigeProzor(Biblioteka biblioteka, boolean admin) {
 		this.biblioteka = biblioteka;
 		this.listaNeobrisanih=biblioteka.sveNeobrisaneKnjige();
@@ -316,8 +287,6 @@ public class KnjigeProzor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Knjige");
-		ImageIcon image = new ImageIcon("src/fajlovi/archive.png");
-		setIconImage(image.getImage());
 		getContentPane().setBackground(new Color(204, 61, 158));
 		
 		

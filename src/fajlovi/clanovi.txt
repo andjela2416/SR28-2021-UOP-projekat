@@ -1,3 +1,3 @@
-1|Marko|Peric|6551546542|test adresa|MUSKI|false|15|2022-06-27|6|true|1
+1|Marko|Peric|6551546542|test adresa|MUSKI|false|15|2022-06-28|1|true|1
 2|Ana|Peric|0101001010101|adresa|ZENSKI|false|12|2022-06-27|12|true|2
 3|Aleksa|Aleksic|24070050233|adresa2|MUSKI|false|216|2022-02-02|12|true|3

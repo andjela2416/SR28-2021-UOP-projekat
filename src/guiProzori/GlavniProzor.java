@@ -255,11 +255,7 @@ public class GlavniProzor extends JFrame {
 	}
 	
 	private void initActions() {
-		
-//		if (prijavljeniKorisnik.equals(id.zaposleni.instanceof(bibliotekar))) {
-//			
-//		}
-//		
+			
 		adminiItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
